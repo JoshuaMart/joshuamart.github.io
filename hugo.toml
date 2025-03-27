@@ -1,6 +1,6 @@
-baseURL = 'https://example.org' # Your domain name.
+baseURL = 'https://blog.jomar.fr' # Your domain name.
 languageCode = 'en-US'
-title = 'Joshua MARTINELLE'     # Title of your website
+title = 'Joshua MARTINELLE'       # Title of your website
 theme = 'hugo-blog-awesome'
 enableEmoji = true
 
