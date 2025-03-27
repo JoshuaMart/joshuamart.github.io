@@ -1,0 +1,30 @@
+baseURL = 'https://example.org' # Your domain name.
+languageCode = 'en-US'
+title = 'Joshua MARTINELLE'     # Title of your website
+theme = 'hugo-blog-awesome'
+enableEmoji = true
+
+# This defines how dates are formatted
+defaultContentLanguage = "en-gb"
+
+# set markup.highlight.noClasses=false to enable code highlight
+[markup]
+[markup.highlight]
+noClasses = false
+[markup.goldmark.renderer]
+unsafe = true
+[markup.tableOfContents]
+startLevel = 2  # ToC starts from H2
+endLevel = 4    # ToC ends at H4
+ordered = false # generates <ul> instead of <ol>
+
+[Languages.en-gb.params]
+sitename = "Joshua MARTINELLE"
+defaultColor = "light"                 # set color mode: dark, light, auto
+description = "Joshua MARTINELLE Blog"
+mainSections = ['posts']
+toc = false                            # set to false to disable table of contents 'globally'
+tocOpen = false                        # set to true to open table of contents by default
+goToTop = true                         # set to false to disable 'go to top' button
+
+rssFeedDescription = "summary" # available options: 1) summary 2) full
