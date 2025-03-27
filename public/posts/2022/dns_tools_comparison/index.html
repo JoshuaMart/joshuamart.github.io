@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en-gb"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">DNS Tools Comparison | Joshua MARTINELLE</title>
+<meta property="og:title" content="DNS Tools Comparison | Joshua MARTINELLE" />
+<meta name="twitter:title" content="DNS Tools Comparison | Joshua MARTINELLE" />
+<meta itemprop="name" content="DNS Tools Comparison | Joshua MARTINELLE" />
+<meta name="application-name" content="DNS Tools Comparison | Joshua MARTINELLE" />
+<meta property="og:site_name" content="Joshua MARTINELLE" />
+
+<meta name="description" content="DNS Tools Comparison">
+<meta itemprop="description" content="DNS Tools Comparison" />
+<meta property="og:description" content="DNS Tools Comparison" />
+<meta name="twitter:description" content="DNS Tools Comparison" />
+
+<meta property="og:locale" content="en-gb" />
+<meta name="language" content="en-gb" />
+
+  <link rel="alternate" hreflang="en-gb" href="http://localhost:1313/posts/2022/dns_tools_comparison/" title="" />
+
+
+
+
+
+    
+    
+    
+
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content=2022-04-26T11:45:00&#43;0100 />
+    <meta property="article:published_time" content=2022-04-26T11:45:00&#43;0100 />
+    <meta property="og:url" content="http://localhost:1313/posts/2022/dns_tools_comparison/" />
+
+    
+
+    
+
+    <script defer type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "headline": "DNS Tools Comparison",
+        "author": {
+        "@type": "Person",
+        "name": ""
+        },
+        "datePublished": "2022-04-26",
+        "description": "DNS Tools Comparison",
+        "wordCount":  1173 ,
+        "mainEntityOfPage": "True",
+        "dateModified": "2022-04-26",
+        "image": {
+        "@type": "imageObject",
+        "url": ""
+        },
+        "publisher": {
+        "@type": "Organization",
+        "name": "Joshua MARTINELLE"
+        }
+    }
+    </script>
+
+
+<meta name="generator" content="Hugo 0.145.0">
+
+    
+    <meta property="og:url" content="http://localhost:1313/posts/2022/dns_tools_comparison/">
+  <meta property="og:site_name" content="Joshua MARTINELLE">
+  <meta property="og:title" content="DNS Tools Comparison">
+  <meta property="og:description" content="DNS Tools Comparison">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-04-26T11:45:00+01:00">
+    <meta property="article:modified_time" content="2022-04-26T11:45:00+01:00">
+
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="DNS Tools Comparison">
+  <meta name="twitter:description" content="DNS Tools Comparison">
+
+
+    
+
+    <link rel="canonical" href="http://localhost:1313/posts/2022/dns_tools_comparison/">
+    <link href="/style.min.2d921c18cf1ec555ffc03d59a8adc211c402c68c930c27d6a0c306ab175a8d09.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+<link rel="manifest" href="http://localhost:1313/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+
+    
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+
+    
+    
+</head>
+<body data-theme = "light" class="notransition">
+
+<script src="/js/theme.js"></script>
+
+<div class="navbar" role="navigation">
+    <nav
+        class="menu"
+        aria-label="Main Navigation"
+        style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 10px;
+        "
+    >
+        <div style="display: flex; align-items: center; gap: 10px">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" width="25" height="25" stroke-width="0.304"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1H1V15H15V1ZM6 5L7.41421 6.41421L5.82843 8L7.41421 9.58579L6 11L3 8L6 5ZM10 5L8.58579 6.41421L10.1716 8L8.58579 9.58579L10 11L13 8L10 5Z" fill="#ffffff"></path> </g></svg>
+
+            <a
+                href="/"
+                style="font-weight: bold; text-decoration: none; color: inherit"
+                >Joshua MARTINELLE</a
+            >
+        </div>
+
+        <div style="display: flex; align-items: center; margin-right: 2vh">
+            <a
+                href="https://github.com/JoshuaMART"
+                class="logo"
+                style="margin-right: 12px; display: block"
+            >
+                <svg class="mode-sunny" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" width="20" height="20"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>GITHUB</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="currentColor"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399" id="github-[#142]"> </path> </g> </g> </g> </g></svg>
+
+            </a>
+
+            <a id="mode" href="#" style="display: block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="20" height="20" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg> <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="20" height="20" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">DNS Tools Comparison</h1>
+                
+                
+                
+                <div class="post-meta">
+                    <time datetime="2022-04-26T11:45:00&#43;01:00" itemprop="datePublished"> 26 Apr 2022 </time>
+                </div>
+                
+            </header>
+            
+            <div class="page-content">
+                <p><img src="/posts/2022/dns_tools_comparison/banner.png" alt=""></p>
+<h2 id="the-story">The Story</h2>
+<p>[EDIT 26/04/22] - I added a note on my personal conclusion about Amass with a note from a conversation with Caffix about why Amass is slower than the others</p>
+<hr>
+<p>Hi everyone,
+I recently came across this tweet which immediately intrigued me because I also observed that I was losing valid domains with PureDNS.</p>
+<p><img src="/posts/2022/dns_tools_comparison/tweet.png" alt="Tweet DNS Tools"></p>
+<p>I had done some tests (not very thorough) 8 months ago on different tools and I had concluded at that time that PureDNS was the best solution. However, since then the tools have received various improvements and the main reason that pushed me to redo this test is that Amass has completely revised its DNS resolution and as it is one of my favorite tools I had to test that.</p>
+<p>This filtering step seems to me particularly important because currently many hunters use the same tools and therefore obtain the same results.
+So I prefer to concentrate on the processing of these results (which is underestimated in my opinion) in order to improve my recon and for that I need the cleanest possible base result.</p>
+<p><em>Note : This is obviously a personal opinion because others, like Corben Leo which has nothing to prove has a completely different methodology (<a href="https://twitter.com/hacker_/status/1517907518604861440">see here</a>) which works great for him.</em></p>
+<p>But for me it&rsquo;s too much time consuming, I try to have a good balance between time / costs / quality of results</p>
+<h2 id="the-test">The test</h2>
+<p>For this test I used the following tools:</p>
+<ul>
+<li><a href="https://github.com/projectdiscovery/httpx">HTTPX</a> v1.2.1</li>
+<li><a href="https://github.com/OWASP/Amass">Amass</a> v3.19.2</li>
+<li><a href="https://github.com/projectdiscovery/dnsx">DNSX</a> v1.1.0</li>
+<li><a href="https://github.com/d3mondev/puredns">PureDNS</a> v2.0.1</li>
+</ul>
+<p>All installed on the same base namely a VPS with Ubuntu 22.04. For the tests I used the following protocol:</p>
+<p><img src="/posts/2022/dns_tools_comparison/protocol.png" alt="DNS Tools Protocol"></p>
+<p>Which can be translated into:</p>
+<ul>
+<li>Server 1 takes care of the passive collection of subdomains via Amass
+<ul>
+<li>On this same server I launch HTTPX directly on the results to have the subdomains reachable</li>
+</ul>
+</li>
+<li>On server 2 I use DNSX then HTTPX</li>
+<li>On server 3 I use PureDNS then HTTPX</li>
+<li>On server 4 I use directly Amass with its own resolution and I also use HTTPX at the end</li>
+</ul>
+<p>I also used the same resolver list for all tools : <a href="https://github.com/proabiral/Fresh-Resolvers/blob/master/resolvers.txt">Proabiarl - Fresh Resolvers</a></p>
+<p>The harvesting step is not really important here, it is far from being exhaustive because the only API key I used in Amass is the one from SecurityTrails, the important thing was only to have exactly the same base between all tools.</p>
+<p>I also used different servers each time for the simple reason that if you run several DNS resolutions on a large number of invalid domains, you will get less and less results.</p>
+<p>For this test I used the following domains:</p>
+<ul>
+<li>uber.com</li>
+<li>ford.com</li>
+<li>sony.com</li>
+<li>lazada.com</li>
+<li>facebook.com</li>
+</ul>
+<h2 id="personal-conclusion-on-the-results">Personal conclusion on the results</h2>
+<p>Before you read the results, I wanted to share my personal opinion on these results.</p>
+<p>Firstly it would certainly have to be more thorough / exhaustive via port scanning and/or using HTTPX on many more ports to increase the false positive detection attempt. But I figured that wouldn&rsquo;t really change the result, I wanted to have an overall idea of which tool to use in my case.</p>
+<ul>
+<li><strong>Amass</strong> with DNS resolution is the tool that seems to offer the best results, moreover it offers additional information that can be interesting (such as the target IP) for post-processing as well as a JSON output. However this one is extremely slow &hellip; for Facebook the scan lasted 25 hours !
+<ul>
+<li><em><strong>[EDIT 26/04/22] - Interesting notes from Caffix :</strong> When DNS throttling slows down the responses, other tools can just drop the requests and potentially lose legitimate names. Amass slows down the requests and attempts to obtain the results, which takes longer, sometimes creating problems with targets that have strong throttling policies. Amass could make it possible to drop the requests as well by exposing a few additional arguments related to DNS but the Amass objective has always been in-depth attack surface mapping.</em></li>
+<li>In passive mode only + HTTPX is very fast but it is also the method with the most false positives</li>
+</ul>
+</li>
+<li><strong>DNSX</strong> seems to be the tool with the most false positives but it is fast and like Amass it offers additional domain information and JSON output</li>
+<li><strong>PureDNS</strong> is also fast and seems to offer good results (not as good as Amass but better than DNSX), however it does not offer additional information or JSON output. Something to take into account here as well is that the tool doesn&rsquo;t seem to receive any updates at the moment compared to the other two :'(</li>
+</ul>
+<p>So there is no right or wrong choice here I think, just a choice that must fit your pipeline and methodology.</p>
+<h2 id="compilation-of-results">Compilation of results</h2>
+<pre tabindex="0"><code>The HTTPX commands was always the same :
+  - httpx -l {domain}.txt -o {domain}_httpx.txt
+
+======== STATISTIQUES UBER.COM
+=== Subdomain harvesting
+  - amass enum -passive -config config.ini -d uber.com -o uber.txt
+    - 2579 domains
+    - 437 after httpx
+
+=== Filtering step
+  - amass enum -config config.ini -d uber.com -trf resolvers.txt -o uber.txt
+    - 575 domains
+    - 438 after httpx
+
+  - dnsx -l uber.txt -o uber_dnsx.txt - r resolvers.txt
+    - 568 domains
+    - 436 after httpx
+
+  - puredns resolve uber.txt -r resolvers.txt -w uber_puredns.txt
+    - 571 domains
+    - 435 after httpx
+
+======== STATISTIQUES FORD.COM (Has multiples wildcards)
+=== Subdomain harvesting
+  - amass enum -passive -config config.ini -d ford.com -o ford.txt
+    - 15554 domains
+    - 3474 after httpx
+
+=== Filtering step
+  - amass enum -config config.ini -d ford.com -trf resolvers.txt -o ford.txt
+    - 12945 domains
+    - 3543 after httpx
+
+  - dnsx -l ford.txt -o ford_dnsx.txt - r resolvers.txt
+    - 11550 domains
+    - 3462 after httpx
+
+  - puredns resolve ford.txt -r resolvers.txt -w ford_puredns.txt
+    - 10719 domains
+    - 3339 after httpx
+
+======== STATISTIQUES SONY.COM (Has multiples wildcards)
+=== Subdomain harvesting
+  - amass enum -passive -config config.ini -d sony.com -o sony.txt
+    - 19539 domains
+    - 557 after httpx
+
+=== Filtering step
+  - amass enum -config config.ini -d sony.com -trf resolvers.txt -o sony.txt
+    - 1820 domains
+    - 572 after httpx
+
+  - dnsx -l sony.txt -o sony_dnsx.txt - r resolvers.txt
+    - 1771 domains
+    - 555 after httpx
+
+  - puredns resolve sony.txt -r resolvers.txt -w sony_puredns.txt
+    - 1782 domains
+    - 553 after httpx
+
+======== STATISTIQUES LAZADA.COM (Has multiples wildcards)
+=== Subdomain harvesting
+  - amass enum -passive -config config.ini -d lazada.com -o lazada.txt
+    - 5315 domains
+    - 257 after httpx
+
+=== Filtering step
+  - amass enum -config config.ini -d lazada.com -trf resolvers.txt -o lazada.txt
+    - 325 domains
+    - 118 after httpx
+
+  - dnsx -l lazada.txt -o lazada_dnsx.txt - r resolvers.txt
+    - 1485 domains
+    - 220 after httpx
+
+  - puredns resolve lazada.txt -r resolvers.txt -w lazada_puredns.txt
+    - 484 domains
+    - 210 after httpx
+
+======== STATISTIQUES FACEBOOK.COM (Has multiples wildcards)
+=== Subdomain harvesting
+  - amass enum -passive -config config.ini -d facebook.com -o facebook.txt
+    - 25050 domains
+    - 11983 after httpx
+
+=== Filtering step
+  - amass enum -config config.ini -d facebook.com -trf resolvers.txt -o facebook.txt
+    - 16796 domains
+    - 10410 after httpx
+
+  - dnsx -l facebook.txt -o facebook_dnsx.txt - r resolvers.txt
+    - 17931 domains
+    - 11785 after httpx
+
+  - puredns resolve facebook.txt -r resolvers.txt -w facebook_puredns.txt
+    - 16246 domains
+    - 10098 after httpx
+</code></pre>
+            </div>
+        </article></main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
+
+    <div class="footer_social-icons">
+</div>
+    <small class="footer_copyright">
+        © 2025 .
+        Powered by <a href="https://github.com/hugo-sid/hugo-blog-awesome" target="_blank" rel="noopener">Hugo blog awesome</a>.
+    </small>
+</footer><a href="#" title="Go to top" id="totop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" stroke="currentColor" viewBox="0 96 960 960">
+    <path d="M283 704.739 234.261 656 480 410.261 725.739 656 677 704.739l-197-197-197 197Z"/>
+</svg>
+
+</a>
+
+
+    
+
+
+
+
+
+
+    
+    <script async src="http://localhost:1313/js/main.js" ></script>
+
+    
+
+</body>
+</html>

