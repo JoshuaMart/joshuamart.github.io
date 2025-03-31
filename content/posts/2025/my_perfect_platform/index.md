@@ -1,7 +1,7 @@
 ---
-title: "Blogging in 2025: Finding My Perfect Platform After Years of Migration"
+title: "Blogging in 2025: My Thoughts"
 date: 2025-03-29T10:00:00+01:00
-description: "Blogging in 2025: Finding My Perfect Platform After Years of Migration"
+description: "Blogging in 2025: My Thoughts"
 ---
 
 After experimenting with multiple blogging platforms over the past seven years, I've finally settled on a solution that works for me. Here's my journey through the blogging ecosystem and what I've learned along the way.
