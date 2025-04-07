@@ -126,6 +126,20 @@ end
 
 Platform-specific normalizers then handle the unique patterns of each bug bounty platform.
 
+## Call For Platform Standardization
+
+While ScopesExtractor helps solve these normalization challenges, there's a broader issue worth addressing: the responsibility of bug bounty platforms themselves to standardize scope formats.
+Ideally, platforms should collaborate to establish uniform conventions across the industry and although it sounds utopian, at the very least, propose a unified format between the different programs on their own platform.
+
+For instance, multi-TLD formats should follow a single standard pattern like `domain.(com|fr|xyz)` instead of the current variations such as
+```
+domain.(com|fr|xyz)
+domain.<com|fr|xyz>
+domain(.com|.fr|.xyz)
+```
+
+Beyond normalization, platforms should implement validation to ensure that URLs are properly formatted, preventing common errors like `http//domain.tld` (missing colon) that create unnecessary friction in the recon process or even, I suppose, for triagers to find a URL. This standardization would not only benefit hunters but also program owners by ensuring their scope is interpreted consistently across tools and methodologies.
+
 ## Conclusion
 
 Bug bounty scope monitoring is a critical aspect of maintaining an effective hunting workflow. The inconsistent formats across platforms make this a challenging task, but with proper normalization and automated tracking, you can stay ahead of the curve and be among the first to discover vulnerabilities in newly added assets.
