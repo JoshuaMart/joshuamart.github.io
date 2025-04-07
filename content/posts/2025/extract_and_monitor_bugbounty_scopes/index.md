@@ -1,6 +1,6 @@
 ---
 title: "Extract and monitor bugbounty scopes"
-date: 2025-04-07T13:00:00+01:00
+date: 2025-04-07T12:00:00+01:00
 description: "Extract and monitor bugbounty scopes"
 ---
 
