@@ -4,7 +4,7 @@ date: 2025-04-07T12:00:00+01:00
 description: "Extract and monitor bugbounty scopes"
 ---
 
-As a bug bounty hunter, one of the most critical aspects of your workflow is keeping track of program scopes. Whether you're focused on a handful of programs or casting a wider net, knowing when new assets are added to scope can give you a significant advantage.
+As a bug bounty hunter, when you're a recon guy one of the most critical aspects of your workflow is keeping track of program scopes. Whether you're focused on a handful of programs or casting a wider net, knowing when new assets are added to scope can give you a significant advantage.
 
 However, there's a consistent challenge across all bug bounty platforms: **scope formats are wildly inconsistent**. Each platform has its own way of representing targets, and even within the same platform, different programs might express their scopes in various ways.
 
@@ -126,40 +126,12 @@ end
 
 Platform-specific normalizers then handle the unique patterns of each bug bounty platform.
 
-## Setting Up Your Own Scope Monitoring
-
-Getting started with ScopesExtractor is straightforward:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/JoshuaMart/ScopesExtractor
-   cd ScopesExtractor
-   ```
-
-2. Create and configure your `.env` file:
-   ```bash
-   cp .env.example .env
-   # Edit with your platform credentials and Discord webhook URLs
-   ```
-
-3. Build the Docker image:
-   ```bash
-   docker build . -t scopes
-   ```
-
-4. Run in your preferred mode:
-   ```bash
-   # Classic mode
-   docker run --mount type=bind,source="$(pwd)/libs/db/db.json",target=/app/libs/db/db.json scopes
-
-   # API mode
-   docker run -p 4567:4567 --mount type=bind,source="$(pwd)/libs/db/db.json",target=/app/libs/db/db.json scopes
-   ```
-
 ## Conclusion
 
 Bug bounty scope monitoring is a critical aspect of maintaining an effective hunting workflow. The inconsistent formats across platforms make this a challenging task, but with proper normalization and automated tracking, you can stay ahead of the curve and be among the first to discover vulnerabilities in newly added assets.
 
 By normalizing scopes, you're not just organizing data, you're giving yourself a competitive edge in the bug bounty ecosystem.
+
+If interested, you can find more information about the project [here](https://github.com/JoshuaMart/ScopesExtractor)
 
 *Happy hunting!*
