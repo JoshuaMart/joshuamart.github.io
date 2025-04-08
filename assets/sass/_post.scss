@@ -1,0 +1,19 @@
+// Post title
+.header {
+  margin-top: 2em;
+
+  .header-title {
+    font-size: 2em;
+    line-height: 1.2;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    &.center {
+      text-align: center;
+    }
+
+    @include media-query($on-mobile) {
+      font-size: 1.9em;
+    }
+  }
+}
