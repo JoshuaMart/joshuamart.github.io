@@ -1,3 +1,12 @@
+// Wrapper width override
+.wrapper {
+  max-width: calc(920px - (30px * 2));
+
+  @media screen and (max-width: 768px) {
+    max-width: calc(1000px - 30px);
+  }
+}
+
 // Post title
 .header {
   margin-top: 2em;
