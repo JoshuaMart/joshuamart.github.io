@@ -40,5 +40,12 @@
     "language": "JavaScript",
     "icon": "lucide:globe",
     "url": "https://github.com/JoshuaMart/SimpleProxy"
+  },
+  {
+    "name": "VulnLab",
+    "description": "Intentionally vulnerable web application.",
+    "language": "PHP",
+    "icon": "lucide:bug",
+    "url": "https://github.com/JoshuaMart/VulnLab"
   }
 ]
