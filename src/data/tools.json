@@ -42,7 +42,7 @@
   {
     "name": "SimpleProxy",
     "description": " Lightweight Chrome Proxy Extension.",
-    "language": "JS",
+    "language": "JavaScript",
     "category": "Recon",
     "icon": "lucide:webhook",
     "url": "https://github.com/JoshuaMart/SimpleProxy"
