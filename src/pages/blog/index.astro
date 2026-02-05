@@ -95,8 +95,10 @@ function getReadingTime(content: string) {
             </div>
             
             <!-- Title -->
-            <h2 class="text-lg font-semibold leading-tight text-text-main transition-colors group-hover:text-accent">
-              {post.data.title}
+            <h2 class="text-lg font-semibold leading-tight">
+              <a href={`/blog/${post.id}`} class="text-text-main transition-colors hover:text-accent">
+                {post.data.title}
+              </a>
             </h2>
             
             <!-- Description -->
