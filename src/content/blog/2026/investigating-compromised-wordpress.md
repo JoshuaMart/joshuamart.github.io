@@ -3,7 +3,7 @@ title: "Investigating a Compromised WordPress Site"
 date: 2026-01-07T18:00:00+01:00
 description: "Diagnosing a WordPress site compromise that was redirecting visitors to adult content and pharmaceutical spam through injected malicious scripts."
 tags: ["WordPress"]
-image: "/images/blog/wordpress-compromise.jpg"
+image: "/images/blog/2026/wordpress-compromise.jpg"
 ---
 
 Recently, my brother visited a local sports complex and mentioned something concerning to the manager: the website was occasionally redirecting visitors to external sites serving adult content, pharmaceuticals, and other spam.
