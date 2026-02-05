@@ -1,0 +1,45 @@
+---
+import { siteConfig } from '../data/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+// Parse bio to highlight keywords between asterisks (e.g., *Web Sec*)
+const bioHtml = siteConfig.bio.replace(/\*([^*]+)\*/g, '<span class="text-accent">$1</span>');
+---
+
+<div class:list={['terminal-window rounded-lg border border-border bg-surface overflow-hidden shadow-2xl', className]}>
+  <!-- Terminal Header -->
+  <div class="flex items-center justify-between border-b border-border bg-surface-elevated px-4 py-3">
+    <div class="flex items-center gap-2">
+      <span class="h-3 w-3 rounded-full bg-[#FF5F56]"></span>
+      <span class="h-3 w-3 rounded-full bg-[#FFBD2E]"></span>
+      <span class="h-3 w-3 rounded-full bg-[#27C93F]"></span>
+    </div>
+    <span class="font-mono text-xs text-text-muted">zsh — 80x24</span>
+  </div>
+  
+  <!-- Terminal Content -->
+  <div class="p-4 font-mono text-sm leading-relaxed">
+    <div class="flex">
+      <span class="text-critical">root</span>
+      <span class="text-text-muted">@</span>
+      <span class="text-accent">jomar</span>
+      <span class="text-text-muted">:~$</span>
+      <span class="ml-2 text-text-main">whoami</span>
+    </div>
+    <div class="mt-1 text-text-muted">
+      <span class="text-text-main">&gt;</span> <Fragment set:html={bioHtml} />
+    </div>
+    <div class="mt-3 flex">
+      <span class="text-critical">root</span>
+      <span class="text-text-muted">@</span>
+      <span class="text-accent">jomar</span>
+      <span class="text-text-muted">:~$</span>
+      <span class="ml-2 inline-block h-4 w-2 bg-accent cursor-blink"></span>
+    </div>
+  </div>
+</div>
