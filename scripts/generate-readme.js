@@ -169,7 +169,7 @@ years.forEach(year => {
 
 readme += `<h2>📊 Github Statistics</h2>
 
-![JoshuaMart's GitHub stats](https://github-readme-stats.vercel.app/api?username=JoshuaMart\\&show_icons=true\\&theme=radical)
+![Stats](./profile/stats.svg)
 `;
 
 // Write output
