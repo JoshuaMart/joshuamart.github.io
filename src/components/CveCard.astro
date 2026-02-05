@@ -9,36 +9,52 @@ interface Props {
   severity: 'Critical' | 'High' | 'Medium' | 'Low';
   date: string;
   link: string;
+  description?: string;
 }
 
-const { id, target, type, severity, date, link } = Astro.props;
+const { id, target, type, severity, date, link, description } = Astro.props;
 
 const severityVariant = severity.toLowerCase() as 'critical' | 'high' | 'medium' | 'low';
-const borderHoverClass = {
-  critical: 'hover:border-critical',
-  high: 'hover:border-high',
-  medium: 'hover:border-medium',
-  low: 'hover:border-low',
+
+const topBarColor = {
+  critical: 'bg-critical',
+  high: 'bg-high',
+  medium: 'bg-medium',
+  low: 'bg-low',
 }[severityVariant];
+
+const defaultDescription = `${type} discovered in ${target}.`;
 ---
 
 <a
   href={link}
   target="_blank"
   rel="noopener noreferrer"
-  class:list={['group block rounded-lg border border-border bg-surface p-5 transition-all', borderHoverClass]}
+  class="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface transition-all hover:border-border-hover"
 >
-  <div class="flex items-center justify-between">
-    <Badge variant={severityVariant}>{severity.toUpperCase()}</Badge>
-    <span class="text-xs text-text-muted">{date}</span>
-  </div>
-  <h3 class="mt-4 font-mono text-lg font-semibold text-text-main">
-    {id}
-  </h3>
-  <p class="mt-1 text-sm text-text-muted">
-    {type} in <span class="text-text-main">{target}</span>
-  </p>
-  <div class="mt-4 flex items-center justify-end">
-    <Icon name="lucide:external-link" class="h-4 w-4 text-text-muted transition-colors group-hover:text-accent" />
+  <!-- Top colored bar -->
+  <div class:list={['h-1', topBarColor]}></div>
+  
+  <div class="flex flex-1 flex-col p-5">
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+      <Badge variant={severityVariant}>{severity.toUpperCase()}</Badge>
+    </div>
+    
+    <!-- CVE ID -->
+    <h3 class="mt-4 font-mono text-xl font-bold text-text-main">
+      {id}
+    </h3>
+    
+    <!-- Description -->
+    <p class="mt-3 flex-1 text-sm leading-relaxed text-text-muted">
+      {description || defaultDescription}
+    </p>
+    
+    <!-- Footer -->
+    <div class="mt-6 flex items-center justify-between border-t border-border pt-4">
+      <span class="text-sm text-text-muted">Reported: {date}</span>
+      <Icon name="lucide:arrow-up-right" class="h-5 w-5 text-text-muted transition-colors group-hover:text-text-main" />
+    </div>
   </div>
 </a>
