@@ -1,0 +1,28 @@
+---
+import { Icon } from 'astro-icon/components';
+import { siteConfig, socialLinks } from '../data/site';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-border bg-background">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row sm:px-6">
+    <p class="text-sm text-text-muted">
+      {siteConfig.name} &copy; {currentYear}. All rights reserved.
+    </p>
+    
+    <div class="flex items-center gap-4">
+      {socialLinks.map((link) => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-text-muted transition-colors hover:text-text-main"
+          aria-label={link.name}
+        >
+          <Icon name={link.icon} class="h-5 w-5" />
+        </a>
+      ))}
+    </div>
+  </div>
+</footer>

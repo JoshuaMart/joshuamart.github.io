@@ -1,0 +1,389 @@
+[
+  {
+    "id": "TRA-2025-50",
+    "target": "Ultimate Dashboard",
+    "product": "WordPress Plugin",
+    "type": "Exposed API Key",
+    "severity": "Medium",
+    "date": "2025",
+    "link": "https://www.tenable.com/security/research/tra-2025-50"
+  },
+  {
+    "id": "TRA-2025-34",
+    "target": "BentoML",
+    "product": "BentoML",
+    "type": "SSRF Bypass",
+    "severity": "High",
+    "date": "2025",
+    "link": "https://www.tenable.com/security/research/tra-2025-34"
+  },
+  {
+    "id": "TRA-2025-33",
+    "target": "Feed Them Social",
+    "product": "WordPress Plugin",
+    "type": "Exposed API Key",
+    "severity": "Medium",
+    "date": "2025",
+    "link": "https://www.tenable.com/security/research/tra-2025-33"
+  },
+  {
+    "id": "TRA-2025-32",
+    "target": "WP Social Ninja",
+    "product": "WordPress Plugin",
+    "type": "Exposed API Key",
+    "severity": "Medium",
+    "date": "2025",
+    "link": "https://www.tenable.com/security/research/tra-2025-32"
+  },
+  {
+    "id": "CVE-2025-2304",
+    "target": "Camaleon CMS",
+    "product": "Camaleon CMS",
+    "type": "Privilege Escalation",
+    "severity": "High",
+    "date": "2025",
+    "link": "https://www.tenable.com/security/research/tra-2025-09"
+  },
+  {
+    "id": "CVE-2024-12015",
+    "target": "Project Manager",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "High",
+    "date": "2024",
+    "link": "https://www.tenable.com/security/research/tra-2024-47"
+  },
+  {
+    "id": "CVE-2024-10859",
+    "target": "Surecart",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "Critical",
+    "date": "2024",
+    "link": "https://www.tenable.com/security/research/tra-2024-44"
+  },
+  {
+    "id": "CVE-2024-9148",
+    "target": "Flowise",
+    "product": "FlowiseAI",
+    "type": "Stored XSS",
+    "severity": "Medium",
+    "date": "2024",
+    "link": "https://www.tenable.com/security/research/tra-2024-40"
+  },
+  {
+    "id": "CVE-2024-8182",
+    "target": "Flowise",
+    "product": "FlowiseAI",
+    "type": "Denial of Service",
+    "severity": "High",
+    "date": "2024",
+    "link": "https://www.tenable.com/security/research/tra-2024-34"
+  },
+  {
+    "id": "CVE-2024-7790",
+    "target": "DevikaAI",
+    "product": "Stition AI",
+    "type": "Stored XSS",
+    "severity": "Medium",
+    "date": "2024",
+    "link": "https://www.tenable.com/security/research/tra-2024-31"
+  },
+  {
+    "id": "CVE-2024-7297",
+    "target": "Langflow",
+    "product": "Langflow AI",
+    "type": "Privilege Escalation",
+    "severity": "High",
+    "date": "2024",
+    "link": "https://www.tenable.com/security/research/tra-2024-26"
+  },
+  {
+    "id": "CVE-2024-4960",
+    "target": "WP RSS Aggregator",
+    "product": "WordPress Plugin",
+    "type": "Reflected XSS",
+    "severity": "Medium",
+    "date": "2024",
+    "link": "https://nvd.nist.gov/vuln/detail/CVE-2024-4960"
+  },
+  {
+    "id": "CVE-2024-4959",
+    "target": "Solidus",
+    "product": "Solidus",
+    "type": "Stored XSS",
+    "severity": "Medium",
+    "date": "2024",
+    "link": "https://nvd.nist.gov/vuln/detail/CVE-2024-4959"
+  },
+  {
+    "id": "CVE-2024-1063",
+    "target": "AppWrite",
+    "product": "AppWrite",
+    "type": "Blind SSRF",
+    "severity": "Medium",
+    "date": "2024",
+    "link": "https://www.tenable.com/security/research/tra-2024-03"
+  },
+  {
+    "id": "CVE-2024-1061",
+    "target": "HTML5 Video Player",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "Critical",
+    "date": "2024",
+    "link": "https://www.tenable.com/security/research/tra-2024-02"
+  },
+  {
+    "id": "CVE-2023-6360",
+    "target": "My Calendar",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "Critical",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-40"
+  },
+  {
+    "id": "CVE-2023-4137",
+    "target": "AYS Popup Box",
+    "product": "WordPress Plugin",
+    "type": "Reflected XSS",
+    "severity": "Medium",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-26"
+  },
+  {
+    "id": "CVE-2023-28667",
+    "target": "Lead Generated",
+    "product": "WordPress Plugin",
+    "type": "Insecure Deserialization",
+    "severity": "Critical",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-7"
+  },
+  {
+    "id": "CVE-2023-28666",
+    "target": "InPost Gallery",
+    "product": "WordPress Plugin",
+    "type": "Reflected XSS",
+    "severity": "Medium",
+    "date": "2023",
+    "link": "https://www.tenable.com/cve/CVE-2023-28666"
+  },
+  {
+    "id": "CVE-2023-28665",
+    "target": "Bulk Price Update",
+    "product": "WordPress Plugin",
+    "type": "Reflected XSS",
+    "severity": "Medium",
+    "date": "2023",
+    "link": "https://www.tenable.com/cve/CVE-2023-28665"
+  },
+  {
+    "id": "CVE-2023-28664",
+    "target": "MDTF – Meta Data Filter",
+    "product": "WordPress Plugin",
+    "type": "Reflected XSS",
+    "severity": "Medium",
+    "date": "2023",
+    "link": "https://www.tenable.com/cve/CVE-2023-28664"
+  },
+  {
+    "id": "CVE-2023-28663",
+    "target": "Formidable PRO2PDF",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "High",
+    "date": "2023",
+    "link": "https://www.tenable.com/cve/CVE-2023-28663"
+  },
+  {
+    "id": "CVE-2023-28662",
+    "target": "Gift Vouchers and Packages",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "Critical",
+    "date": "2023",
+    "link": "https://www.tenable.com/cve/CVE-2023-28662"
+  },
+  {
+    "id": "CVE-2023-28661",
+    "target": "WP Popup Banners",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "High",
+    "date": "2023",
+    "link": "https://www.tenable.com/cve/CVE-2023-28661"
+  },
+  {
+    "id": "CVE-2023-28660",
+    "target": "Events Made Easy",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "High",
+    "date": "2023",
+    "link": "https://www.tenable.com/cve/CVE-2023-28660"
+  },
+  {
+    "id": "CVE-2023-28659",
+    "target": "Waiting: One-click countdowns",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "High",
+    "date": "2023",
+    "link": "https://www.tenable.com/cve/CVE-2023-28659"
+  },
+  {
+    "id": "CVE-2023-28017",
+    "target": "CraftCMS",
+    "product": "CraftCMS",
+    "type": "Stored XSS",
+    "severity": "Medium",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-20"
+  },
+  {
+    "id": "CVE-2023-26326",
+    "target": "BuddyForms",
+    "product": "WordPress Plugin",
+    "type": "Insecure Deserialization",
+    "severity": "Critical",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-7"
+  },
+  {
+    "id": "CVE-2023-26325",
+    "target": "ReviewX",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "High",
+    "date": "2023",
+    "link": "https://www.tenable.com/cve/CVE-2023-26325"
+  },
+  {
+    "id": "CVE-2023-23492",
+    "target": "Login with Phone Number",
+    "product": "WordPress Plugin",
+    "type": "Reflected XSS",
+    "severity": "Medium",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-3"
+  },
+  {
+    "id": "CVE-2023-23491",
+    "target": "Quick Event Manager",
+    "product": "WordPress Plugin",
+    "type": "Reflected XSS",
+    "severity": "Medium",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-3"
+  },
+  {
+    "id": "CVE-2023-23490",
+    "target": "Survey Maker",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "High",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-2"
+  },
+  {
+    "id": "CVE-2023-23489",
+    "target": "Easy Digital Downloads",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "Critical",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-2"
+  },
+  {
+    "id": "CVE-2023-23488",
+    "target": "Paid Memberships Pro",
+    "product": "WordPress Plugin",
+    "type": "SQL Injection",
+    "severity": "Critical",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-2"
+  },
+  {
+    "id": "CVE-2023-0448",
+    "target": "WP Helper Lite",
+    "product": "WordPress Plugin",
+    "type": "Reflected XSS",
+    "severity": "Medium",
+    "date": "2023",
+    "link": "https://www.tenable.com/security/research/tra-2023-3"
+  },
+  {
+    "id": "CVE-2022-1731",
+    "target": "Metasonic Doc WebClient",
+    "product": "Metasonic",
+    "type": "SQL Injection",
+    "severity": "Critical",
+    "date": "2022",
+    "link": "https://www.tenable.com/security/research/tra-2022-17"
+  },
+  {
+    "id": "CVE-2022-38131",
+    "target": "RStudio Connect",
+    "product": "RStudio",
+    "type": "Open Redirect",
+    "severity": "Medium",
+    "date": "2022",
+    "link": "https://www.tenable.com/security/research/tra-2022-30"
+  },
+  {
+    "id": "CVE-2021-41262",
+    "target": "Galette",
+    "product": "Galette",
+    "type": "SQL Injection",
+    "severity": "High",
+    "date": "2021",
+    "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-41262"
+  },
+  {
+    "id": "CVE-2021-41261",
+    "target": "Galette",
+    "product": "Galette",
+    "type": "Stored XSS",
+    "severity": "Medium",
+    "date": "2021",
+    "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-41261"
+  },
+  {
+    "id": "CVE-2021-41260",
+    "target": "Galette",
+    "product": "Galette",
+    "type": "CSRF",
+    "severity": "Medium",
+    "date": "2021",
+    "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-41260"
+  },
+  {
+    "id": "CVE-2020-25070",
+    "target": "USVN",
+    "product": "USVN",
+    "type": "CSRF",
+    "severity": "Medium",
+    "date": "2020",
+    "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25070"
+  },
+  {
+    "id": "CVE-2020-25069",
+    "target": "USVN",
+    "product": "USVN",
+    "type": "RCE",
+    "severity": "Critical",
+    "date": "2020",
+    "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25069"
+  },
+  {
+    "id": "CVE-2020-15081",
+    "target": "PrestaShop",
+    "product": "PrestaShop",
+    "type": "Information Disclosure",
+    "severity": "Medium",
+    "date": "2020",
+    "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-15081"
+  }
+]

@@ -1,0 +1,170 @@
+---
+import MainLayout from './MainLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  date: Date;
+  description: string;
+  tags?: string[];
+  image?: string;
+}
+
+const { title, date, description, tags = [], image } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<MainLayout title={`${title} - Joshua Martinelle`} description={description} image={image} type="article">
+  <article class="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm text-text-muted">
+      <a href="/" class="hover:text-accent">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/blog" class="hover:text-accent">Blog</a>
+      <span class="mx-2">/</span>
+      <span class="text-text-main">Article</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-10 border-b border-border pb-10">
+      {tags.length > 0 && (
+        <div class="mb-4 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span class="rounded bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+      
+      <h1 class="text-3xl font-bold leading-tight text-text-main sm:text-4xl">
+        {title}
+      </h1>
+      
+      <div class="mt-4 flex items-center gap-4 text-sm text-text-muted">
+        <time datetime={date.toISOString()} class="flex items-center gap-1">
+          <Icon name="lucide:calendar" class="h-4 w-4" />
+          {formattedDate}
+        </time>
+      </div>
+
+      {image && (
+        <img src={image} alt={title} class="mt-8 w-full rounded-lg border border-border" />
+      )}
+    </header>
+
+    <!-- Content -->
+    <div class="prose prose-invert max-w-none">
+      <slot />
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16 border-t border-border pt-8">
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-accent"
+      >
+        <Icon name="lucide:arrow-left" class="h-4 w-4" />
+        Back to all articles
+      </a>
+    </footer>
+  </article>
+</MainLayout>
+
+<style is:global>
+  .prose {
+    color: var(--color-text-main);
+    line-height: 1.8;
+  }
+  
+  .prose h2 {
+    color: var(--color-text-main);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .prose h3 {
+    color: var(--color-text-main);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .prose p {
+    margin-bottom: 1.25rem;
+  }
+  
+  .prose a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  
+  .prose a:hover {
+    opacity: 0.8;
+  }
+  
+  .prose strong {
+    color: var(--color-text-main);
+    font-weight: 600;
+  }
+  
+  .prose code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background-color: var(--color-surface-elevated);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+  }
+  
+  .prose pre {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  
+  .prose pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+  
+  .prose ul, .prose ol {
+    margin: 1.25rem 0;
+    padding-left: 1.5rem;
+  }
+  
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .prose ul li {
+    list-style-type: disc;
+  }
+  
+  .prose ol li {
+    list-style-type: decimal;
+  }
+  
+  .prose blockquote {
+    border-left: 3px solid var(--color-accent);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+</style>

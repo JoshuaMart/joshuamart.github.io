@@ -1,0 +1,163 @@
+---
+import { Icon } from 'astro-icon/components';
+import MainLayout from '../layouts/MainLayout.astro';
+import CveTable from '../components/CveTable.astro';
+import cves from '../data/cves.json';
+
+// Compute stats
+const totalCves = cves.length;
+const criticalCount = cves.filter(c => c.severity === 'Critical').length;
+const years = [...new Set(cves.map(c => c.date))].sort((a, b) => b.localeCompare(a));
+const types = [...new Set(cves.map(c => c.type))].sort();
+
+// Sort by date descending (most recent first)
+const sortedCves = [...cves].sort((a, b) => b.date.localeCompare(a.date));
+---
+
+<MainLayout title="Vulnerability Research - Joshua Martinelle" description="Comprehensive database of disclosed security vulnerabilities discovered by Joshua Martinelle.">
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <!-- Breadcrumb -->
+    <nav class="mb-6 text-sm text-text-muted">
+      <a href="/" class="hover:text-accent">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-text-main">Research</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-10">
+      <h1 class="text-3xl font-bold text-text-main sm:text-4xl">Vulnerability Research</h1>
+      <p class="mt-4 max-w-2xl text-text-muted">
+        Security vulnerabilities I've discovered and responsibly disclosed since 2020.
+      </p>
+    </header>
+
+    <!-- Stats Cards -->
+    <div class="mb-10 grid gap-4 sm:grid-cols-3">
+      <div class="rounded-lg border border-border bg-surface p-5">
+        <div class="flex items-center gap-2 text-sm text-text-muted">
+          <Icon name="lucide:shield" class="h-4 w-4 text-accent" />
+          <span>TOTAL CVES</span>
+        </div>
+        <p class="mt-2 text-3xl font-bold text-text-main">{totalCves}</p>
+      </div>
+      <div class="rounded-lg border border-border bg-surface p-5">
+        <div class="flex items-center gap-2 text-sm text-text-muted">
+          <Icon name="lucide:alert-triangle" class="h-4 w-4 text-critical" />
+          <span>CRITICAL FINDINGS</span>
+        </div>
+        <p class="mt-2 text-3xl font-bold text-text-main">{criticalCount}</p>
+      </div>
+      <div class="rounded-lg border border-border bg-surface p-5">
+        <div class="flex items-center gap-2 text-sm text-text-muted">
+          <Icon name="lucide:calendar" class="h-4 w-4 text-accent" />
+          <span>YEARS ACTIVE</span>
+        </div>
+        <p class="mt-2 text-3xl font-bold text-text-main">{years.length}</p>
+      </div>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="mb-6 space-y-4">
+      <!-- Search -->
+      <div class="relative">
+        <Icon name="lucide:search" class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
+        <input
+          type="text"
+          id="cve-search"
+          placeholder="Search by CVE ID, Target Name, or Vulnerability Type..."
+          class="w-full rounded-lg border border-border bg-surface py-3 pl-11 pr-20 text-sm text-text-main placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+        />
+        <span class="absolute right-4 top-1/2 -translate-y-1/2 rounded border border-border bg-surface-elevated px-2 py-0.5 font-mono text-xs text-text-muted">
+          CTRL + K
+        </span>
+      </div>
+
+      <!-- Year Filters -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button
+          data-filter="all"
+          class="filter-btn active rounded-full border border-accent bg-accent/10 px-3 py-1 text-xs font-medium text-accent transition-colors"
+        >
+          All
+        </button>
+        {years.map(year => (
+          <button
+            data-filter={year}
+            class="filter-btn rounded-full border border-border px-3 py-1 text-xs font-medium text-text-muted transition-colors hover:border-border-hover hover:text-text-main"
+          >
+            {year}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- CVE Table -->
+    <div id="cve-container">
+      <CveTable cves={sortedCves} />
+    </div>
+
+    <!-- Results count -->
+    <p id="results-count" class="mt-4 text-sm text-text-muted">
+      Showing <span id="shown-count">{totalCves}</span> of {totalCves} results
+    </p>
+  </section>
+
+  <script define:vars={{ cves: sortedCves }}>
+    const searchInput = document.getElementById('cve-search');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const container = document.getElementById('cve-container');
+    const shownCount = document.getElementById('shown-count');
+
+    let currentFilter = 'all';
+
+    function filterCves() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const rows = container.querySelectorAll('tbody tr, article');
+
+      let visibleCount = 0;
+
+      rows.forEach((row, index) => {
+        const cve = cves[index];
+        if (!cve) return;
+
+        const matchesSearch =
+          cve.id.toLowerCase().includes(searchTerm) ||
+          cve.target.toLowerCase().includes(searchTerm) ||
+          cve.type.toLowerCase().includes(searchTerm);
+
+        const matchesFilter =
+          currentFilter === 'all' ||
+          cve.date === currentFilter;
+
+        const isVisible = matchesSearch && matchesFilter;
+        row.style.display = isVisible ? '' : 'none';
+        if (isVisible) visibleCount++;
+      });
+
+      shownCount.textContent = visibleCount;
+    }
+
+    searchInput.addEventListener('input', filterCves);
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.classList.remove('active', 'border-accent', 'bg-accent/10', 'text-accent');
+          b.classList.add('border-border', 'text-text-muted');
+        });
+        btn.classList.add('active', 'border-accent', 'bg-accent/10', 'text-accent');
+        btn.classList.remove('border-border', 'text-text-muted');
+        currentFilter = btn.dataset.filter;
+        filterCves();
+      });
+    });
+
+    // Keyboard shortcut
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+  </script>
+</MainLayout>
