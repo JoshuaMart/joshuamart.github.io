@@ -1,0 +1,99 @@
+---
+import { Icon } from 'astro-icon/components';
+import Badge from './ui/Badge.astro';
+
+interface CVE {
+  id: string;
+  target: string;
+  product: string;
+  type: string;
+  severity: 'Critical' | 'High' | 'Medium' | 'Low';
+  date: string;
+  link: string;
+}
+
+interface Props {
+  cves: CVE[];
+  limit?: number;
+}
+
+const { cves, limit } = Astro.props;
+const displayedCves = limit ? cves.slice(0, limit) : cves;
+
+const severityVariant = (severity: string) => {
+  return severity.toLowerCase() as 'critical' | 'high' | 'medium' | 'low';
+};
+---
+
+<!-- Desktop Table -->
+<div class="hidden overflow-hidden rounded-lg border border-border md:block">
+  <table class="w-full text-left text-sm">
+    <thead class="border-b border-border bg-surface-elevated text-xs uppercase text-text-muted">
+      <tr>
+        <th class="px-4 py-3 font-medium">ID</th>
+        <th class="px-4 py-3 font-medium">Target</th>
+        <th class="px-4 py-3 font-medium">Type</th>
+        <th class="px-4 py-3 font-medium">Date</th>
+        <th class="px-4 py-3 font-medium">Severity</th>
+        <th class="px-4 py-3 font-medium text-right">Reference</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-border">
+      {displayedCves.map((cve) => (
+        <tr class="bg-surface transition-colors hover:bg-surface-elevated">
+          <td class="px-4 py-3 font-mono text-accent">{cve.id}</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-2">
+              <Icon name="lucide:box" class="h-4 w-4 text-text-muted" />
+              <span class="text-text-main">{cve.target}</span>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-text-muted">{cve.type}</td>
+          <td class="px-4 py-3 text-text-muted">{cve.date}</td>
+          <td class="px-4 py-3">
+            <Badge variant={severityVariant(cve.severity)}>{cve.severity}</Badge>
+          </td>
+          <td class="px-4 py-3 text-right">
+            <a
+              href={cve.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center text-text-muted transition-colors hover:text-accent"
+              aria-label={`View reference for ${cve.id}`}
+            >
+              <Icon name="lucide:external-link" class="h-4 w-4" />
+            </a>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<!-- Mobile Cards -->
+<div class="flex flex-col gap-4 md:hidden">
+  {displayedCves.map((cve) => (
+    <article class="rounded-lg border border-border bg-surface p-4">
+      <div class="flex items-start justify-between">
+        <div>
+          <span class="font-mono text-sm text-accent">{cve.id}</span>
+          <h3 class="mt-1 font-medium text-text-main">{cve.target}</h3>
+        </div>
+        <Badge variant={severityVariant(cve.severity)}>{cve.severity}</Badge>
+      </div>
+      <p class="mt-2 text-sm text-text-muted">{cve.type}</p>
+      <div class="mt-3 flex items-center justify-between text-xs text-text-muted">
+        <span>{cve.date}</span>
+        <a
+          href={cve.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 text-accent"
+        >
+          View
+          <Icon name="lucide:external-link" class="h-3 w-3" />
+        </a>
+      </div>
+    </article>
+  ))}
+</div>

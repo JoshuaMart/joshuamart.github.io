@@ -1,0 +1,19 @@
+---
+export interface Props {
+  variant: 'critical' | 'high' | 'medium' | 'low';
+  class?: string;
+}
+
+const { variant, class: className = '' } = Astro.props;
+
+const variantStyles = {
+  critical: 'border-critical bg-critical/10 text-critical',
+  high: 'border-high bg-high/10 text-high',
+  medium: 'border-medium bg-medium/10 text-medium',
+  low: 'border-low bg-low/10 text-low',
+};
+---
+
+<span class:list={['inline-flex items-center rounded border px-2 py-0.5 font-mono text-xs font-medium', variantStyles[variant], className]}>
+  <slot />
+</span>

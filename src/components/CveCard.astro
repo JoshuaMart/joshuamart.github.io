@@ -1,0 +1,44 @@
+---
+import { Icon } from 'astro-icon/components';
+import Badge from './ui/Badge.astro';
+
+interface Props {
+  id: string;
+  target: string;
+  type: string;
+  severity: 'Critical' | 'High' | 'Medium' | 'Low';
+  date: string;
+  link: string;
+}
+
+const { id, target, type, severity, date, link } = Astro.props;
+
+const severityVariant = severity.toLowerCase() as 'critical' | 'high' | 'medium' | 'low';
+const borderHoverClass = {
+  critical: 'hover:border-critical',
+  high: 'hover:border-high',
+  medium: 'hover:border-medium',
+  low: 'hover:border-low',
+}[severityVariant];
+---
+
+<a
+  href={link}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={['group block rounded-lg border border-border bg-surface p-5 transition-all', borderHoverClass]}
+>
+  <div class="flex items-center justify-between">
+    <Badge variant={severityVariant}>{severity.toUpperCase()}</Badge>
+    <span class="text-xs text-text-muted">{date}</span>
+  </div>
+  <h3 class="mt-4 font-mono text-lg font-semibold text-text-main">
+    {id}
+  </h3>
+  <p class="mt-1 text-sm text-text-muted">
+    {type} in <span class="text-text-main">{target}</span>
+  </p>
+  <div class="mt-4 flex items-center justify-end">
+    <Icon name="lucide:external-link" class="h-4 w-4 text-text-muted transition-colors group-hover:text-accent" />
+  </div>
+</a>

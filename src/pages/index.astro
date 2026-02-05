@@ -2,7 +2,21 @@
 import { Icon } from 'astro-icon/components';
 import MainLayout from '../layouts/MainLayout.astro';
 import Terminal from '../components/Terminal.astro';
+import CveCard from '../components/CveCard.astro';
 import { siteConfig } from '../data/site';
+import cves from '../data/cves.json';
+
+// Get 3 most recent CVEs, prioritizing Critical/High severity
+const latestCves = [...cves]
+  .sort((a, b) => {
+    // Sort by date first
+    const dateCompare = b.date.localeCompare(a.date);
+    if (dateCompare !== 0) return dateCompare;
+    // Then by severity
+    const severityOrder = { Critical: 0, High: 1, Medium: 2, Low: 3 };
+    return severityOrder[a.severity] - severityOrder[b.severity];
+  })
+  .slice(0, 3);
 ---
 
 <MainLayout title={`${siteConfig.name} - ${siteConfig.role} & ${siteConfig.secondaryRole}`}>
@@ -52,7 +66,7 @@ import { siteConfig } from '../data/site';
       <div class="flex items-center justify-between">
         <h2 class="text-2xl font-bold text-text-main sm:text-3xl">Latest Intelligence</h2>
         <a
-          href="/blog"
+          href="/cves"
           class="inline-flex items-center gap-1 text-sm text-text-muted transition-colors hover:text-accent"
         >
           View all work
@@ -60,70 +74,18 @@ import { siteConfig } from '../data/site';
         </a>
       </div>
       
-      <!-- Placeholder for latest content cards -->
+      <!-- Latest CVEs -->
       <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- CVE Card Example -->
-        <article class="group relative overflow-hidden rounded-lg border border-border bg-surface p-5 transition-all hover:border-critical">
-          <div class="flex items-center justify-between">
-            <span class="rounded border border-critical bg-critical/10 px-2 py-0.5 font-mono text-xs font-medium text-critical">
-              CRITICAL
-            </span>
-            <span class="text-xs text-text-muted">CVSS 9.8</span>
-          </div>
-          <h3 class="mt-4 font-mono text-lg font-semibold text-text-main">
-            CVE-2023-XXXX
-          </h3>
-          <p class="mt-2 text-sm text-text-muted line-clamp-3">
-            Remote Code Execution found in widely used enterprise logging software. Allows unauthenticated attackers to execute arbitrary commands.
-          </p>
-          <div class="mt-4 flex items-center justify-between text-xs text-text-muted">
-            <span>Reported: Oct 12, 2023</span>
-            <Icon name="lucide:external-link" class="h-4 w-4" />
-          </div>
-        </article>
-        
-        <!-- Blog Card Example -->
-        <article class="group relative overflow-hidden rounded-lg border border-border bg-surface transition-all hover:border-border-hover">
-          <div class="aspect-video bg-surface-elevated"></div>
-          <div class="p-5">
-            <span class="rounded bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">
-              Research
-            </span>
-            <h3 class="mt-3 font-semibold text-text-main group-hover:text-accent">
-              Bypassing WAFs in 2024
-            </h3>
-            <p class="mt-2 text-sm text-text-muted line-clamp-2">
-              Deep dive into modern Web Application Firewall evasion techniques using protocol smuggling.
-            </p>
-            <a href="/blog" class="mt-4 inline-flex items-center gap-1 text-sm text-accent">
-              Read Article
-              <Icon name="lucide:arrow-right" class="h-4 w-4" />
-            </a>
-          </div>
-        </article>
-        
-        <!-- Tool Card Example -->
-        <article class="group relative overflow-hidden rounded-lg border border-border bg-surface p-5 transition-all hover:border-border-hover">
-          <div class="flex items-start justify-between">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-elevated text-accent">
-              <Icon name="lucide:webhook" class="h-5 w-5" />
-            </div>
-            <div class="flex items-center gap-1 text-xs text-text-muted">
-              <Icon name="lucide:star" class="h-3 w-3" />
-              250
-            </div>
-          </div>
-          <h3 class="mt-4 font-semibold text-text-main group-hover:text-accent">
-            Hookd
-          </h3>
-          <p class="mt-2 text-sm text-text-muted line-clamp-2">
-            Automated webhook testing and race condition exploiter. Capture, replay, and fuzz webhooks with ease.
-          </p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="rounded bg-surface-elevated px-2 py-0.5 text-xs text-text-muted">Golang</span>
-            <span class="rounded bg-surface-elevated px-2 py-0.5 text-xs text-text-muted">CLI</span>
-          </div>
-        </article>
+        {latestCves.map((cve) => (
+          <CveCard
+            id={cve.id}
+            target={cve.target}
+            type={cve.type}
+            severity={cve.severity}
+            date={cve.date}
+            link={cve.link}
+          />
+        ))}
       </div>
     </div>
   </section>
