@@ -3,7 +3,6 @@
     "name": "Hookd",
     "description": "A lightweight, high-performance interaction server for capturing DNS and HTTP callbacks.",
     "language": "Go",
-    "category": "Recon",
     "icon": "lucide:webhook",
     "url": "https://github.com/JoshuaMart/Hookd"
   },
@@ -11,40 +10,35 @@
     "name": "ScopesExtractor",
     "description": "Monitor bug bounty programs across multiple platforms to track scope changes.",
     "language": "Ruby",
-    "category": "Recon",
-    "icon": "lucide:binoculars",
+    "icon": "lucide:radar",
     "url": "https://github.com/JoshuaMart/ScopesExtractor"
   },
   {
     "name": "BurpToNats",
     "description": "Push BurpSuite HTTP requests to a NATS messaging queue.",
     "language": "Java",
-    "category": "Recon",
-    "icon": "lucide:binoculars",
-    "url": "https://github.com/JoshuaMart/ScopesExtractor"
+    "icon": "lucide:arrow-right-left",
+    "url": "https://github.com/JoshuaMart/BurpToNats"
   },
   {
     "name": "Interactsh-Library",
-    "description": " Ruby Library for Interactsh.",
+    "description": "Ruby Library for Interactsh.",
     "language": "Ruby",
-    "category": "Recon",
-    "icon": "lucide:binoculars",
-    "url": "https://github.com/JoshuaMart/ScopesExtractor"
+    "icon": "lucide:library",
+    "url": "https://github.com/JoshuaMart/Interactsh-Library"
   },
   {
     "name": "FastRecon",
     "description": "A simple, fast, non-exhaustive solution to obtain a list of subdomains.",
     "language": "Go",
-    "category": "Recon",
-    "icon": "lucide:webhook",
+    "icon": "lucide:search",
     "url": "https://github.com/JoshuaMart/FastRecon"
   },
   {
     "name": "SimpleProxy",
-    "description": " Lightweight Chrome Proxy Extension.",
+    "description": "Lightweight Chrome Proxy Extension.",
     "language": "JavaScript",
-    "category": "Recon",
-    "icon": "lucide:webhook",
+    "icon": "lucide:globe",
     "url": "https://github.com/JoshuaMart/SimpleProxy"
   }
 ]
