@@ -36,3 +36,16 @@ export const navLinks = [
   { href: '/blog', label: 'Blog' },
   { href: '/tools', label: 'Tools' },
 ];
+
+export const languageColors: Record<string, string> = {
+  'Go': '#00ADD8',
+  'Python': '#3776AB',
+  'Rust': '#DEA584',
+  'JavaScript': '#F7DF1E',
+  'TypeScript': '#3178C6',
+  'Ruby': '#CC342D',
+  'C++': '#F34B7D',
+  'Shell': '#89E051',
+  'Java': '#B07219',
+  'PHP': '#777BB4',
+};

@@ -5,7 +5,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import Terminal from '../components/Terminal.astro';
 import CveCard from '../components/CveCard.astro';
 import BlogCard from '../components/BlogCard.astro';
-import { siteConfig } from '../data/site';
+import { siteConfig, languageColors } from '../data/site';
 import cves from '../data/cves.json';
 import tools from '../data/tools.json';
 
@@ -24,18 +24,6 @@ const latestTool = tools[0];
 // Get latest blog post
 const posts = await getCollection('blog');
 const latestPost = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
-
-// Language colors for tool card
-const languageColors: Record<string, string> = {
-  'Go': '#00ADD8',
-  'Python': '#3776AB',
-  'Rust': '#DEA584',
-  'JavaScript': '#F7DF1E',
-  'TypeScript': '#3178C6',
-  'Ruby': '#CC342D',
-  'Java': '#B07219',
-  'PHP': '#777BB4',
-};
 ---
 
 <MainLayout title={`${siteConfig.name} - ${siteConfig.role} & ${siteConfig.secondaryRole}`}>

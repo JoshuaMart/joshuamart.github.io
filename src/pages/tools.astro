@@ -1,24 +1,11 @@
 ---
 import { Icon } from 'astro-icon/components';
 import MainLayout from '../layouts/MainLayout.astro';
+import { languageColors } from '../data/site';
 import tools from '../data/tools.json';
 
 // Get unique languages for filters
 const languages = [...new Set(tools.map(t => t.language))].sort();
-
-// Language colors (hex values for inline styles)
-const languageColors: Record<string, string> = {
-  'Go': '#00ADD8',
-  'Python': '#3776AB',
-  'Rust': '#DEA584',
-  'JavaScript': '#F7DF1E',
-  'TypeScript': '#3178C6',
-  'Ruby': '#CC342D',
-  'C++': '#F34B7D',
-  'Shell': '#89E051',
-  'Java': '#B07219',
-  'PHP': '#777BB4',
-};
 ---
 
 <MainLayout title="Tools - Joshua Martinelle" description="A collection of open source security tools, automation scripts, and vulnerability scanners.">
