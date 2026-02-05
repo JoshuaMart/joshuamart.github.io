@@ -56,12 +56,20 @@ jobs:
           token: ${{ secrets.PROFILE_REPO_TOKEN }}
           path: profile-repo
 
+      - name: Generate stats card
+        uses: readme-tools/github-readme-stats-action@v1
+        with:
+          card: stats
+          options: username=JoshuaMart&show_icons=true&theme=radical
+          path: profile-repo/profile/stats.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Update profile README
         run: |
           cp github-profile-readme.md profile-repo/README.md
           cd profile-repo
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
+          git add README.md profile/stats.svg
           git diff --quiet && git diff --staged --quiet || git commit -m "chore: sync README from jomar.fr"
           git push
