@@ -1,0 +1,153 @@
+---
+title: 'Extract and monitor bugbounty scopes'
+date: 2025-04-07
+description: 'Extracting and monitoring bug bounty scopes automatically.'
+tags: ['bugbounty', 'automation', 'monitoring']
+image: '/images/blog/2025/extract_and_monitor_bugbounty_scopes.png'
+---
+
+As a bug bounty hunter, when you're a recon guy one of the most critical aspects of your workflow is keeping track of program scopes. Whether you're focused on a handful of programs or casting a wider net, knowing when new assets are added to scope can give you a significant advantage.
+
+However, there's a consistent challenge across all bug bounty platforms: **scope formats are wildly inconsistent**. Each platform has its own way of representing targets, and even within the same platform, different programs might express their scopes in various ways.
+
+Let's look at a particularly frustrating example: domains with multiple TLDs. A program might express them like this:
+
+```
+domain.(com|fr|xyz)
+```
+
+When what you really need for effective scanning and testing is:
+
+```
+domain.com
+domain.fr
+domain.xyz
+```
+
+This normalization process becomes even more complicated when you're monitoring multiple platforms simultaneously.
+
+## Introducing ScopesExtractor
+
+To address these challenges, I created [ScopesExtractor](https://github.com/JoshuaMart/ScopesExtractor), a tool designed to monitor bug bounty program scopes across multiple platforms, track changes, and normalize the formats for consistency.
+
+The first version of this tool dates back to 2023 but I have just released a version with many changes this week, a bit like version 2.0 with the main change being the ability to run the tool in API mode, as well as change detection with Discord notifications.
+
+## The Platform Normalization Nightmare
+
+While developing ScopesExtractor, I quickly discovered that each platform presents its own unique challenges when it comes to scope normalization. Let me share my experience with some of the major platforms:
+
+**Immunefi: The Gold Standard**
+
+Surprisingly, **Immunefi** proved to be the most straightforward platform to work with. Their scopes are well-formatted and consistent, requiring 0 normalization effort. This made implementing the Immunefi connector relatively painless.
+
+**Intigriti and YesWeHack: Manageable but Quirky**
+
+**Intigriti** and **YesWeHack** have some inconsistencies in their scope formats, but they're generally manageable. For example, YesWeHack often uses the multi-TLD format mentioned earlier:
+
+```ruby
+# From YesWeHack normalizer
+MULTI_TLDS = %r{(?<prefix>https?://|wss?://|\*\.)?(?<middle>[\w.-]+\.)\((?<tlds>[a-z.|]+)}.freeze
+
+def self.normalize_with_tlds(match)
+  match[:tlds].split('|').map { |tld| "#{match[:prefix]}#{match[:middle]}#{tld}" }
+end
+```
+
+This code shows how ScopesExtractor parses and expands these multi-TLD patterns into individual domain entries.
+
+**Hackerone: Hidden Scopes**
+
+**Hackerone** presents a different challenge. While their structured scope format is decent, many programs include additional scope information directly in their descriptions rather than in the dedicated scope section. This makes automated extraction significantly more complex, as you need to parse natural language text to identify potential scope items.
+
+As this is the platform I use the least, it's something I haven't yet integrated, but perhaps in a future version.
+
+**Bugcrowd: The Ultimate Challenge**
+
+By far, **Bugcrowd** is the most problematic platform when it comes to scope normalization. The issues are so extensive that in my configuration file, out of 239 total exclusions, 220 are dedicated solely to Bugcrowd!
+
+Bugcrowd's scope format varies wildly between programs, and they have a complex hierarchy of target groups and targets. The extraction process requires multiple API calls and extensive parsing:
+
+```ruby
+def self.extract_targets(brief_url)
+  url = File.join(BASE_URL, brief_url)
+
+  if brief_url.start_with?('/engagements/')
+    targets_from_engagements(url)
+  else
+    targets_from_groups(url)
+  end
+end
+```
+
+And the list of edge cases seems endless. Some programs use special markers, others have unique formatting, and many require specific handling.
+
+## The Importance of Scope Normalization
+
+Why go through all this trouble? Because normalized scopes are essential for:
+
+1. **Accurate Asset Tracking**: Know exactly what's in scope at any given time
+2. **Automated Scanning**: Feed clean, consistent data to your scanning tools
+3. **Change Detection**: Quickly identify when new assets are added to scope
+4. **Efficient Testing**: Focus your efforts where they matter most
+
+Imagine you're running automated reconnaissance on a program that uses the `domain.(tld1|tld2|tld3)` format.
+Without normalization, your tools would either fail to parse the domain or treat it as a literal string. But with proper normalization, you can expand this into three separate domains for accurate scanning.
+
+## Implementation Details
+
+ScopesExtractor uses a modular architecture with specific normalizers for each platform:
+
+```
+libs/utilities/normalizer/
+├── bugcrowd.rb
+├── intigriti.rb
+├── normalizer.rb
+└── yeswehack.rb
+```
+
+The core normalization logic handles common patterns:
+
+```ruby
+def self.global_normalization(value)
+  value = global_end_strip(value)
+
+  # Remove protocol (http:// or https://) if string matches the pattern
+  value = value.sub(%r{https?://}, '') if value.match?(%r{https?://\*\.})
+
+  # Replace certain patterns and remove unwanted trailing characters
+  value = value.sub('.*', '.com')
+               .sub('.<TLD>', '.com')
+
+  # Add "*" at the beginning if the string starts with a dot
+  value = "*#{value}" if value.start_with?('.')
+
+  # Return the lowercase string
+  value.downcase
+end
+```
+
+Platform-specific normalizers then handle the unique patterns of each bug bounty platform.
+
+## Call For Platform Standardization
+
+While ScopesExtractor helps solve these normalization challenges, there's a broader issue worth addressing: the responsibility of bug bounty platforms themselves to standardize scope formats.
+Ideally, platforms should collaborate to establish uniform conventions across the industry and although it sounds utopian, at the very least, propose a unified format between the different programs on their own platform.
+
+For instance, multi-TLD formats should follow a single standard pattern like `domain.(com|fr|xyz)` instead of the current variations such as
+```
+domain.(com|fr|xyz)
+domain.<com|fr|xyz>
+domain(.com|.fr|.xyz)
+```
+
+Beyond normalization, platforms should implement validation to ensure that URLs are properly formatted, preventing common errors like `http//domain.tld` (missing colon) that create unnecessary friction in the recon process or even, I suppose, for triagers to find a URL. This standardization would not only benefit hunters but also program owners by ensuring their scope is interpreted consistently across tools and methodologies.
+
+## Conclusion
+
+Bug bounty scope monitoring is a critical aspect of maintaining an effective hunting workflow. The inconsistent formats across platforms make this a challenging task, but with proper normalization and automated tracking, you can stay ahead of the curve and be among the first to discover vulnerabilities in newly added assets.
+
+By normalizing scopes, you're not just organizing data, you're giving yourself a competitive edge in the bug bounty ecosystem.
+
+If interested, you can find more information about the project [here](https://github.com/JoshuaMart/ScopesExtractor)
+
+*Happy hunting!*
