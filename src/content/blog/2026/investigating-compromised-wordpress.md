@@ -1,5 +1,5 @@
 ---
-title: "Investigating a Compromised WordPress Site: From Random Redirects to Malicious Scripts"
+title: "Investigating a Compromised WordPress Site"
 date: 2026-01-07T18:00:00+01:00
 description: "Diagnosing a WordPress site compromise that was redirecting visitors to adult content and pharmaceutical spam through injected malicious scripts."
 tags: ["WordPress"]
