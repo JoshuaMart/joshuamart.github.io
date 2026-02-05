@@ -6,6 +6,10 @@ export const siteConfig = {
   secondaryRole: 'Bug Hunter',
   description: 'Security Engineer & Bug Hunter - Joshua Martinelle',
   bio: 'Security Researcher focusing on *Web Security*',
+  siteUrl: 'https://www.jomar.fr',
+  ogImage: '/images/og-image.jpeg',
+  twitterHandle: '@J0_mart',
+  locale: 'en',
 };
 
 export const socialLinks = [

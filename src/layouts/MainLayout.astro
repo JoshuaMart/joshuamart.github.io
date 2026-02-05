@@ -2,35 +2,66 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import { siteConfig } from '../data/site';
 
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article';
 }
 
-const { title, description = 'Security Engineer & Bug Hunter - Joshua Martinelle' } = Astro.props;
+const { 
+  title, 
+  description = siteConfig.description,
+  image = siteConfig.ogImage,
+  type = 'website'
+} = Astro.props;
+
 const currentPath = Astro.url.pathname;
+const canonicalUrl = new URL(currentPath, siteConfig.siteUrl).href;
+const ogImageUrl = image.startsWith('http') ? image : new URL(image, siteConfig.siteUrl).href;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={siteConfig.locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <meta name="author" content="Joshua Martinelle" />
     
-    <!-- Open Graph -->
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={siteConfig.name} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:locale" content={siteConfig.locale} />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@J0_mart" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:creator" content={siteConfig.twitterHandle} />
+    <meta name="twitter:site" content={siteConfig.twitterHandle} />
     
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="msapplication-TileColor" content="#0a0a0a" />
   </head>
   <body class="flex min-h-screen flex-col bg-background text-text-main">
     <Navbar currentPath={currentPath} />
