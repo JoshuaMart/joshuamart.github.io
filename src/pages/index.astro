@@ -1,22 +1,26 @@
 ---
+import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import MainLayout from '../layouts/MainLayout.astro';
 import Terminal from '../components/Terminal.astro';
 import CveCard from '../components/CveCard.astro';
+import BlogCard from '../components/BlogCard.astro';
 import { siteConfig } from '../data/site';
 import cves from '../data/cves.json';
 
-// Get 3 most recent CVEs, prioritizing Critical/High severity
+// Get 2 most recent CVEs
 const latestCves = [...cves]
   .sort((a, b) => {
-    // Sort by date first
     const dateCompare = b.date.localeCompare(a.date);
     if (dateCompare !== 0) return dateCompare;
-    // Then by severity
     const severityOrder = { Critical: 0, High: 1, Medium: 2, Low: 3 };
     return severityOrder[a.severity] - severityOrder[b.severity];
   })
-  .slice(0, 3);
+  .slice(0, 2);
+
+// Get latest blog post
+const posts = await getCollection('blog');
+const latestPost = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
 ---
 
 <MainLayout title={`${siteConfig.name} - ${siteConfig.role} & ${siteConfig.secondaryRole}`}>
@@ -74,7 +78,7 @@ const latestCves = [...cves]
         </a>
       </div>
       
-      <!-- Latest CVEs -->
+      <!-- Latest CVEs + Blog Post -->
       <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {latestCves.map((cve) => (
           <CveCard
@@ -86,6 +90,17 @@ const latestCves = [...cves]
             link={cve.link}
           />
         ))}
+        
+        {latestPost && (
+          <BlogCard
+            title={latestPost.data.title}
+            description={latestPost.data.description}
+            date={latestPost.data.date}
+            slug={latestPost.id}
+            tags={latestPost.data.tags}
+            image={latestPost.data.image}
+          />
+        )}
       </div>
     </div>
   </section>
