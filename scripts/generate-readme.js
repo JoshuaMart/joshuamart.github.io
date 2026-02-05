@@ -6,9 +6,9 @@
  * and generates a formatted README.md for the JoshuaMart/JoshuaMart repository
  */
 
-import { readFileSync, writeFileSync, readdirSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { dirname, join, relative } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,20 +17,42 @@ const rootDir = join(__dirname, '..');
 // Load CVEs
 const cves = JSON.parse(readFileSync(join(rootDir, 'src/data/cves.json'), 'utf-8'));
 
-// Load blog posts from content directory
+// Recursively find all .md files in a directory
+function findMarkdownFiles(dir, baseDir = dir) {
+  const files = [];
+  const entries = readdirSync(dir);
+
+  for (const entry of entries) {
+    const fullPath = join(dir, entry);
+    const stat = statSync(fullPath);
+
+    if (stat.isDirectory()) {
+      files.push(...findMarkdownFiles(fullPath, baseDir));
+    } else if (entry.endsWith('.md')) {
+      // Get relative path from base directory for slug generation
+      const relativePath = relative(baseDir, fullPath);
+      files.push({ fullPath, relativePath });
+    }
+  }
+
+  return files;
+}
+
+// Load blog posts from content directory (supports subdirectories)
 const blogDir = join(rootDir, 'src/content/blog');
-const blogFiles = readdirSync(blogDir).filter(f => f.endsWith('.md'));
-const blogPosts = blogFiles.map(file => {
-  const content = readFileSync(join(blogDir, file), 'utf-8');
+const blogFiles = findMarkdownFiles(blogDir);
+const blogPosts = blogFiles.map(({ fullPath, relativePath }) => {
+  const content = readFileSync(fullPath, 'utf-8');
   const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
   if (!frontmatterMatch) return null;
-  
+
   const frontmatter = frontmatterMatch[1];
   const title = frontmatter.match(/title:\s*["'](.+?)["']/)?.[1] || '';
   const dateMatch = frontmatter.match(/date:\s*(.+)/)?.[1] || '';
   const date = new Date(dateMatch);
-  const slug = file.replace('.md', '');
-  
+  // Generate slug from relative path (e.g., "2025/article.md" -> "2025/article")
+  const slug = relativePath.replace('.md', '').replace(/\\/g, '/');
+
   return { title, date, slug };
 }).filter(Boolean).sort((a, b) => b.date - a.date);
 
@@ -53,7 +75,7 @@ let readme = `<h1 align="center">Hi 👋, I'm Jomar</h1>
   <a href="mailto:contact@jomar.fr">
     <img src="https://img.shields.io/badge/contact@jomar.fr-0078D4?style=for-the-badge&logo=Gmail&logoColor=00AEFF&labelColor=black&color=black">
   </a>
-  <a href="https://jomar.fr/">
+  <a href="https://www.jomar.fr/">
     <img src="https://img.shields.io/badge/-Website-blue?style=for-the-badge&logo=Safari&logoColor=00AEFF&labelColor=black&color=black">
   </a>
   <a href="https://www.linkedin.com/in/joshua-martinelle-a34911133/">
@@ -147,7 +169,7 @@ years.forEach(year => {
 
 readme += `<h2>📊 Github Statistics</h2>
 
-![JoshuaMart's GitHub stats](https://github-readme-stats.vercel.app/api?username=JoshuaMart\\&show_icons=true\\&theme=radical)
+![Stats](./profile/stats.svg)
 `;
 
 // Write output
