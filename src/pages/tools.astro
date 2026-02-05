@@ -3,9 +3,8 @@ import { Icon } from 'astro-icon/components';
 import MainLayout from '../layouts/MainLayout.astro';
 import tools from '../data/tools.json';
 
-// Get unique languages and categories for filters
+// Get unique languages for filters
 const languages = [...new Set(tools.map(t => t.language))].sort();
-const categories = [...new Set(tools.map(t => t.category))].sort();
 
 // Language colors (hex values for inline styles)
 const languageColors: Record<string, string> = {
@@ -61,19 +60,9 @@ const languageColors: Record<string, string> = {
         >
           All
         </button>
-        {categories.map((category) => (
-          <button
-            data-filter={category}
-            data-type="category"
-            class="filter-btn rounded-md border border-border px-3 py-1.5 text-sm font-medium text-text-muted transition-colors hover:border-border-hover hover:text-text-main"
-          >
-            {category}
-          </button>
-        ))}
         {languages.map((lang) => (
           <button
             data-filter={lang}
-            data-type="language"
             class="filter-btn rounded-md border border-border px-3 py-1.5 text-sm font-medium text-text-muted transition-colors hover:border-border-hover hover:text-text-main"
           >
             {lang}
@@ -136,7 +125,6 @@ const languageColors: Record<string, string> = {
     const toolCards = document.querySelectorAll('.tool-card');
 
     let currentFilter = 'all';
-    let currentFilterType = '';
 
     function filterTools() {
       const searchTerm = searchInput.value.toLowerCase();
@@ -145,18 +133,9 @@ const languageColors: Record<string, string> = {
         const name = card.dataset.name || '';
         const description = card.dataset.description || '';
         const language = card.dataset.language || '';
-        const category = card.dataset.category || '';
 
         const matchesSearch = name.includes(searchTerm) || description.includes(searchTerm);
-        
-        let matchesFilter = currentFilter === 'all';
-        if (currentFilterType === 'language') {
-          matchesFilter = language === currentFilter;
-        } else if (currentFilterType === 'category') {
-          matchesFilter = category === currentFilter;
-        } else if (currentFilter === 'all') {
-          matchesFilter = true;
-        }
+        const matchesFilter = currentFilter === 'all' || language === currentFilter;
 
         (card as HTMLElement).style.display = matchesSearch && matchesFilter ? '' : 'none';
       });
@@ -174,7 +153,6 @@ const languageColors: Record<string, string> = {
         btn.classList.remove('border-border', 'text-text-muted');
         
         currentFilter = (btn as HTMLElement).dataset.filter || 'all';
-        currentFilterType = (btn as HTMLElement).dataset.type || '';
         filterTools();
       });
     });
