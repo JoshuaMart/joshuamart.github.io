@@ -7,6 +7,9 @@ interface Props {
 }
 
 const { currentPath = '/' } = Astro.props;
+
+// Normalize path for comparison (remove trailing slash except for root)
+const normalizePath = (path: string) => path === '/' ? '/' : path.replace(/\/$/, '');
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
@@ -25,7 +28,7 @@ const { currentPath = '/' } = Astro.props;
             href={link.href}
             class:list={[
               'px-3 py-2 text-sm font-medium transition-colors rounded-md',
-              currentPath === link.href
+              normalizePath(currentPath) === normalizePath(link.href)
                 ? 'text-accent'
                 : 'text-text-muted hover:text-text-main hover:bg-surface'
             ]}
