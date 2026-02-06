@@ -23,7 +23,7 @@ fi
 TITLE="$1"
 TAGS="$2"
 FILENAME="$3"
-OUTPUT_DIR="$(dirname "$0")/../public/images/blog/"
+OUTPUT_DIR="$(dirname "$0")/../public/images/blog"
 
 # Create output directory if it doesn't exist
 mkdir -p "$OUTPUT_DIR"
