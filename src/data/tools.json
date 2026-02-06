@@ -47,5 +47,12 @@
     "language": "PHP",
     "icon": "lucide:bug",
     "url": "https://github.com/JoshuaMart/VulnLab"
+  },
+  {
+    "name": "Certstream",
+    "description": "High-performance, real-time Certificate Transparency log monitor.",
+    "language": "Ruby",
+    "icon": "lucide:eye",
+    "url": "https://github.com/JoshuaMart/Certstream"
   }
 ]
