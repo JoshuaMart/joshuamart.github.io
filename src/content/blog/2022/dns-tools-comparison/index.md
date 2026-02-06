@@ -2,7 +2,7 @@
 title: 'DNS Tools Comparison'
 date: 2022-04-26
 description: 'Comparing Amass, DNSX, and PureDNS for DNS resolution accuracy and performance in bug bounty reconnaissance.'
-tags: ['bugbounty', 'dns', 'recon', 'amass']
+tags: ['bugbounty', 'recon']
 image: '/images/blog/2022/dns-tools-comparison.png'
 ---
 

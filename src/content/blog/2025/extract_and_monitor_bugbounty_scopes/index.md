@@ -2,7 +2,7 @@
 title: 'Extract and monitor bugbounty scopes'
 date: 2025-04-07
 description: 'Extracting and monitoring bug bounty scopes automatically.'
-tags: ['bugbounty', 'automation', 'monitoring']
+tags: ['bugbounty', 'automation']
 image: '/images/blog/2025/extract_and_monitor_bugbounty_scopes.png'
 ---
 

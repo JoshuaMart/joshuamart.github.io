@@ -2,7 +2,7 @@
 title: 'Basic recon to RCE'
 date: 2021-05-02
 description: 'How I discovered my first RCE through basic reconnaissance and exploiting a known Java deserialization vulnerability in Adobe ColdFusion.'
-tags: ['bugbounty', 'rce', 'java', 'deserialization']
+tags: ['bugbounty', 'rce', 'java']
 image: '/images/blog/2021/basic-recon-to-rce.png'
 ---
 

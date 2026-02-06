@@ -2,7 +2,7 @@
 title: 'Basic recon to RCE III'
 date: 2022-10-18
 description: 'Exploiting command injection through Ruby string interpolation in a Rails application to achieve RCE via DNS exfiltration.'
-tags: ['bugbounty', 'rce', 'ruby', 'rails', 'command-injection']
+tags: ['bugbounty', 'rce', 'ruby']
 image: '/images/blog/2022/basic-recon-to-rce-iii.png'
 ---
 

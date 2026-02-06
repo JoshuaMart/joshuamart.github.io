@@ -2,7 +2,7 @@
 title: 'Basic recon to RCE II'
 date: 2022-03-22
 description: 'How trusting my instincts led to discovering a critical RCE that everyone else missed on a popular bug bounty program.'
-tags: ['bugbounty', 'rce', 'ruby', 'nuclei']
+tags: ['bugbounty', 'rce', 'ruby']
 image: '/images/blog/2022/basic-recon-to-rce-ii.png'
 ---
 

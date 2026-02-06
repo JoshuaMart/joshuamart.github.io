@@ -2,7 +2,7 @@
 title: 'Hookd: A Lightweight Out-of-Band Interaction Server'
 date: 2025-10-17
 description: 'Hookd - A simple webhook server for testing and debugging.'
-tags: ['golang', 'tools', 'webhook']
+tags: ['golang', 'tools']
 image: '/images/blog/2025/hookd.png'
 ---
 

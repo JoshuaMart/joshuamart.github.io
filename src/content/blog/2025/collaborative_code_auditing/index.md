@@ -2,7 +2,7 @@
 title: 'Collaborative Code Auditing'
 date: 2025-04-09
 description: 'Setting up a collaborative code auditing environment using code-server.'
-tags: ['security', 'code-review', 'tools']
+tags: ['code-review']
 image: '/images/blog/2025/collaborative_code_auditing.png'
 ---
 

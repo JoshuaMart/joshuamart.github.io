@@ -2,7 +2,7 @@
 title: 'SSRF Through PDF Generation'
 date: 2021-05-01
 description: 'Exploiting a Server-Side Request Forgery vulnerability through WKHTMLTOPDF to access AWS metadata and local files.'
-tags: ['bugbounty', 'ssrf', 'pdf', 'aws']
+tags: ['bugbounty', 'ssrf']
 image: '/images/blog/2021/ssrf-through-pdf-generation.png'
 ---
 

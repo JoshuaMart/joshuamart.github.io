@@ -2,7 +2,7 @@
 title: 'Binary search in Golang on large files'
 date: 2021-04-29
 description: 'Implementing binary search in Go to efficiently search through a 550 million line file in seconds instead of hours.'
-tags: ['golang', 'algorithm', 'performance']
+tags: ['golang']
 image: '/images/blog/2021/golang-binary-search.png'
 ---
 

@@ -2,7 +2,7 @@
 title: 'Bruteforce vs Permutations'
 date: 2023-05-27
 description: 'Comparing subdomain bruteforce and permutation techniques using Regulator, DNSGen, and AlterX to find the most effective reconnaissance strategy.'
-tags: ['bugbounty', 'recon', 'dns', 'subdomain']
+tags: ['bugbounty', 'recon']
 image: '/images/blog/2023/bruteforce-vs-permutations.png'
 ---
 

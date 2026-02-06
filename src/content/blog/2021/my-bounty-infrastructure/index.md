@@ -2,7 +2,7 @@
 title: 'My bounty infrastructure'
 date: 2021-05-21
 description: 'A complete Docker-based infrastructure for bug bounty hunting featuring Traefik, XSS-Catcher, Rengine, and more.'
-tags: ['bugbounty', 'infrastructure', 'docker', 'traefik']
+tags: ['bugbounty', 'recon']
 image: '/images/blog/2021/my-bounty-infrastructure.png'
 ---
 

@@ -2,7 +2,7 @@
 title: 'Simple Monitoring Solution'
 date: 2025-10-01
 description: 'Setting up simple monitoring for your services.'
-tags: ['monitoring', 'devops']
+tags: ['devops']
 image: '/images/blog/2025/simple_monitoring.png'
 ---
 

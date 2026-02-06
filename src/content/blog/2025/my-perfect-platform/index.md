@@ -2,7 +2,7 @@
 title: 'Blogging in 2025: My Thoughts'
 date: 2025-03-29
 description: 'My journey through various blogging platforms over seven years and why I finally settled on Hugo with GitHub Pages.'
-tags: ['blogging', 'hugo', 'platform']
+tags: ['blogging']
 image: '/images/blog/2025/my-perfect-platform.png'
 ---
 
