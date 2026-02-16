@@ -1,5 +1,23 @@
 [
   {
+    "id": "CVE-2026-2577",
+    "target": "Nanobot",
+    "product": "Nanobot",
+    "type": "Broken Authentication",
+    "severity": "Critical",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-09"
+  },
+  {
+    "id": "CVE-2026-25120",
+    "target": "Gogs",
+    "product": "Gogs",
+    "type": "Broken Authentication",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-08"
+  },
+  {
     "id": "TRA-2025-50",
     "target": "Ultimate Dashboard",
     "product": "WordPress Plugin",
