@@ -1,5 +1,32 @@
 [
   {
+    "id": "CVE-2026-3432",
+    "target": "SimStudio",
+    "product": "SimStudio",
+    "type": "Sensitive Information Disclosure",
+    "severity": "Critical",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-13"
+  },
+  {
+    "id": "CVE-2026-3431",
+    "target": "SimStudio",
+    "product": "SimStudio",
+    "type": "SSRF",
+    "severity": "Critical",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-12"
+  },
+  {
+    "id": "CVE-2026-27167",
+    "target": "Gradio",
+    "product": "Gradio",
+    "type": "Sensitive Information Disclosure",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-11"
+  },
+  {
     "id": "CVE-2026-2577",
     "target": "Nanobot",
     "product": "Nanobot",
