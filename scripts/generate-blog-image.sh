@@ -37,7 +37,7 @@ PROMPT="Create a professional dark-themed blog banner image (16:9 aspect ratio) 
 
 # Call Gemini API
 RESPONSE=$(curl -s -X POST \
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent" \
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent" \
   -H "x-goog-api-key: $GEMINI_API_KEY" \
   -H "Content-Type: application/json" \
   -d "{
