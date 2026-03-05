@@ -1,5 +1,14 @@
 [
   {
+    "id": "CVE-2026-27944",
+    "target": "Nginx UI",
+    "product": "Nginx UI",
+    "type": "Sensitive Information Disclosure",
+    "severity": "Critical",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-17"
+  },
+  {
     "id": "CVE-2026-3432",
     "target": "SimStudio",
     "product": "SimStudio",
