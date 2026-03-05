@@ -54,5 +54,19 @@
     "language": "Ruby",
     "icon": "lucide:eye",
     "url": "https://github.com/JoshuaMart/Certstream"
+  },
+  {
+    "name": "NanoFleet Agent",
+    "description": "Self-hosted autonomous AI agent runtime.",
+    "language": "TypeScript",
+    "icon": "lucide:bot",
+    "url": "https://github.com/NanoFleet/nanofleet-agent"
+  },
+  {
+    "name": "NanoFleet",
+    "description": "Management layer for NanoFleet Agent instances.",
+    "language": "TypeScript",
+    "icon": "lucide:layout-dashboard",
+    "url": "https://github.com/NanoFleet/nanofleet"
   }
 ]
