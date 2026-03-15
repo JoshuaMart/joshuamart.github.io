@@ -1,5 +1,12 @@
 [
   {
+    "name": "Detective",
+    "description": "Automated reconnaissance pipeline.",
+    "language": "Go",
+    "icon": "lucide:hat-glasses",
+    "url": "https://github.com/JoshuaMart/Detective"
+  },
+  {
     "name": "NanoFleet Agent",
     "description": "Self-hosted autonomous AI agent runtime.",
     "language": "TypeScript",
