@@ -1,5 +1,59 @@
 [
   {
+    "id": "CVE-2026-5027",
+    "target": "Langflow",
+    "product": "Langflow",
+    "type": "Path Traversal",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-26"
+  },
+  {
+    "id": "CVE-2026-5026",
+    "target": "Langflow",
+    "product": "Langflow",
+    "type": "Stored XSS",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-25"
+  },
+  {
+    "id": "CVE-2026-5025",
+    "target": "Langflow",
+    "product": "Langflow",
+    "type": "Broken Authentication",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-24"
+  },
+  {
+    "id": "CVE-2026-5022",
+    "target": "Langflow",
+    "product": "Langflow",
+    "type": "Broken Authentication",
+    "severity": "Low",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-23"
+  },
+  {
+    "id": "CVE-2026-4984",
+    "target": "Botpress",
+    "product": "Botpress",
+    "type": "SSRF",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-22"
+  },
+  {
+    "id": "TRA-2026-21",
+    "target": "Midday",
+    "product": "Midday",
+    "type": "Authorization Bypass",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-21"
+  },
+  {
     "id": "CVE-2026-27944",
     "target": "Nginx UI",
     "product": "Nginx UI",
