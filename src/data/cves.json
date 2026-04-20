@@ -1,5 +1,41 @@
 [
   {
+    "id": "TRA-2026-32",
+    "target": "Flowise",
+    "product": "Flowise",
+    "type": "Path Traversal",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-32"
+  },
+  {
+    "id": "TRA-2026-31",
+    "target": "Flowise",
+    "product": "Flowise",
+    "type": "SQL Injection",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-31"
+  },
+  {
+    "id": "CVE-2026-30824",
+    "target": "Flowise",
+    "product": "Flowise",
+    "type": "Broken Authentication",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-33"
+  },
+  {
+    "id": "TRA-2026-34",
+    "target": "Flowise",
+    "product": "Flowise",
+    "type": "Sensitive Information Disclosure",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-34"
+  },
+  {
     "id": "CVE-2026-5027",
     "target": "Langflow",
     "product": "Langflow",
