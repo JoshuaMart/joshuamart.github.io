@@ -1,5 +1,12 @@
 [
   {
+    "name": "WebSec0",
+    "description": "SSL/TLS + Headers scanner.",
+    "language": "Go",
+    "icon": "lucide:circle-dot",
+    "url": "https://github.com/JoshuaMart/WebSec0"
+  },
+  {
     "name": "Detective",
     "description": "Automated reconnaissance pipeline.",
     "language": "Go",
