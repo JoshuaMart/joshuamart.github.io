@@ -19,6 +19,8 @@ jobs:
 
       - name: Build with Astro
         uses: withastro/action@v3
+        with:
+          node-version: 24
 
       - name: Generate GitHub Profile README
         run: node scripts/generate-readme.js
