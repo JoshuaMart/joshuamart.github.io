@@ -1,5 +1,14 @@
 [
   {
+    "id": "CVE-2026-44706",
+    "target": "Chatwoot",
+    "product": "Chatwoot",
+    "type": "SQL Injection",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-41"
+  },
+  {
     "id": "TRA-2026-32",
     "target": "Flowise",
     "product": "Flowise",
