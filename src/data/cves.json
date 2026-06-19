@@ -1,5 +1,14 @@
 [
   {
+    "id": "CVE-2026-25119",
+    "target": "Gogs",
+    "product": "Gogs",
+    "type": "Broken Authentication",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-50"
+  },
+  {
     "id": "CVE-2026-9065",
     "target": "Surecart",
     "product": "Surecart",
