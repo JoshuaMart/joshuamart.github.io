@@ -1,5 +1,14 @@
 [
   {
+    "id": "CVE-2026-20896",
+    "target": "Gitea",
+    "product": "Gitea",
+    "type": "Broken Authentication",
+    "severity": "Critical",
+    "date": "2026",
+    "link": "https://blog.gitea.com/release-of-1.26.3-and-1.26.4/"
+  },
+  {
     "id": "CVE-2026-25119",
     "target": "Gogs",
     "product": "Gogs",
