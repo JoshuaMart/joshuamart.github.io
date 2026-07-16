@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import MainLayout from '../layouts/MainLayout.astro';
+import SeverityBadge from '../components/SeverityBadge.astro';
 import { siteConfig } from '../data/site';
 import cves from '../data/cves.json';
 import tools from '../data/tools.json';
@@ -20,14 +21,6 @@ const latestTool = tools[0];
 // Get latest blog post
 const posts = await getCollection('blog');
 const latestPost = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
-
-// Severity pill styling for the featured CVE
-const sevPill: Record<string, string> = {
-  Critical: 'bg-ochre text-deep-navy',
-  High: 'border border-high text-high',
-  Medium: 'border border-medium text-medium',
-  Low: 'border border-low text-low',
-};
 ---
 
 <MainLayout title={`${siteConfig.name} - ${siteConfig.role}`}>
@@ -91,14 +84,7 @@ const sevPill: Record<string, string> = {
             class="group flex min-h-[360px] flex-col justify-between border border-outline-variant bg-surface-container p-8 transition-colors hover:border-ochre/60 md:col-span-8 md:p-12"
           >
             <div class="flex items-start justify-between">
-              <span
-                class:list={[
-                  'px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-widest',
-                  sevPill[latestCve.severity] ?? sevPill.Medium,
-                ]}
-              >
-                {latestCve.severity}
-              </span>
+              <SeverityBadge severity={latestCve.severity} />
               <span class="font-mono text-xs text-sand">{latestCve.id}</span>
             </div>
             <div>

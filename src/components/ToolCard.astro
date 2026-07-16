@@ -1,0 +1,45 @@
+---
+import { Icon } from 'astro-icon/components';
+import { languageColors } from '../data/site';
+
+interface Props {
+  name: string;
+  description: string;
+  language: string;
+  icon: string;
+  url: string;
+}
+
+const { name, description, language, icon, url } = Astro.props;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="tool-card group flex min-h-[240px] flex-col border border-outline-variant bg-surface-container p-8 transition-colors hover:border-ochre/60"
+  data-name={name.toLowerCase()}
+  data-description={description.toLowerCase()}
+  data-language={language}
+>
+  <div class="flex items-start justify-between">
+    <span class="inline-flex items-center gap-2 border border-sand/30 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-sand">
+      <span class="h-2 w-2 rounded-full" style={`background-color: ${languageColors[language] || '#A9AEA0'}`}></span>
+      {language}
+    </span>
+    <Icon
+      name="lucide:arrow-up-right"
+      class="h-5 w-5 text-sand transition-colors group-hover:text-ochre"
+    />
+  </div>
+
+  <div class="mt-12 flex flex-1 flex-col">
+    <div class="mb-3 flex items-center gap-3">
+      <Icon name={icon} class="h-5 w-5 text-sand transition-colors group-hover:text-ochre" />
+      <h2 class="font-serif text-2xl font-medium text-paper transition-colors group-hover:text-ochre">
+        {name}
+      </h2>
+    </div>
+    <p class="text-sm leading-relaxed text-sand">{description}</p>
+  </div>
+</a>

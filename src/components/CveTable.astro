@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import Badge from './ui/Badge.astro';
+import SeverityBadge from './SeverityBadge.astro';
 
 interface CVE {
   id: string;
@@ -20,48 +20,47 @@ interface Props {
 const { cves, limit } = Astro.props;
 const displayedCves = limit ? cves.slice(0, limit) : cves;
 
-const severityVariant = (severity: string) => {
-  return severity.toLowerCase() as 'critical' | 'high' | 'medium' | 'low';
-};
+const dataAttrs = (cve: CVE) => ({
+  'data-cve-id': cve.id.toLowerCase(),
+  'data-cve-target': cve.target.toLowerCase(),
+  'data-cve-type': cve.type.toLowerCase(),
+  'data-cve-year': cve.date,
+});
 ---
 
 <!-- Desktop Table -->
-<div class="hidden overflow-hidden rounded-lg border border-border md:block">
-  <table class="w-full text-left text-sm">
-    <thead class="border-b border-border bg-surface-elevated text-xs uppercase text-text-muted">
-      <tr>
-        <th class="px-4 py-3 font-medium">ID</th>
-        <th class="px-4 py-3 font-medium">Target</th>
-        <th class="px-4 py-3 font-medium">Type</th>
-        <th class="px-4 py-3 font-medium">Date</th>
-        <th class="px-4 py-3 font-medium">Severity</th>
-        <th class="px-4 py-3 font-medium text-right">Reference</th>
+<div class="hidden overflow-x-auto border border-outline-variant bg-surface-container md:block">
+  <table class="w-full min-w-[720px] border-collapse text-left">
+    <thead>
+      <tr class="border-b border-outline-variant bg-surface-low">
+        <th class="w-48 px-6 py-5 font-mono text-xs uppercase tracking-widest text-sand">ID</th>
+        <th class="px-6 py-5 font-mono text-xs uppercase tracking-widest text-sand">Type</th>
+        <th class="px-6 py-5 font-mono text-xs uppercase tracking-widest text-sand">Product</th>
+        <th class="w-32 px-6 py-5 font-mono text-xs uppercase tracking-widest text-sand">Severity</th>
+        <th class="w-32 px-6 py-5 text-right font-mono text-xs uppercase tracking-widest text-sand">Link</th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-border">
+    <tbody class="divide-y divide-outline-variant">
       {displayedCves.map((cve) => (
-        <tr class="bg-surface transition-colors hover:bg-surface-elevated">
-          <td class="px-4 py-3 font-mono text-accent">{cve.id}</td>
-          <td class="px-4 py-3">
-            <div class="flex items-center gap-2">
-              <Icon name="lucide:box" class="h-4 w-4 text-text-muted" />
-              <span class="text-text-main">{cve.target}</span>
-            </div>
+        <tr class="cve-row group transition-colors hover:bg-surface-high" {...dataAttrs(cve)}>
+          <td class="px-6 py-6 font-mono text-xs tracking-widest text-paper">{cve.id}</td>
+          <td class="px-6 py-6 font-medium text-paper transition-colors group-hover:text-ochre">
+            {cve.type}
           </td>
-          <td class="px-4 py-3 text-text-muted">{cve.type}</td>
-          <td class="px-4 py-3 text-text-muted">{cve.date}</td>
-          <td class="px-4 py-3">
-            <Badge variant={severityVariant(cve.severity)}>{cve.severity}</Badge>
+          <td class="px-6 py-6 text-sand">{cve.product}</td>
+          <td class="px-6 py-6">
+            <SeverityBadge severity={cve.severity} />
           </td>
-          <td class="px-4 py-3 text-right">
+          <td class="px-6 py-6 text-right">
             <a
               href={cve.link}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center text-text-muted transition-colors hover:text-accent"
+              class="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-sand transition-colors hover:text-ochre"
               aria-label={`View reference for ${cve.id}`}
             >
-              <Icon name="lucide:external-link" class="h-4 w-4" />
+              View
+              <Icon name="lucide:arrow-right" class="h-4 w-4" />
             </a>
           </td>
         </tr>
@@ -73,25 +72,25 @@ const severityVariant = (severity: string) => {
 <!-- Mobile Cards -->
 <div class="flex flex-col gap-4 md:hidden">
   {displayedCves.map((cve) => (
-    <article class="rounded-lg border border-border bg-surface p-4">
-      <div class="flex items-start justify-between">
+    <article class="cve-row border border-outline-variant bg-surface-container p-5" {...dataAttrs(cve)}>
+      <div class="flex items-start justify-between gap-4">
         <div>
-          <span class="font-mono text-sm text-accent">{cve.id}</span>
-          <h3 class="mt-1 font-medium text-text-main">{cve.target}</h3>
+          <span class="font-mono text-xs tracking-widest text-paper">{cve.id}</span>
+          <h3 class="mt-2 font-serif text-xl font-medium text-paper">{cve.type}</h3>
+          <p class="mt-1 text-sm text-sand">{cve.product}</p>
         </div>
-        <Badge variant={severityVariant(cve.severity)}>{cve.severity}</Badge>
+        <SeverityBadge severity={cve.severity} />
       </div>
-      <p class="mt-2 text-sm text-text-muted">{cve.type}</p>
-      <div class="mt-3 flex items-center justify-between text-xs text-text-muted">
+      <div class="mt-4 flex items-center justify-between border-t border-outline-variant pt-4 font-mono text-xs uppercase tracking-widest text-sand">
         <span>{cve.date}</span>
         <a
           href={cve.link}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 text-accent"
+          class="inline-flex items-center gap-1 text-ochre"
         >
           View
-          <Icon name="lucide:external-link" class="h-3 w-3" />
+          <Icon name="lucide:arrow-right" class="h-4 w-4" />
         </a>
       </div>
     </article>

@@ -1,148 +1,120 @@
 ---
 import { Icon } from 'astro-icon/components';
 import MainLayout from '../layouts/MainLayout.astro';
-import { languageColors } from '../data/site';
+import PageHeader from '../components/PageHeader.astro';
+import FilterPills from '../components/FilterPills.astro';
+import ToolCard from '../components/ToolCard.astro';
+import { siteConfig, socialLinks } from '../data/site';
 import tools from '../data/tools.json';
 
-// Get unique languages for filters
-const languages = [...new Set(tools.map(t => t.language))].sort();
+const languages = [...new Set(tools.map((t) => t.language))].sort();
+const languageItems = [
+  { value: 'all', label: 'All' },
+  ...languages.map((l) => ({ value: l, label: l })),
+];
+
+const githubUrl = socialLinks.find((l) => l.name === 'GitHub')?.href ?? '#';
 ---
 
-<MainLayout title="Tools - Joshua Martinelle" description="A collection of open source security tools, automation scripts, and vulnerability scanners.">
-  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-    <!-- Breadcrumb -->
-    <nav class="mb-6 text-sm text-text-muted">
-      <a href="/" class="hover:text-accent">Home</a>
-      <span class="mx-2">/</span>
-      <span class="text-text-main">Tools</span>
-    </nav>
+<MainLayout
+  title="Tools - Joshua Martinelle"
+  description="A collection of open source security tools, automation scripts, and vulnerability scanners."
+>
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
+    <PageHeader
+      eyebrow="Open Source"
+      title="Security Tools"
+      description="A collection of specialized utilities engineered for vulnerability research, automated reconnaissance, and system integrity analysis. Designed for precision and speed, and open-sourced for the broader security community."
+    />
 
-    <!-- Header -->
-    <header class="mb-10">
-      <h1 class="text-3xl font-bold text-text-main sm:text-4xl">
-        <span class="text-accent">Security</span> Tools & Research
-      </h1>
-      <p class="mt-4 max-w-xl text-text-muted">
-        A collection of open source CLI tools, automation scripts, and vulnerability scanners built for the bug bounty and red team community.
-      </p>
-    </header>
-
-    <!-- Search & Filters -->
+    <!-- Search & filters -->
     <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <!-- Search -->
       <div class="relative max-w-md flex-1">
-        <Icon name="lucide:search" class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
+        <Icon
+          name="lucide:search"
+          class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-sand"
+        />
         <input
           type="text"
           id="tool-search"
           placeholder="Search repositories (e.g. 'recon', 'scanner')..."
-          class="w-full rounded-lg border border-border bg-surface py-2.5 pl-11 pr-4 text-sm text-text-main placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          class="w-full border border-outline-variant bg-surface-container py-2.5 pl-11 pr-4 text-sm text-paper placeholder:text-sand focus:border-ochre focus:outline-none"
         />
       </div>
-
-      <!-- Filter Pills -->
-      <div class="flex flex-wrap items-center gap-2">
-        <button
-          data-filter="all"
-          class="filter-btn active rounded-md border border-accent bg-surface px-3 py-1.5 text-sm font-medium text-text-main transition-colors"
-        >
-          All
-        </button>
-        {languages.map((lang) => (
-          <button
-            data-filter={lang}
-            class="filter-btn rounded-md border border-border px-3 py-1.5 text-sm font-medium text-text-muted transition-colors hover:border-border-hover hover:text-text-main"
-          >
-            {lang}
-          </button>
-        ))}
-      </div>
+      <FilterPills items={languageItems} group="languages" />
     </div>
 
-    <!-- Tools Grid -->
-    <div id="tools-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- Tools grid -->
+    <div id="tools-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {tools.map((tool) => (
-        <a
-          href={tool.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="tool-card group flex flex-col rounded-lg border border-border bg-surface p-5 transition-all hover:border-border-hover"
-          data-name={tool.name.toLowerCase()}
-          data-description={tool.description.toLowerCase()}
-          data-language={tool.language}
-          data-category={tool.category}
-        >
-          <!-- Header -->
-          <div class="flex items-start justify-between">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-surface-elevated text-accent">
-              <Icon name={tool.icon} class="h-5 w-5" />
-            </div>
-            <Icon name="lucide:arrow-up-right" class="h-5 w-5 text-text-muted transition-colors group-hover:text-text-main" />
-          </div>
-
-          <!-- Content -->
-          <h3 class="mt-4 font-semibold text-text-main">
-            {tool.name}
-          </h3>
-          <p class="mt-2 flex-1 text-sm leading-relaxed text-text-muted">
-            {tool.description}
-          </p>
-
-          <!-- Footer -->
-          <div class="mt-4 flex items-center gap-2">
-            <span 
-              class="h-3 w-3 rounded-full" 
-              style={`background-color: ${languageColors[tool.language] || '#A3A3A3'}`}
-            ></span>
-            <span class="text-sm text-text-muted">{tool.language}</span>
-          </div>
-        </a>
+        <ToolCard
+          name={tool.name}
+          description={tool.description}
+          language={tool.language}
+          icon={tool.icon}
+          url={tool.url}
+        />
       ))}
     </div>
 
-    {tools.length === 0 && (
-      <div class="rounded-lg border border-border bg-surface p-10 text-center">
-        <p class="text-text-muted">No tools published yet.</p>
+    <p id="tools-empty" class="hidden border border-outline-variant bg-surface-container p-10 text-center text-sand">
+      No tools match your search.
+    </p>
+
+    <!-- More on GitHub -->
+    <div class="mt-24 flex flex-col items-start justify-between gap-6 border-t border-outline-variant pt-12 md:flex-row md:items-center">
+      <div>
+        <h3 class="mb-2 font-serif text-2xl font-medium text-paper">More on GitHub</h3>
+        <p class="max-w-md text-sm text-sand">
+          Scripts, dotfiles, and minor utilities are available in the public repositories.
+        </p>
       </div>
-    )}
+      <a
+        href={githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ochre transition-colors hover:text-paper"
+      >
+        View Full Profile
+        <Icon name="lucide:arrow-right" class="h-4 w-4" />
+      </a>
+    </div>
   </section>
 
   <script>
     const searchInput = document.getElementById('tool-search') as HTMLInputElement;
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const toolCards = document.querySelectorAll('.tool-card');
+    const cards = document.querySelectorAll<HTMLElement>('.tool-card');
+    const empty = document.getElementById('tools-empty');
 
-    let currentFilter = 'all';
+    let currentLang = 'all';
 
-    function filterTools() {
-      const searchTerm = searchInput.value.toLowerCase();
+    function applyFilters() {
+      const term = searchInput.value.toLowerCase();
+      let visibleCount = 0;
 
-      toolCards.forEach(card => {
+      cards.forEach((card) => {
         const name = card.dataset.name || '';
         const description = card.dataset.description || '';
         const language = card.dataset.language || '';
 
-        const matchesSearch = name.includes(searchTerm) || description.includes(searchTerm);
-        const matchesFilter = currentFilter === 'all' || language === currentFilter;
+        const matchesSearch = name.includes(term) || description.includes(term);
+        const matchesLang = currentLang === 'all' || language === currentLang;
+        const visible = matchesSearch && matchesLang;
 
-        (card as HTMLElement).style.display = matchesSearch && matchesFilter ? '' : 'none';
+        card.style.display = visible ? '' : 'none';
+        if (visible) visibleCount++;
       });
+
+      if (empty) empty.classList.toggle('hidden', visibleCount > 0);
     }
 
-    searchInput.addEventListener('input', filterTools);
+    searchInput.addEventListener('input', applyFilters);
 
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterButtons.forEach(b => {
-          b.classList.remove('active', 'border-accent', 'text-text-main');
-          b.classList.add('border-border', 'text-text-muted');
-        });
-        btn.classList.add('active', 'border-accent', 'text-text-main');
-        btn.classList.remove('border-border', 'text-text-muted');
-        
-        currentFilter = (btn as HTMLElement).dataset.filter || 'all';
-        filterTools();
-      });
+    document.addEventListener('filter-change', (e) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail.group !== 'languages') return;
+      currentLang = detail.value;
+      applyFilters();
     });
   </script>
 </MainLayout>

@@ -1,0 +1,55 @@
+---
+interface Item {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  items: Item[];
+  group: string;
+  label?: string;
+}
+
+const { items, group, label } = Astro.props;
+---
+
+<div class="flex flex-wrap items-center gap-x-2 gap-y-3">
+  {label && (
+    <span class="mr-4 font-mono text-xs uppercase tracking-widest text-sand">{label}</span>
+  )}
+  <div class="flex flex-wrap items-center gap-2" data-filter-pills={group}>
+    {items.map((item, i) => (
+      <button
+        type="button"
+        data-filter={item.value}
+        class:list={[
+          'filter-pill px-4 py-1.5 font-mono text-xs uppercase tracking-widest transition-colors',
+          i === 0 && 'is-active',
+        ]}
+      >
+        {item.label}
+      </button>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-filter-pills]').forEach((group) => {
+    const pills = group.querySelectorAll<HTMLButtonElement>('.filter-pill');
+    pills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        pills.forEach((p) => p.classList.remove('is-active'));
+        pill.classList.add('is-active');
+        group.dispatchEvent(
+          new CustomEvent('filter-change', {
+            bubbles: true,
+            detail: {
+              group: group.dataset.filterPills,
+              value: pill.dataset.filter,
+            },
+          })
+        );
+      });
+    });
+  });
+</script>

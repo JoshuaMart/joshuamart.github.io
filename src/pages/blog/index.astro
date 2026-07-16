@@ -1,156 +1,72 @@
 ---
 import { getCollection } from 'astro:content';
-import { Icon } from 'astro-icon/components';
 import MainLayout from '../../layouts/MainLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import FilterPills from '../../components/FilterPills.astro';
+import PostListItem from '../../components/PostListItem.astro';
 
 const posts = await getCollection('blog');
 const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-// Get all unique tags
-const allTags = [...new Set(posts.flatMap(post => post.data.tags || []))].sort();
-
-function formatDate(date: Date) {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-}
-
-function getReadingTime(content: string) {
-  const wordsPerMinute = 200;
-  const words = content.split(/\s+/).length;
-  return Math.ceil(words / wordsPerMinute);
-}
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))].sort();
+const tagItems = [
+  { value: 'all', label: './ALL' },
+  ...allTags.map((t) => ({ value: t, label: `#${t}` })),
+];
 ---
 
-<MainLayout title="Blog - Joshua Martinelle" description="Technical articles about security research, bug bounty, and malware analysis.">
-  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-    <!-- Breadcrumb -->
-    <nav class="mb-6 text-sm text-text-muted">
-      <a href="/" class="hover:text-accent">Home</a>
-      <span class="mx-2">/</span>
-      <span class="text-text-main">Blog</span>
-    </nav>
+<MainLayout
+  title="Blog - Joshua Martinelle"
+  description="Technical articles about security research, bug bounty, and malware analysis."
+>
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
+    <PageHeader
+      title="Research Journal"
+      description="Analysis, methodologies, and technical perspectives on contemporary security challenges."
+      class="border-b border-outline-variant pb-10"
+    />
 
-    <!-- Header -->
-    <header class="mb-10">
-      <h1 class="text-3xl font-bold text-text-main sm:text-4xl">Research Log</h1>
-      <p class="mt-4 max-w-xl text-text-muted">
-        Technical deep-dives into malware analysis, bug bounty write-ups, and zero-day research findings.
-      </p>
-    </header>
-
-    <!-- Tag Filters -->
-    <div class="mb-10 flex flex-wrap items-center gap-2">
-      <button
-        data-filter="all"
-        class="filter-btn active rounded-full border border-accent bg-accent/10 px-3 py-1 font-mono text-xs font-medium text-accent transition-colors"
-      >
-        ./ALL
-      </button>
-      {allTags.map((tag) => (
-        <button
-          data-filter={tag}
-          class="filter-btn rounded-full border border-border px-3 py-1 text-xs font-medium text-text-muted transition-colors hover:border-border-hover hover:text-text-main"
-        >
-          #{tag}
-        </button>
-      ))}
+    <!-- Tag filters -->
+    <div class="mb-12">
+      <FilterPills items={tagItems} group="tags" />
     </div>
 
-    <!-- Posts Grid -->
-    <div id="posts-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- Article list -->
+    <div id="posts-list" class="flex flex-col">
       {sortedPosts.map((post) => (
-        <article 
-          class="post-card group overflow-hidden rounded-lg border border-border bg-surface transition-all hover:border-border-hover"
-          data-tags={JSON.stringify(post.data.tags || [])}
-        >
-          <!-- Image with tag overlay -->
-          <div class="relative">
-            {post.data.image ? (
-              <img src={post.data.image} alt={post.data.title} class="aspect-video w-full object-cover" />
-            ) : (
-              <div class="aspect-video bg-surface-elevated"></div>
-            )}
-            {post.data.tags && post.data.tags[0] && (
-              <span class="absolute left-3 top-3 rounded bg-accent/90 px-2 py-0.5 text-xs font-medium text-background">
-                #{post.data.tags[0].toUpperCase()}
-              </span>
-            )}
-          </div>
-          
-          <div class="p-5">
-            <!-- Date & Reading time -->
-            <div class="mb-3 flex items-center gap-2 font-mono text-xs text-text-muted">
-              <span class="flex items-center gap-1">
-                <Icon name="lucide:calendar" class="h-3 w-3" />
-                {formatDate(post.data.date)}
-              </span>
-              <span class="text-text-muted">•</span>
-              <span class="flex items-center gap-1">
-                <Icon name="lucide:clock" class="h-3 w-3" />
-                {getReadingTime(post.body || '')} min read
-              </span>
-            </div>
-            
-            <!-- Title -->
-            <h2 class="text-lg font-semibold leading-tight">
-              <a href={`/blog/${post.id}`} class="text-text-main transition-colors hover:text-accent">
-                {post.data.title}
-              </a>
-            </h2>
-            
-            <!-- Description -->
-            <p class="mt-3 text-sm leading-relaxed text-text-muted line-clamp-3">
-              {post.data.description}
-            </p>
-            
-            <!-- Read Article Link -->
-            <a
-              href={`/blog/${post.id}`}
-              class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-text-main transition-colors hover:text-accent"
-            >
-              Read Article
-              <Icon name="lucide:arrow-right" class="h-4 w-4" />
-            </a>
-          </div>
-        </article>
+        <PostListItem
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          slug={post.id}
+          tags={post.data.tags}
+        />
       ))}
     </div>
 
-    {sortedPosts.length === 0 && (
-      <div class="rounded-lg border border-border bg-surface p-10 text-center">
-        <p class="text-text-muted">No articles published yet.</p>
-      </div>
-    )}
+    <p id="posts-empty" class="hidden py-16 text-center text-sand">
+      No articles match this filter.
+    </p>
   </section>
 
   <script>
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const postCards = document.querySelectorAll('.post-card');
+    const items = document.querySelectorAll<HTMLElement>('.post-item');
+    const empty = document.getElementById('posts-empty');
 
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Update active state
-        filterButtons.forEach(b => {
-          b.classList.remove('active', 'border-accent', 'bg-accent/10', 'text-accent');
-          b.classList.add('border-border', 'text-text-muted');
-        });
-        btn.classList.add('active', 'border-accent', 'bg-accent/10', 'text-accent');
-        btn.classList.remove('border-border', 'text-text-muted');
+    document.addEventListener('filter-change', (e) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail.group !== 'tags') return;
+      const filter = detail.value;
+      let visibleCount = 0;
 
-        const filter = btn.dataset.filter;
-
-        postCards.forEach(card => {
-          if (filter === 'all') {
-            card.style.display = '';
-          } else {
-            const tags = JSON.parse(card.dataset.tags || '[]');
-            card.style.display = tags.includes(filter) ? '' : 'none';
-          }
-        });
+      items.forEach((item) => {
+        const tags = JSON.parse(item.dataset.tags || '[]');
+        const visible = filter === 'all' || tags.includes(filter);
+        item.style.display = visible ? '' : 'none';
+        if (visible) visibleCount++;
       });
+
+      if (empty) empty.classList.toggle('hidden', visibleCount > 0);
     });
   </script>
 </MainLayout>

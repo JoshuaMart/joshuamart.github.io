@@ -1,0 +1,52 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  slug: string;
+  tags?: string[];
+}
+
+const { title, description, date, slug, tags = [] } = Astro.props;
+
+const formattedDate = date
+  .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+  .toUpperCase();
+
+const category = tags[0];
+---
+
+<article
+  class="post-item group border-b border-outline-variant pt-4 pb-8 transition-colors hover:border-sand"
+  data-tags={JSON.stringify(tags)}
+>
+  <a href={`/blog/${slug}`} class="block focus:outline-none">
+    <div class="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
+      {category && (
+        <span class="inline-flex w-max border border-ochre px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-ochre">
+          {category}
+        </span>
+      )}
+      <time datetime={date.toISOString()} class="font-mono text-xs uppercase tracking-widest text-sand">
+        {formattedDate}
+      </time>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6">
+      <div class="md:col-span-9">
+        <h2 class="mb-3 font-serif text-2xl font-medium text-paper transition-colors group-hover:text-ochre sm:text-3xl">
+          {title}
+        </h2>
+        <p class="max-w-2xl leading-relaxed text-sand line-clamp-3">{description}</p>
+      </div>
+      <div class="hidden items-start justify-end md:col-span-3 md:flex">
+        <Icon
+          name="lucide:arrow-right"
+          class="h-6 w-6 text-paper opacity-0 transition-opacity group-hover:opacity-100"
+        />
+      </div>
+    </div>
+  </a>
+</article>

@@ -1,0 +1,25 @@
+---
+interface Props {
+  severity: 'Critical' | 'High' | 'Medium' | 'Low';
+  class?: string;
+}
+
+const { severity, class: className = '' } = Astro.props;
+
+const styles: Record<string, string> = {
+  Critical: 'bg-ochre text-deep-navy',
+  High: 'border border-high text-high',
+  Medium: 'border border-medium text-medium',
+  Low: 'border border-low text-low',
+};
+---
+
+<span
+  class:list={[
+    'inline-block px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-widest',
+    styles[severity] ?? styles.Medium,
+    className,
+  ]}
+>
+  {severity}
+</span>
