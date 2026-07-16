@@ -1,9 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import MainLayout from '../layouts/MainLayout.astro';
 import SeverityBadge from '../components/SeverityBadge.astro';
 import LineworkAccent from '../components/LineworkAccent.astro';
+import heroImage from '../assets/image_home.png';
 import { siteConfig } from '../data/site';
 import cves from '../data/cves.json';
 import tools from '../data/tools.json';
@@ -48,13 +50,14 @@ const latestPost = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getT
 
       <div class="relative md:col-span-7">
         <div class="relative aspect-[4/3] w-full overflow-hidden border border-outline-variant bg-surface-container p-1">
-          <img
-            src="/images/image_home.png"
+          <Image
+            src={heroImage}
             alt="Editorial composition of geometric line work in navy and ochre over paper, representing security research and system integrity analysis."
             class="h-full w-full object-cover brightness-95"
+            widths={[640, 960, 1376]}
+            sizes="(min-width: 768px) 672px, 100vw"
             loading="eager"
-            width="1376"
-            height="768"
+            fetchpriority="high"
           />
         </div>
         <!-- Decorative accent -->
