@@ -60,16 +60,16 @@ const ogImageUrl = image.startsWith('http') ? image : new URL(image, siteConfig.
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     
     <!-- Theme Color -->
-    <meta name="theme-color" content="#0a0a0a" />
-    <meta name="msapplication-TileColor" content="#0a0a0a" />
+    <meta name="theme-color" content="#0A1728" />
+    <meta name="msapplication-TileColor" content="#0A1728" />
 
     <!-- Umami Analytics -->
     <script defer src="https://stats.mrtsec.xyz/script.js" data-website-id="1a333f9d-e53d-442c-b600-26b08fa9a212"></script>
   </head>
-  <body class="flex min-h-screen flex-col bg-background text-text-main">
+  <body class="flex min-h-screen flex-col bg-deep-navy text-text-main antialiased">
     <Navbar currentPath={currentPath} />
-    
-    <main class="flex-1 pt-16">
+
+    <main class="flex-1">
       <slot />
     </main>
     

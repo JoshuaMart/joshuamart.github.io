@@ -9,6 +9,8 @@ export const siteConfig = {
   siteUrl: 'https://www.jomar.fr',
   ogImage: '/images/og-image.jpeg',
   twitterHandle: '@J0_mart',
+  contactEmail: 'joshua.martinelle@gmail.com',
+  company: 'Tenable',
   locale: 'en',
 };
 

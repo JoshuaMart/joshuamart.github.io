@@ -1,25 +1,41 @@
 @import "tailwindcss";
 
 /* Fonts */
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/500.css";
-@import "@fontsource/inter/600.css";
-@import "@fontsource/inter/700.css";
+@import "@fontsource/eb-garamond/500.css";
+@import "@fontsource/eb-garamond/600.css";
+@import "@fontsource/hanken-grotesk/400.css";
+@import "@fontsource/hanken-grotesk/500.css";
+@import "@fontsource/hanken-grotesk/700.css";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
 
-/* Design System - Custom Theme */
+/* Design System - Editorial Intelligence Theme */
 @theme {
-  /* Colors */
-  --color-background: #0a0a0a;
-  --color-surface: #121212;
-  --color-surface-elevated: #1a1a1a;
-  --color-accent: #FFC107;
-  --color-accent-hover: #FFD54F;
-  --color-text-main: #E5E5E5;
-  --color-text-muted: #A3A3A3;
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-hover: rgba(255, 255, 255, 0.2);
+  /* Core palette */
+  --color-deep-navy: #0A1728;
+  --color-navy: #10233B;
+  --color-paper: #F3ECDD;
+  --color-sand: #A9AEA0;
+  --color-ochre: #D6A75B;
+  --color-ochre-hover: #e2ba76;
+
+  /* Surfaces */
+  --color-background: #0A1728;
+  --color-surface: #142031;
+  --color-surface-container: #142031;
+  --color-surface-elevated: #1e2b3c;
+
+  /* Text */
+  --color-text-main: #F3ECDD;
+  --color-text-muted: #A9AEA0;
+  --color-on-surface-variant: #c4c6ce;
+
+  /* Lines / accents */
+  --color-accent: #D6A75B;
+  --color-accent-hover: #e2ba76;
+  --color-border: #44474d;
+  --color-border-hover: #6a6e75;
+  --color-outline-variant: #44474d;
 
   /* Severity colors for CVE badges */
   --color-critical: #EF4444;
@@ -28,7 +44,8 @@
   --color-low: #22C55E;
 
   /* Fonts */
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "EB Garamond", Georgia, serif;
+  --font-sans: "Hanken Grotesk", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 

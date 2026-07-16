@@ -2,138 +2,197 @@
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import MainLayout from '../layouts/MainLayout.astro';
-import Terminal from '../components/Terminal.astro';
-import CveCard from '../components/CveCard.astro';
-import BlogCard from '../components/BlogCard.astro';
-import { siteConfig, languageColors } from '../data/site';
+import { siteConfig } from '../data/site';
 import cves from '../data/cves.json';
 import tools from '../data/tools.json';
 
-// Get 1 most recent CVE
-const latestCve = [...cves]
-  .sort((a, b) => {
-    const dateCompare = b.date.localeCompare(a.date);
-    if (dateCompare !== 0) return dateCompare;
-    const severityOrder = { Critical: 0, High: 1, Medium: 2, Low: 3 };
-    return severityOrder[a.severity] - severityOrder[b.severity];
-  })[0];
+// Get most recent CVE (by year desc, then severity)
+const severityOrder = { Critical: 0, High: 1, Medium: 2, Low: 3 } as const;
+const latestCve = [...cves].sort((a, b) => {
+  const dateCompare = b.date.localeCompare(a.date);
+  if (dateCompare !== 0) return dateCompare;
+  return severityOrder[a.severity] - severityOrder[b.severity];
+})[0];
 
-// Get 1 latest tool
+// Get latest tool
 const latestTool = tools[0];
 
 // Get latest blog post
 const posts = await getCollection('blog');
 const latestPost = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
+
+// Severity pill styling for the featured CVE
+const sevPill: Record<string, string> = {
+  Critical: 'bg-ochre text-deep-navy',
+  High: 'border border-high text-high',
+  Medium: 'border border-medium text-medium',
+  Low: 'border border-low text-low',
+};
 ---
 
-<MainLayout title={`${siteConfig.name} - ${siteConfig.role} & ${siteConfig.secondaryRole}`}>
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden">
-    <div class="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
-      <div class="flex flex-col items-center text-center">
-        <!-- Name -->
-        <h1 class="text-4xl font-bold tracking-tight text-text-main sm:text-5xl md:text-6xl">
-          {siteConfig.name}
+<MainLayout title={`${siteConfig.name} - ${siteConfig.role}`}>
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
+    <!-- Hero -->
+    <section class="mb-28 grid grid-cols-1 items-center gap-10 md:mb-32 md:grid-cols-12 md:gap-8">
+      <div class="z-10 md:col-span-5 md:pr-8">
+        <h1 class="mb-6 font-serif text-5xl font-medium leading-tight tracking-tight text-paper sm:text-6xl">
+          Security Engineer
+          <span class="mt-2 block font-serif text-3xl font-medium text-sand sm:text-4xl">
+            @ {siteConfig.company}
+          </span>
         </h1>
-        
-        <!-- Role -->
-        <p class="mt-4 text-lg text-accent sm:text-xl">
-          {siteConfig.role}
-          <span class="mx-2 text-text-muted">|</span>
-          {siteConfig.secondaryRole}
+        <p class="mb-8 max-w-lg text-lg leading-relaxed text-sand">
+          I uncover vulnerabilities, dissect complex systems, and contribute to a safer
+          digital ecosystem through rigorous research and disclosure.
         </p>
-        
-        <!-- Terminal -->
-        <Terminal class="mt-10 w-full max-w-xl" />
-        
-        <!-- CTA Buttons -->
-        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="/cves"
-            class="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-background transition-colors hover:bg-accent-hover"
-          >
-            <Icon name="lucide:shield-alert" class="h-4 w-4" />
-            View CVEs
-          </a>
-          <a
-            href="/blog"
-            class="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-text-main transition-colors hover:border-border-hover hover:bg-surface-elevated"
-          >
-            <Icon name="lucide:book-open" class="h-4 w-4" />
-            Read Blog
-          </a>
-          <a
-            href="/tools"
-            class="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-text-main transition-colors hover:border-border-hover hover:bg-surface-elevated"
-          >
-            <Icon name="lucide:wrench" class="h-4 w-4" />
-            Tools
-          </a>
+        <div class="flex flex-col gap-3 font-mono text-xs uppercase tracking-widest text-sand sm:flex-row sm:items-center sm:gap-4">
+          <span>// Bug Hunter</span>
+          <span class="hidden text-ochre sm:inline">&bull;</span>
+          <span>Web Security Researcher</span>
         </div>
       </div>
-    </div>
-  </section>
-  
-  <!-- Latest Intelligence Section -->
-  <section class="border-t border-border bg-surface/50">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-      <div class="flex items-center justify-between">
-        <h2 class="text-2xl font-bold text-text-main sm:text-3xl">Latest Intelligence</h2>
+
+      <div class="relative md:col-span-7">
+        <div class="relative aspect-[4/3] w-full overflow-hidden border border-outline-variant bg-surface-container p-1">
+          <img
+            src="/images/image_home.png"
+            alt="Editorial composition of geometric line work in navy and ochre over paper, representing security research and system integrity analysis."
+            class="h-full w-full object-cover brightness-95"
+            loading="eager"
+            width="1376"
+            height="768"
+          />
+        </div>
+        <!-- Decorative accent -->
+        <div class="absolute -bottom-6 -left-6 hidden h-24 w-24 border-b border-l border-ochre opacity-50 md:block"></div>
+      </div>
+    </section>
+
+    <!-- Selected Work -->
+    <section class="mb-28 md:mb-32">
+      <div class="mb-10 flex items-end justify-between border-b border-outline-variant pb-4">
+        <h2 class="font-serif text-3xl font-medium text-paper sm:text-4xl">Selected Work</h2>
         <a
           href="/cves"
-          class="inline-flex items-center gap-1 text-sm text-text-muted transition-colors hover:text-accent"
+          class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-sand transition-colors hover:text-ochre"
         >
-          View all work
+          View Archive
           <Icon name="lucide:arrow-right" class="h-4 w-4" />
         </a>
       </div>
-      
-      <!-- Latest CVE + Tool + Blog Post -->
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-12">
+        <!-- Featured CVE -->
         {latestCve && (
-          <CveCard
-            id={latestCve.id}
-            target={latestCve.target}
-            type={latestCve.type}
-            severity={latestCve.severity}
-            date={latestCve.date}
-            link={latestCve.link}
-          />
-        )}
-        
-        {latestTool && (
           <a
-            href={latestTool.url}
+            href={latestCve.link}
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex flex-col rounded-lg border border-border bg-surface p-5 transition-all hover:border-border-hover"
+            class="group flex min-h-[360px] flex-col justify-between border border-outline-variant bg-surface-container p-8 transition-colors hover:border-ochre/60 md:col-span-8 md:p-12"
           >
             <div class="flex items-start justify-between">
-              <div class="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-surface-elevated text-accent">
-                <Icon name={latestTool.icon} class="h-5 w-5" />
-              </div>
-              <Icon name="lucide:arrow-up-right" class="h-5 w-5 text-text-muted transition-colors group-hover:text-text-main" />
+              <span
+                class:list={[
+                  'px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-widest',
+                  sevPill[latestCve.severity] ?? sevPill.Medium,
+                ]}
+              >
+                {latestCve.severity}
+              </span>
+              <span class="font-mono text-xs text-sand">{latestCve.id}</span>
             </div>
-            <h3 class="mt-4 font-semibold text-text-main">{latestTool.name}</h3>
-            <p class="mt-2 flex-1 text-sm leading-relaxed text-text-muted">{latestTool.description}</p>
-            <div class="mt-4 flex items-center gap-2">
-              <span class="h-3 w-3 rounded-full" style={`background-color: ${languageColors[latestTool.language] || '#A3A3A3'}`}></span>
-              <span class="text-sm text-text-muted">{latestTool.language}</span>
+            <div>
+              <h3 class="mb-4 font-serif text-2xl font-medium text-paper transition-colors group-hover:text-ochre sm:text-3xl">
+                {latestCve.type} in {latestCve.target}
+              </h3>
+              <p class="max-w-2xl text-base leading-relaxed text-sand">
+                Latest disclosed vulnerability affecting {latestCve.product}. Read the full
+                advisory and technical breakdown.
+              </p>
             </div>
           </a>
         )}
-        
-        {latestPost && (
-          <BlogCard
-            title={latestPost.data.title}
-            description={latestPost.data.description}
-            date={latestPost.data.date}
-            slug={latestPost.id}
-            tags={latestPost.data.tags}
-            image={latestPost.data.image}
-          />
-        )}
+
+        <div class="flex flex-col gap-6 md:col-span-4">
+          <!-- Featured Tool -->
+          {latestTool && (
+            <a
+              href={latestTool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex flex-1 flex-col justify-center border border-outline-variant bg-surface-container p-6 transition-colors hover:border-ochre/60"
+            >
+              <div class="mb-4 flex items-center gap-3">
+                <Icon name={latestTool.icon} class="h-5 w-5 text-sand" />
+                <span class="font-mono text-[10px] uppercase tracking-widest text-sand">
+                  Open Source Tool
+                </span>
+              </div>
+              <h4 class="mb-2 text-lg font-medium text-paper transition-colors group-hover:text-ochre">
+                {latestTool.name}
+              </h4>
+              <p class="text-sm leading-relaxed text-sand">{latestTool.description}</p>
+            </a>
+          )}
+
+          <!-- Latest Blog Post -->
+          {latestPost && (
+            <a
+              href={`/blog/${latestPost.id}`}
+              class="group flex flex-1 flex-col justify-center border border-outline-variant bg-surface-container p-6 transition-colors hover:border-ochre/60"
+            >
+              <div class="mb-4 flex items-center gap-3">
+                <Icon name="lucide:file-text" class="h-5 w-5 text-sand" />
+                <span class="font-mono text-[10px] uppercase tracking-widest text-sand">
+                  Research Blog
+                </span>
+              </div>
+              <h4 class="mb-2 text-lg font-medium text-paper transition-colors group-hover:text-ochre">
+                {latestPost.data.title}
+              </h4>
+              <p class="text-sm leading-relaxed text-sand line-clamp-3">
+                {latestPost.data.description}
+              </p>
+            </a>
+          )}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Entry Points -->
+    <section class="border border-outline-variant">
+      <div class="grid grid-cols-1 divide-y divide-outline-variant md:grid-cols-3 md:divide-x md:divide-y-0">
+        <a
+          href="/cves"
+          class="group flex flex-col items-center p-12 text-center transition-colors hover:bg-surface-container"
+        >
+          <Icon name="lucide:bug" class="mb-6 h-12 w-12 text-sand transition-colors group-hover:text-ochre" />
+          <h3 class="mb-2 font-serif text-2xl font-medium text-paper">Vulnerability Disclosures</h3>
+          <p class="text-sm leading-relaxed text-sand">
+            Read detailed technical breakdowns of past findings and CVEs.
+          </p>
+        </a>
+        <a
+          href="/blog"
+          class="group flex flex-col items-center p-12 text-center transition-colors hover:bg-surface-container"
+        >
+          <Icon name="lucide:pen-tool" class="mb-6 h-12 w-12 text-sand transition-colors group-hover:text-ochre" />
+          <h3 class="mb-2 font-serif text-2xl font-medium text-paper">Research Blog</h3>
+          <p class="text-sm leading-relaxed text-sand">
+            Thoughts on web security, methodologies, and industry trends.
+          </p>
+        </a>
+        <a
+          href="/tools"
+          class="group flex flex-col items-center p-12 text-center transition-colors hover:bg-surface-container"
+        >
+          <Icon name="lucide:wrench" class="mb-6 h-12 w-12 text-sand transition-colors group-hover:text-ochre" />
+          <h3 class="mb-2 font-serif text-2xl font-medium text-paper">Security Tools</h3>
+          <p class="text-sm leading-relaxed text-sand">
+            Open-source scripts and utilities developed for security assessments.
+          </p>
+        </a>
+      </div>
+    </section>
+  </div>
 </MainLayout>
