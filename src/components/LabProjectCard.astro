@@ -1,0 +1,28 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  language: string;
+  status: string;
+}
+
+const { name, description, language, status } = Astro.props;
+---
+
+<article class="flex min-h-[240px] flex-col border border-sand/10 bg-surface-container/50 p-8 opacity-80">
+  <div class="flex items-start justify-between">
+    <span class="inline-flex border border-sand/10 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-sand/50">
+      {language}
+    </span>
+  </div>
+
+  <div class="mt-10 flex-1">
+    <h2 class="mb-3 font-serif text-2xl font-medium text-sand/80">{name}</h2>
+    <p class="text-sm leading-relaxed text-sand/60">{description}</p>
+  </div>
+
+  <div class="mt-8 flex items-center gap-2 border-t border-sand/10 pt-6 font-mono text-[11px] uppercase tracking-widest text-sand/50">
+    <span class="h-2 w-2 rounded-full bg-sand/30"></span>
+    {status}
+  </div>
+</article>

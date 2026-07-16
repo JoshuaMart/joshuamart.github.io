@@ -4,8 +4,10 @@ import MainLayout from '../layouts/MainLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import FilterPills from '../components/FilterPills.astro';
 import ToolCard from '../components/ToolCard.astro';
+import LabProjectCard from '../components/LabProjectCard.astro';
 import { siteConfig, socialLinks } from '../data/site';
 import tools from '../data/tools.json';
+import labProjects from '../data/lab-projects.json';
 
 const languages = [...new Set(tools.map((t) => t.language))].sort();
 const languageItems = [
@@ -60,6 +62,26 @@ const githubUrl = socialLinks.find((l) => l.name === 'GitHub')?.href ?? '#';
     <p id="tools-empty" class="hidden border border-outline-variant bg-surface-container p-10 text-center text-sand">
       No tools match your search.
     </p>
+
+    <!-- In the lab (private / in-progress projects) -->
+    {labProjects.length > 0 && (
+      <section class="mt-24">
+        <div class="mb-8 flex items-center">
+          <div class="mr-4 h-px w-12 bg-sand/30"></div>
+          <span class="font-mono text-xs uppercase tracking-widest text-sand/60">In the lab</span>
+        </div>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {labProjects.map((project) => (
+            <LabProjectCard
+              name={project.name}
+              description={project.description}
+              language={project.language}
+              status={project.status}
+            />
+          ))}
+        </div>
+      </section>
+    )}
 
     <!-- More on GitHub -->
     <div class="mt-24 flex flex-col items-start justify-between gap-6 border-t border-outline-variant pt-12 md:flex-row md:items-center">

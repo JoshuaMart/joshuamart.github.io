@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Project Aether",
+    "description": "Experimental static analysis framework for identifying memory corruption patterns in legacy firmware binaries. Currently in private development.",
+    "language": "C++ / LLVM",
+    "status": "In progress"
+  }
+]
