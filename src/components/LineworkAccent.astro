@@ -1,0 +1,26 @@
+---
+// Subtle editorial line-work motif — parallel navy hairlines with a single
+// ochre accent, anchored to the top-right corner. Purely decorative.
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+// Parallel 45° hairlines: each runs from (a, 0) on the top edge to the
+// right edge at (400, 400 - a).
+const hairlines = Array.from({ length: 9 }, (_, i) => 120 + i * 30);
+---
+
+<svg
+  class:list={['pointer-events-none absolute inset-0 h-full w-full', className]}
+  viewBox="0 0 400 300"
+  preserveAspectRatio="xMaxYMin slice"
+  fill="none"
+  aria-hidden="true"
+>
+  {hairlines.map((a) => (
+    <line x1={a} y1="0" x2="400" y2={400 - a} stroke="#A9AEA0" stroke-width="1" opacity="0.07" />
+  ))}
+  <line x1="300" y1="0" x2="400" y2="100" stroke="#D6A75B" stroke-width="1.2" opacity="0.2" />
+</svg>

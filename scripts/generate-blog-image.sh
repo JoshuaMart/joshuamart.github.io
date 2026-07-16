@@ -33,7 +33,7 @@ echo "Tags: $TAGS"
 echo "Output: $OUTPUT_DIR/$FILENAME.png"
 
 # Create the prompt
-PROMPT="Create a professional dark-themed blog banner image (16:9 aspect ratio) for a cybersecurity/hacking article titled '$TITLE'. Style: dark background with subtle tech patterns, accent color amber/gold (#FFC107), minimalist, modern. Topics: $TAGS. No text in the image."
+PROMPT="Create a professional editorial blog banner image (16:9 aspect ratio) for a cybersecurity/hacking article titled '$TITLE'. Style: deep navy background (#0A1728) with subtle geometric line-work and tech patterns, warm ochre/gold accent (#D6A75B) used sparingly, cream/paper highlights (#F3ECDD), minimalist, high-end, spacious. Topics: $TAGS. No text in the image."
 
 # Call Gemini API
 RESPONSE=$(curl -s -X POST \

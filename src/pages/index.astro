@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import MainLayout from '../layouts/MainLayout.astro';
 import SeverityBadge from '../components/SeverityBadge.astro';
+import LineworkAccent from '../components/LineworkAccent.astro';
 import { siteConfig } from '../data/site';
 import cves from '../data/cves.json';
 import tools from '../data/tools.json';
@@ -81,13 +82,14 @@ const latestPost = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getT
             href={latestCve.link}
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex min-h-[360px] flex-col justify-between border border-outline-variant bg-surface-container p-8 transition-colors hover:border-ochre/60 md:col-span-8 md:p-12"
+            class="group relative flex min-h-[360px] flex-col justify-between overflow-hidden border border-outline-variant bg-surface-container p-8 transition-colors hover:border-ochre/60 md:col-span-8 md:p-12"
           >
-            <div class="flex items-start justify-between">
+            <LineworkAccent />
+            <div class="relative z-10 flex items-start justify-between">
               <SeverityBadge severity={latestCve.severity} />
               <span class="font-mono text-xs text-sand">{latestCve.id}</span>
             </div>
-            <div>
+            <div class="relative z-10">
               <h3 class="mb-4 font-serif text-2xl font-medium text-paper transition-colors group-hover:text-ochre sm:text-3xl">
                 {latestCve.type} in {latestCve.target}
               </h3>
