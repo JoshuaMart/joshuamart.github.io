@@ -14,20 +14,6 @@
     "url": "https://github.com/JoshuaMart/Detective"
   },
   {
-    "name": "NanoFleet Agent",
-    "description": "Self-hosted autonomous AI agent runtime.",
-    "language": "TypeScript",
-    "icon": "lucide:bot",
-    "url": "https://github.com/NanoFleet/nanofleet-agent"
-  },
-  {
-    "name": "NanoFleet",
-    "description": "Management layer for NanoFleet Agent instances.",
-    "language": "TypeScript",
-    "icon": "lucide:layout-dashboard",
-    "url": "https://github.com/NanoFleet/nanofleet"
-  },
-  {
     "name": "Hookd",
     "description": "A lightweight, high-performance interaction server for capturing DNS and HTTP callbacks.",
     "language": "Go",
@@ -47,13 +33,6 @@
     "language": "Java",
     "icon": "lucide:arrow-right-left",
     "url": "https://github.com/JoshuaMart/BurpToNats"
-  },
-  {
-    "name": "Interactsh-Library",
-    "description": "Ruby Library for Interactsh.",
-    "language": "Ruby",
-    "icon": "lucide:library",
-    "url": "https://github.com/JoshuaMart/Interactsh-Library"
   },
   {
     "name": "FastRecon",

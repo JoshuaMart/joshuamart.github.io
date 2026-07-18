@@ -1,8 +1,30 @@
 [
   {
-    "name": "Project Aether",
-    "description": "Experimental static analysis framework for identifying memory corruption patterns in legacy firmware binaries. Currently in private development.",
-    "language": "C++ / LLVM",
-    "status": "In progress"
+    "name": "Fingerprinter",
+    "description": "High-performance web technology detection engine.",
+    "language": "Go",
+    "icon": "lucide:fingerprint",
+    "status": "Private"
+  },
+  {
+    "name": "Recon",
+    "description": "All-in-one reconnaissance platform to map and monitor attack surfaces.",
+    "language": "Go",
+    "icon": "lucide:telescope",
+    "status": "Private"
+  },
+  {
+    "name": "WordPress Plugins Auditor",
+    "description": "WordPress plugin security analyzer that detects vulnerabilities with active fuzzing.",
+    "language": "PHP",
+    "icon": "lucide:shield-alert",
+    "status": "Private"
+  },
+  {
+    "name": "InfosecBrain",
+    "description": "Personal offensive security knowledge base.",
+    "language": "Markdown",
+    "icon": "lucide:brain",
+    "status": "Private"
   }
 ]

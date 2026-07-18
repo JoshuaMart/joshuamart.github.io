@@ -9,7 +9,7 @@ export const siteConfig = {
   siteUrl: 'https://www.jomar.fr',
   ogImage: '/images/og-image.jpeg',
   twitterHandle: '@J0_mart',
-  contactEmail: 'joshua.martinelle@gmail.com',
+  contactEmail: 'contact@jomar.fr',
   company: 'Tenable',
   locale: 'en',
 };
@@ -50,4 +50,5 @@ export const languageColors: Record<string, string> = {
   'Shell': '#89E051',
   'Java': '#B07219',
   'PHP': '#777BB4',
+  'Markdown': '#083FA1',
 };
