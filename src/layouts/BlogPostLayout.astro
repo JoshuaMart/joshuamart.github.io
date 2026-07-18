@@ -12,6 +12,11 @@ interface Props {
 
 const { title, date, description, tags = [], image } = Astro.props;
 
+// Append the brand suffix only when the title stays within the ~60-char
+// limit search engines display; otherwise keep the post title on its own.
+const brandSuffix = ' - Joshua Martinelle';
+const pageTitle = title.length + brandSuffix.length <= 60 ? `${title}${brandSuffix}` : title;
+
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -19,7 +24,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
 });
 ---
 
-<MainLayout title={`${title} - Joshua Martinelle`} description={description} image={image} type="article">
+<MainLayout title={pageTitle} description={description} image={image} type="article">
   <article class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
     <!-- Breadcrumb -->
     <nav class="mb-8 font-mono text-xs uppercase tracking-widest text-sand">

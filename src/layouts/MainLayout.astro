@@ -21,6 +21,8 @@ const {
 const currentPath = Astro.url.pathname;
 const canonicalUrl = new URL(currentPath, siteConfig.siteUrl).href;
 const ogImageUrl = image.startsWith('http') ? image : new URL(image, siteConfig.siteUrl).href;
+const isDefaultOgImage = image === siteConfig.ogImage;
+const ogImageAlt = `${siteConfig.name} — ${siteConfig.role} & ${siteConfig.secondaryRole}`;
 ---
 
 <!DOCTYPE html>
@@ -43,6 +45,14 @@ const ogImageUrl = image.startsWith('http') ? image : new URL(image, siteConfig.
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    {isDefaultOgImage && (
+      <>
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+      </>
+    )}
     <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:locale" content={siteConfig.locale} />
     
@@ -52,6 +62,7 @@ const ogImageUrl = image.startsWith('http') ? image : new URL(image, siteConfig.
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
     <meta name="twitter:creator" content={siteConfig.twitterHandle} />
     <meta name="twitter:site" content={siteConfig.twitterHandle} />
     
