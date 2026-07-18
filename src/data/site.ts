@@ -4,7 +4,7 @@ export const siteConfig = {
   initials: 'JM',
   role: 'Security Engineer @ Tenable',
   secondaryRole: 'Bug Hunter',
-  description: 'Joshua Martinelle - Security Engineer at Tenable and bug bounty hunter. Web security research, vulnerability disclosure, CVEs, and open-source recon tooling.',
+  description: 'Joshua Martinelle - Security Engineer at Tenable and bug hunter, focused on web security, CVE disclosure and recon tooling.',
   bio: 'Security Researcher focusing on *Web Security*',
   siteUrl: 'https://www.jomar.fr',
   ogImage: '/images/og-image.png',
