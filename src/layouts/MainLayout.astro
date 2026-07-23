@@ -9,14 +9,18 @@ interface Props {
   description?: string;
   image?: string;
   type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { 
-  title, 
+const {
+  title,
   description = siteConfig.description,
   image = siteConfig.ogImage,
-  type = 'website'
+  type = 'website',
+  jsonLd
 } = Astro.props;
+
+const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
 const currentPath = Astro.url.pathname;
 const canonicalUrl = new URL(currentPath, siteConfig.siteUrl).href;
@@ -73,6 +77,11 @@ const ogImageAlt = `${siteConfig.name} — ${siteConfig.role} & ${siteConfig.sec
     <!-- Theme Color -->
     <meta name="theme-color" content="#0A1728" />
     <meta name="msapplication-TileColor" content="#0A1728" />
+
+    <!-- Structured Data (JSON-LD) -->
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
 
     <!-- Umami Analytics -->
     <script defer src="https://stats.mrtsec.xyz/script.js" data-website-id="1a333f9d-e53d-442c-b600-26b08fa9a212"></script>

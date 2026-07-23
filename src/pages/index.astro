@@ -6,9 +6,34 @@ import MainLayout from '../layouts/MainLayout.astro';
 import SeverityBadge from '../components/SeverityBadge.astro';
 import LineworkAccent from '../components/LineworkAccent.astro';
 import heroImage from '../assets/image_home.png';
-import { siteConfig } from '../data/site';
+import { siteConfig, socialLinks } from '../data/site';
 import cves from '../data/cves.json';
 import tools from '../data/tools.json';
+
+// Structured data — helps AI engines and search identify who this is about
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: siteConfig.name,
+  url: siteConfig.siteUrl,
+  image: new URL(siteConfig.ogImage, siteConfig.siteUrl).href,
+  jobTitle: siteConfig.role,
+  description: siteConfig.description,
+  worksFor: {
+    '@type': 'Organization',
+    name: siteConfig.company,
+  },
+  sameAs: socialLinks.map((link) => link.href),
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteConfig.name,
+  url: siteConfig.siteUrl,
+  description: siteConfig.description,
+  author: { '@type': 'Person', name: siteConfig.name, url: siteConfig.siteUrl },
+};
 
 // Get most recent CVE (by year desc, then severity)
 const severityOrder = { Critical: 0, High: 1, Medium: 2, Low: 3 } as const;
@@ -26,7 +51,7 @@ const posts = await getCollection('blog');
 const latestPost = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
 ---
 
-<MainLayout title={`${siteConfig.name} - ${siteConfig.role}`}>
+<MainLayout title={`${siteConfig.name} - ${siteConfig.role}`} jsonLd={[personSchema, websiteSchema]}>
   <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
     <!-- Hero -->
     <section class="mb-28 grid grid-cols-1 items-center gap-10 md:mb-32 md:grid-cols-12 md:gap-8">

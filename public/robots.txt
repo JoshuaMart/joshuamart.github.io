@@ -1,0 +1,68 @@
+# Search & AI crawlers — everything is allowed
+User-Agent: *
+Allow: /
+
+# Search engines
+User-Agent: Googlebot
+Allow: /
+
+User-Agent: Bingbot
+Allow: /
+
+# OpenAI
+User-Agent: OAI-SearchBot
+Allow: /
+
+User-Agent: ChatGPT-User
+Allow: /
+
+User-Agent: GPTBot
+Allow: /
+
+# Perplexity
+User-Agent: PerplexityBot
+Allow: /
+
+User-Agent: Perplexity-User
+Allow: /
+
+# Anthropic
+User-Agent: Claude-SearchBot
+Allow: /
+
+User-Agent: Claude-User
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: anthropic-ai
+Allow: /
+
+# Google / Apple AI dataset opt-in
+User-Agent: Google-Extended
+Allow: /
+
+User-Agent: Applebot-Extended
+Allow: /
+
+User-Agent: Applebot
+Allow: /
+
+# Other AI crawlers
+User-Agent: Bytespider
+Allow: /
+
+User-Agent: CCBot
+Allow: /
+
+User-Agent: FacebookBot
+Allow: /
+
+User-Agent: Amazonbot
+Allow: /
+
+User-Agent: cohere-ai
+Allow: /
+
+Sitemap: https://www.jomar.fr/sitemap-index.xml

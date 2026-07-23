@@ -1,6 +1,7 @@
 ---
 import MainLayout from './MainLayout.astro';
 import { Icon } from 'astro-icon/components';
+import { siteConfig } from '../data/site';
 
 interface Props {
   title: string;
@@ -17,6 +18,34 @@ const { title, date, description, tags = [], image } = Astro.props;
 const brandSuffix = ' - Joshua Martinelle';
 const pageTitle = title.length + brandSuffix.length <= 60 ? `${title}${brandSuffix}` : title;
 
+// Structured data so AI engines and search can attribute the article
+const postUrl = new URL(Astro.url.pathname, siteConfig.siteUrl).href;
+const author = { '@type': 'Person', name: siteConfig.name, url: siteConfig.siteUrl };
+
+const blogPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: date.toISOString(),
+  author,
+  publisher: author,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+  url: postUrl,
+  ...(image ? { image: new URL(image, siteConfig.siteUrl).href } : {}),
+  ...(tags.length ? { keywords: tags.join(', ') } : {}),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteConfig.siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: new URL('/blog', siteConfig.siteUrl).href },
+    { '@type': 'ListItem', position: 3, name: title, item: postUrl },
+  ],
+};
+
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -24,7 +53,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
 });
 ---
 
-<MainLayout title={pageTitle} description={description} image={image} type="article">
+<MainLayout title={pageTitle} description={description} image={image} type="article" jsonLd={[blogPostingSchema, breadcrumbSchema]}>
   <article class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
     <!-- Breadcrumb -->
     <nav class="mb-8 font-mono text-xs uppercase tracking-widest text-sand">
