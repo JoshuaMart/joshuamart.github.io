@@ -59,12 +59,13 @@ jobs:
           path: profile-repo
 
       - name: Generate stats card
-        uses: readme-tools/github-readme-stats-action@v1
+        uses: stats-organization/github-readme-stats-action@v2
         with:
           card: stats
           options: username=JoshuaMart&show_icons=true&theme=radical
           path: profile-repo/profile/stats.svg
           token: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_error: true
 
       - name: Update profile README
         run: |
