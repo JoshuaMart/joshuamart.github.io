@@ -1,5 +1,14 @@
 [
   {
+    "id": "CVE-2026-82123",
+    "target": "WordPress Loops & Logic",
+    "product": "WordPress Loops & Logic",
+    "type": "Reflected XSS",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-57"
+  },
+  {
     "id": "CVE-2026-20896",
     "target": "Link Library",
     "product": "Link Library",
