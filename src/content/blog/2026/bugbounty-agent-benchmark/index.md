@@ -91,17 +91,21 @@ The second reason is access, and it is why I would make the same choice with unl
 
 Five models, one harness held constant, twenty three labs, three seeds, 345 cells. $46.64 charged.
 
-| Model | Solves | Rate | 95% interval | $/cell | $/solve |
-|---|---:|---:|---:|---:|---:|
-| hy4-preview | 38/69 | 55% | 43 to 66 | 0.318 | 0.578 |
-| deepseek-v4-flash | 37/69 | 54% | 42 to 65 | 0.077 | 0.144 |
-| muse-spark-1.3 | 34/69 | 49% | 38 to 61 | 0.110 | 0.222 |
-| glm-5.3-flash | 33/69 | 48% | 36 to 59 | 0.120 | 0.251 |
-| qwen3.8-flash | 22/69 | 32% | 22 to 44 | 0.051 | 0.159 |
+| Model | Solves | Rate | 95% interval | Turns to solve | $/cell | $/solve |
+|---|---:|---:|---:|---:|---:|---:|
+| hy4-preview | 38/69 | 55% | 43 to 66 | 54 | 0.318 | 0.578 |
+| deepseek-v4-flash | 37/69 | 54% | 42 to 65 | 75 | 0.077 | 0.144 |
+| muse-spark-1.3 | 34/69 | 49% | 38 to 61 | 58 | 0.110 | 0.222 |
+| glm-5.3-flash | 33/69 | 48% | 36 to 59 | 41 | 0.120 | 0.251 |
+| qwen3.8-flash | 22/69 | 32% | 22 to 44 | 44 | 0.051 | 0.159 |
+
+Turns to solve is a median over the cells that solved, so it measures what a success cost rather than what a failure wasted. A failed cell almost always runs to the budget ceiling, which says more about my budget than about the model.
 
 Read as a ranking that table says almost nothing: four models tied, and one behind them. On sixty nine paired comparisons, McNemar separates none of the top four. The closest pair splits nine to ten at p = 1.00, and nothing among those four falls below p = 0.27. Only qwen separates, and it separates from all four.
 
-Where they genuinely differ is the bill, and it does not follow the price list. hy4 is listed at roughly ten times deepseek's rate per token and comes out four times more expensive per cell, because it spends about half as many turns getting there. A model that is expensive and terse can cost less than one that is cheap and verbose, and no rate card will tell you that.
+Where they genuinely differ is the bill, and it does not follow the price list. hy4 is listed at roughly ten times deepseek's rate per token and comes out only four times more expensive per cell, because it gets there in about thirty percent fewer turns. A model that is expensive and terse can cost less than one that is cheap and verbose, and no rate card will tell you that.
+
+The same column warns against reading speed as skill. glm and qwen close a solve in the fewest turns on the panel and solve the fewest labs, which is what happens when a model only ever finishes the easy ones. I checked whether that was the whole story by restricting the comparison to the nine labs every model solved at least once, and the ordering barely moved. The column measures something real. It is just not measuring capability.
 
 The prices themselves were also a trap. Three of the five were on promotional rates while this ran. At list, the same campaign is around $420 instead of $47, and the value ranking inverts: qwen becomes the cheapest way to buy a solve despite solving the fewest, and muse becomes the most expensive model on the panel by an order of magnitude. None of that changes a single solve rate. It changes every sentence anyone would write about value, which is why I record what was actually charged instead of pricing tokens against a grid.
 
@@ -157,14 +161,14 @@ The families behave differently too. The SSRF labs no longer discriminate, since
 
 Six harnesses, two models, two seeds, twenty three labs, 552 cells, $117.89, about 249 hours of machine.
 
-| Harness | Solves | Rate | $/solve | Mean turns |
-|---|---:|---:|---:|---:|
-| opencode | 54/92 | 59% | 0.344 | 77 |
-| prime-agent | 51/92 | 55% | 0.369 | 64 |
-| pi | 47/92 | 51% | 0.352 | 57 |
-| cline | 44/92 | 48% | 0.568 | 87 |
-| openhands | 44/92 | 48% | 0.586 | 105 |
-| codex | 43/92 | 47% | 0.305 | 95 |
+| Harness | Solves | Rate | $/solve | Turns to solve | Minutes to solve |
+|---|---:|---:|---:|---:|---:|
+| opencode | 54/92 | 59% | 0.344 | 58 | 17.1 |
+| prime-agent | 51/92 | 55% | 0.369 | 52 | 17.9 |
+| pi | 47/92 | 51% | 0.352 | 48 | 16.0 |
+| cline | 44/92 | 48% | 0.568 | 67 | 16.8 |
+| openhands | 44/92 | 48% | 0.586 | 102 | 36.6 |
+| codex | 43/92 | 47% | 0.305 | 80 | 13.4 |
 
 Twelve points from first to last, six confidence intervals that all overlap, and on fifteen paired tests not one reaches p < 0.05. The best is p = 0.071, and a permutation test says that seeing something at least that striking somewhere among fifteen comparisons happens in one campaign out of three when there is no effect at all.
 
@@ -185,7 +189,9 @@ Pi is the worst harness on the panel with one model and the best with the other.
 
 That interaction is not established either. A permutation test that destroys the interaction while preserving both main effects gives p = 0.0595 for the observed swing. Two models are enough to make an interaction visible and not enough to prove one. What I take from it is narrower and more useful than a ranking: asking which harness is best is the wrong question, because the answer appears to depend on what you put inside it.
 
-Where the harnesses do differ is cost and behaviour. Codex is last on the scoreboard and cheapest per solve. Openhands ties cline on solves and pays nearly twice codex for each one. Codex gives up on thirty three cells while openhands grinds to the wall on twenty six and blows its turn limit on five, more than every other harness combined. Pi reaches forty seven solves at fifty seven turns per cell, openhands forty four at a hundred and five, so nearly twice the work for slightly less.
+Where the harnesses do differ is cost and behaviour. Codex is last on the scoreboard and cheapest per solve. Openhands ties cline on solves and pays nearly twice codex for each one. Codex gives up on thirty three cells while openhands grinds to the wall on twenty six and blows its turn limit on five, more than every other harness combined.
+
+Openhands is the outlier in the last two columns, and by a distance. It lands a solve in a median of 102 turns and 37 minutes, against pi at 48 turns and 16 minutes, for three fewer solves overall. Twice the turns and twice the clock, and it arrives in the same place. Codex is the mirror image: the second most turns on the panel, yet the fastest wall clock of any harness at 13 minutes, which is a fast provider rather than an efficient agent. Time on this axis is worth reading because every harness ran the same two models, so the provider effect largely cancels. On the model table it would not, which is why it is not there.
 
 One result I dislike and have to report: thirteen cells recorded a rung server side whose proof never made it into the agent's trace, and eight of those had all four rungs fire. They did the entire job and scored nothing because one string was missing from what they reported. That is the price of the two-channel rule. I would rather pay it than accept an agent's own account of its work, but eight complete solves scored as failures is a real cost and it should not be buried.
 
