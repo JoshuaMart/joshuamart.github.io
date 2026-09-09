@@ -1,7 +1,7 @@
 ---
 title: 'Bugbounty agent benchmark'
 date: 2026-09-08
-description: 'I built a black box benchmark for bug bounty agents in a week and ran a thousand cells across five models, six harnesses and one browser. Here is what it measured, what it could not measure, and why the labs are the hard part.'
+description: 'I built a black box benchmark for bug bounty agents in a week and ran fourteen hundred cells across five models, seven harnesses and one browser. Here is what it measured, what it could not measure, and why the labs are the hard part.'
 tags: ['ai', 'bugbounty']
 image: '/images/blog/2026/bugbounty-agent-benchmark.png'
 ---
@@ -81,7 +81,7 @@ All of the results below are in the explorer. Filters are toggles, shift-click s
 
 Nothing from Anthropic, OpenAI or xAI appears anywhere in these results. That is a choice, and it has two reasons.
 
-The first is arithmetic. One extra arm of an Opus-class model over these twenty three labs, at the same token volume the other arms spent, prices out at roughly $385 on the public rate card. The five models I did run cost $46.64 together. Repriced across the whole program, my 3.6 billion tokens would have come to about $4,900 instead of $188. A benchmark I can rerun after every harness update is worth more to me than one I can afford once.
+The first is arithmetic. One extra arm of an Opus-class model over these twenty three labs, at the same token volume the other arms spent, prices out at roughly $385 on the public rate card. The five models I did run cost $46.64 together. Repriced across the whole program, my 5.3 billion tokens would have come to about $6,900 instead of $232. A benchmark I can rerun after every harness update is worth more to me than one I can afford once.
 
 That price is also a fiction, which is the more interesting half. Nobody buys Opus by the token to hunt with it. They use it through a Claude Code subscription, or ChatGPT, or whatever the vendor is selling that month, and the per-token rate describes nobody's actual bill. So a cost per solve computed on OpenRouter rates for a subscription model is a counterfactual dressed as a measurement, and I would have had to caveat it into meaninglessness.
 
@@ -189,6 +189,25 @@ Pi is the worst harness on the panel with one model and the best with the other.
 
 That interaction is not established either. A permutation test that destroys the interaction while preserving both main effects gives p = 0.0595 for the observed swing. Two models are enough to make an interaction visible and not enough to prove one. What I take from it is narrower and more useful than a ranking: asking which harness is best is the wrong question, because the answer appears to depend on what you put inside it.
 
+### The strongest test I could give the hypothesis
+
+There is an obvious objection to all of that. Every one of those six harnesses is somebody's coding agent pointed at a target. None was built for security work, and none was built by the people who make the model it runs. Maybe the null just says that generic scaffolding is generic.
+
+So I ran one more arm. DeepSeek Harness on DeepSeek's own model, which is the first candidate whose author also makes the weights. If a harness effect exists anywhere, the vendor's own scaffolding wrapped around the vendor's own model is where the prior for one is highest. Twenty three labs, three seeds, sixty nine cells, $10.67.
+
+| | Solves | Cost | $/solve |
+|---|---:|---:|---:|
+| DeepSeek Harness | 35/69 | $10.67 | 0.305 |
+| opencode | 37/69 | $12.97 | 0.351 |
+
+Same labs, same seeds, same budget, same model, same toolset. Paired cell by cell, six went to the vendor harness alone and eight to opencode alone. McNemar exact p = 0.791. The best shot at finding a harness effect landed in the same place as the other five.
+
+It is cheaper per solve while spending twenty five percent more turns, and that is one fact rather than two: 96.7% of its input tokens were cache reads against opencode's 91.5%, so the same money buys it more attempts. It also has the opposite disposition to opencode. It hit the two hundred turn ceiling twelve times, which opencode never reached once in sixty nine cells, while opencode gave up of its own accord on seven cells it had not solved and the vendor harness did that once.
+
+Underneath the tie the disagreement is real, and larger than the totals suggest. Nine labs separate them, including two clean sweeps in opposite directions: the vendor harness takes `sqli-parts-lookup` three times out of three where opencode never takes it, and opencode takes `idor-member-view` three from three where the vendor harness never does. Same model, same tools, same budget. Six labs stayed dead for both, and a browser had not moved those either.
+
+One caveat on reading this next to the harness table above. Three labs were repaired and bumped to a new version between the two campaigns, so the cross-read is honest on twenty of the twenty three, which is why the vendor harness is not simply a seventh row in that table.
+
 Where the harnesses do differ is cost and behaviour. Codex is last on the scoreboard and cheapest per solve. Openhands ties cline on solves and pays nearly twice codex for each one. Codex gives up on thirty three cells while openhands grinds to the wall on twenty six and blows its turn limit on five, more than every other harness combined.
 
 Openhands is the outlier in the last two columns, and by a distance. It lands a solve in a median of 102 turns and 37 minutes, against pi at 48 turns and 16 minutes, for three fewer solves overall. Twice the turns and twice the clock, and it arrives in the same place. Codex is the mirror image: the second most turns on the panel, yet the fastest wall clock of any harness at 13 minutes, which is a fast provider rather than an efficient agent. Time on this axis is worth reading because every harness ran the same two models, so the provider effect largely cancels. On the model table it would not, which is why it is not there.
@@ -226,7 +245,7 @@ The campaign also produced my favourite methodological mistake of the project. C
 
 ## What a benchmark is actually worth
 
-Nine campaigns, 1105 cells, 3.6 billion billed tokens, $188 charged to the account and somewhere in the high hundreds at list prices. Of those 3.6 billion tokens, 3.23 billion are cache reads, because an agent resends its transcript on every turn. Fresh input is 300 million and output is 72 million. If you are budgeting for this kind of work, the transcript is the bill.
+Fourteen campaigns, 1415 cells, 5.3 billion billed tokens, $232 charged to the account. Of those 5.3 billion tokens, 4.7 billion are cache reads, because an agent resends its transcript on every turn. Fresh input is 440 million and output is 94 million. If you are budgeting for this kind of work, the transcript is the bill.
 
 The orchestrator is the cheap part. It is two thousand lines around docker compose and it was working on day one. The labs are seven times that, and they are where the value is. Every one needs a solver written before the application, a patched overlay that closes the whole chain, a verifier that decides on the database rather than on the request shape, and a pass of real agents reading traces by hand to find out that all your gates are green and the lab is unplayable. Anyone can wire up an orchestrator. Almost nobody wants to build the labs.
 
