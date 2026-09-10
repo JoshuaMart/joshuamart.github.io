@@ -259,31 +259,6 @@ Two harnesses gain about twenty points, and both gains survive the paired test. 
 
 The bill went down at every arm while it happened. That looks wrong, because the new model lists at 4.6 times the old one's fresh input and 6.7 times its output. What changed is what it sends: opencode's fresh input dropped from 40.4 million tokens to 4.0 million, and its cache read share went from 91.5% to 99.1%. Almost the entire transcript now comes back from cache. I had costed this campaign at around $49 on the assumption that the new model would spend tokens like the old one, and that assumption was the thing being measured.
 
-### The labs that nothing had moved
-
-Six labs were dead for both harnesses on the vendor comparison, and a browser had not moved them either. All six fall to the new model.
-
-| Lab | opencode | dsh | codex |
-|---|---:|---:|---:|
-| markup-injection-approval | 3/3 | 3/3 | 1/3 |
-| xss-jsonp-callback | 2/3 | 2/3 | 1/3 |
-| xss-reflected-script-literal | 1/3 | 2/3 | 1/3 |
-| xss-reflected-path-segment | 1/3 | 2/3 | 0/3 |
-| idor-nested-attachment | 2/3 | 0/3 | 0/3 |
-| rce-preflight-upload | 1/3 | 1/3 | 1/3 |
-
-`markup-injection-approval` is the one to look at. Two campaigns had it as the hardest lab on the panel, then it turned out to be unplayable and I repaired it, then a real browser did not help anyone finish it. It now goes three from three at two different harnesses. One lab in the panel is still unsolved by every arm, `idor-client-record`, down from six.
-
-That is a caution about every dead lab in this article. A rung at zero across every arm reads like a capability ceiling, and some of the time it is a date.
-
-### Codex again
-
-Codex is flat: 25 against 27 on the paired cells, which is 7 discordant one way and 9 the other at p = 0.80, and on its own three seeds it is 59.4% against the old arm's 58.7%. So it neither gained nor lost while the other two gained twenty points each.
-
-I had written the decision rule before the cells ran: adopt the new model only if the paired cells gain in aggregate and no harness loses on its own. Read literally, two lost cells at codex fail that second clause and the old model stays, which is plainly not what the data says. The rule could not tell "lost" apart from "did not move", and I would rather report that it broke than quietly reinterpret it after seeing the numbers. What I take is narrower: the new model is a clear gain at two of three harnesses and a wash at the third, which is the harness by model interaction showing up for the third time, at the same arm.
-
-Its turn ceiling moved too, in both directions. DeepSeek Harness hit the 200 turn limit twelve times on the old model and twice on the new one, so the grinding disposition I described above belongs to the pairing rather than to the harness. Codex went the other way, from one to four.
-
 ## What a benchmark is actually worth
 
 Sixteen campaigns, 1673 cells, 6.7 billion billed tokens, $253 charged to the account. Of those 6.7 billion tokens, 6.1 billion are cache reads, because an agent resends its transcript on every turn. Fresh input is 465 million and output is 113 million. If you are budgeting for this kind of work, the transcript is the bill.
