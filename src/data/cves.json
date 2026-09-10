@@ -9,7 +9,7 @@
     "link": "https://www.tenable.com/security/research/tra-2026-57"
   },
   {
-    "id": "CVE-2026-20896",
+    "id": "CVE-2026-18197",
     "target": "Link Library",
     "product": "Link Library",
     "type": "Reflected XSS",
