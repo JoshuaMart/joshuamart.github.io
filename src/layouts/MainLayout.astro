@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { siteConfig } from '../data/site';
+import { siteConfig, socialLinks, profileLinks } from '../data/site';
 
 interface Props {
   title: string;
@@ -42,6 +42,7 @@ const ogImageAlt = `${siteConfig.name} — ${siteConfig.role} & ${siteConfig.sec
     <meta name="author" content={siteConfig.name} />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
+    {[...socialLinks, ...profileLinks].map((link) => <link rel="me" href={link.href} />)}
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={type} />

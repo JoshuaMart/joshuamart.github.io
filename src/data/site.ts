@@ -32,6 +32,15 @@ export const socialLinks = [
   },
 ];
 
+// Other profiles of the same person, without an icon in the UI. Listed in the
+// Person schema and as <link rel="me"> so search engines can connect them.
+export const profileLinks = [
+  {
+    name: 'WebSec0 author profile',
+    href: 'https://www.websec0.com/guides/authors/joshua-martinelle/',
+  },
+];
+
 export const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/cves', label: 'CVEs' },

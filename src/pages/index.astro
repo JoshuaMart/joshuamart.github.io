@@ -6,7 +6,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import SeverityBadge from '../components/SeverityBadge.astro';
 import LineworkAccent from '../components/LineworkAccent.astro';
 import heroImage from '../assets/image_home.png';
-import { siteConfig, socialLinks } from '../data/site';
+import { siteConfig, socialLinks, profileLinks } from '../data/site';
 import cves from '../data/cves.json';
 import tools from '../data/tools.json';
 
@@ -23,7 +23,7 @@ const personSchema = {
     '@type': 'Organization',
     name: siteConfig.company,
   },
-  sameAs: socialLinks.map((link) => link.href),
+  sameAs: [...socialLinks, ...profileLinks].map((link) => link.href),
 };
 
 const websiteSchema = {
