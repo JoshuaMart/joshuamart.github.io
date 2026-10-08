@@ -30,10 +30,10 @@ const dataAttrs = (cve: CVE) => ({
 ---
 
 <!-- Desktop Table -->
-<div class="hidden overflow-x-auto border border-outline-variant bg-surface-container md:block">
-  <table aria-label="Published vulnerability disclosures" class="w-full min-w-[720px] border-collapse text-left">
+<div class="hidden overflow-x-auto md:block">
+  <table aria-label="Published vulnerability disclosures" class="cve-table w-full min-w-[720px] border-collapse border-b border-outline-variant text-left">
     <thead>
-      <tr class="border-b border-outline-variant bg-surface-low">
+      <tr class="border-b border-outline-variant">
         <th scope="col" class="w-44 px-4 py-4 text-sm text-sand">ID</th>
         <th scope="col" class="px-4 py-4 text-sm text-sand">Type</th>
         <th scope="col" class="px-4 py-4 text-sm text-sand">Product</th>
@@ -50,7 +50,7 @@ const dataAttrs = (cve: CVE) => ({
           </td>
           <td class="px-4 py-5 text-sand">{cve.product}</td>
           <td class="px-4 py-5">
-            <SeverityBadge severity={cve.severity} />
+            <SeverityBadge severity={cve.severity} variant="inline" />
           </td>
           <td class="px-4 py-5 text-right">
             <a
@@ -71,18 +71,18 @@ const dataAttrs = (cve: CVE) => ({
 </div>
 
 <!-- Mobile Cards -->
-<div class="flex flex-col gap-4 md:hidden">
+<div class="flex flex-col md:hidden">
   {displayedCves.map((cve) => (
-    <article class="cve-row border border-outline-variant bg-surface-container p-5" {...dataAttrs(cve)}>
+    <article class="cve-row border-t border-outline-variant py-6" {...dataAttrs(cve)}>
       <div class="flex flex-wrap items-start justify-between gap-4">
         <div>
           <span class="font-mono text-xs text-paper">{cve.id}</span>
           <h2 class="mt-2 font-sans text-xl font-medium text-paper">{cve.type}</h2>
           <p class="mt-1 text-sm text-sand">{cve.product}</p>
         </div>
-        <SeverityBadge severity={cve.severity} />
+        <SeverityBadge severity={cve.severity} variant="inline" />
       </div>
-      <div class="mt-4 flex items-center justify-between border-t border-outline-variant pt-4 text-sm text-sand">
+      <div class="mt-4 flex items-center justify-between text-sm text-sand">
         <span>{cve.date}</span>
         <a
           href={cve.link}
@@ -98,3 +98,9 @@ const dataAttrs = (cve: CVE) => ({
     </article>
   ))}
 </div>
+
+<style>
+  .cve-table th { font-weight:400; }
+  .cve-table :is(th,td):first-child { padding-left:0; }
+  .cve-table :is(th,td):last-child { padding-right:0; }
+</style>

@@ -1,9 +1,11 @@
 ---
-interface Props { severity: 'Critical' | 'High' | 'Medium' | 'Low'; class?: string; }
-const { severity, class: className = '' } = Astro.props;
+interface Props { severity: 'Critical' | 'High' | 'Medium' | 'Low'; class?: string; variant?: 'badge' | 'inline'; }
+const { severity, class: className = '', variant = 'badge' } = Astro.props;
 ---
-<span class:list={['severity-badge', className]} style={`--severity: var(--color-${severity.toLowerCase()})`}><span aria-hidden="true"></span>{severity}</span>
+<span class:list={['severity-badge', variant === 'inline' && 'severity-inline', className]} data-severity={severity}><span aria-hidden="true"></span>{severity}</span>
 <style>
-.severity-badge { display:inline-flex; flex-shrink:0; align-items:center; gap:7px; color:var(--severity); font-size:.8125rem; line-height:1.5; white-space:nowrap; }
-.severity-badge>span { width:5px; height:5px; background:currentColor; }
+.severity-badge { display:inline-flex; flex-shrink:0; align-items:center; gap:7px; padding:4px 9px; border:1px solid color-mix(in srgb,var(--severity-color) 22%,transparent); background:color-mix(in srgb,var(--severity-color) 8%,var(--paper)); border-radius:3px; color:var(--severity-color); font-weight:500; font-size:.8125rem; line-height:1.5; white-space:nowrap; }
+.severity-badge>span { width:6px; height:6px; background:currentColor; }
+.severity-inline { gap:8px; padding:0; border:0; border-radius:0; background:none; font-weight:400; }
+.severity-inline>span { width:5px; height:5px; border-radius:50%; }
 </style>

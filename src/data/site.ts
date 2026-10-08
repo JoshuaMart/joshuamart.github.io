@@ -7,7 +7,7 @@ export const siteConfig = {
   description: 'Joshua Martinelle - Security Engineer at Tenable and bug hunter, focused on web security, CVE disclosure and recon tooling.',
   bio: 'Security Researcher focusing on *Web Security*',
   siteUrl: 'https://www.jomar.fr',
-  ogImage: '/images/og-image.png',
+  ogImage: '/images/og-laboratory.png',
   twitterHandle: '@J0_mart',
   contactEmail: 'contact@jomar.fr',
   company: 'Tenable',

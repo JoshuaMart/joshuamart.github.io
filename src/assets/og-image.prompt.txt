@@ -1,0 +1,10 @@
+Create a finished Open Graph social sharing image for Joshua MARTINELLE's web security research portfolio, matching his existing website design.
+Use case: ads-marketing / precise brand UI graphic.
+Canvas: exactly 1200 by 630 pixels, landscape 1.90476:1. Full bleed solid off-white #fcfcfa, no texture.
+Design: highly disciplined senior graphic designer layout, Swiss typography and very thin technical linework. Hanken Grotesk style sans-serif, medium weight, tight tracking. Graphite #202a32 and cobalt #204be3 only, gray #7b8997 technical lines.
+Top left at generous 64px margins: exact text "Joshua MARTINELLE." in 28px bold sans; dot cobalt. Below header a thin horizontal gray rule spanning the canvas.
+Main left: giant headline on two lines, exactly "Beneath" on line one, "the surface." on line two. "Beneath" and "the" graphite, "surface." cobalt. About 90px, elegant tightly set humanist sans. Occupies left 55% of composition.
+Right: a clean isometric exploded view of three rounded rectangular application layers. Wireframe hairline illustration, unfilled off-white planes, precise thin graphite outlines, small UI line details, a single cobalt highlighted inner boundary. Floating separated layers, no shadows, no gradients, no 3D rendering, no perspective distortion. Keep illustration in right 40%, aligned vertically with headline.
+Lower left: exact text "Web security & vulnerability research" in 25px graphite.
+Bottom right: exact text "jomar.fr" in 20px graphite.
+Keep all text at least 60px from the edges. Crisp flat vector-like finish. No photos, icons, locks, shields, circuitry, extra labels, logos, fake text, decorative particles, gradients, stock imagery, buttons, or watermark. One final complete image.
