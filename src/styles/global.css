@@ -62,6 +62,8 @@ img { max-width: 100%; height: auto; }
 .section-index { display: block; margin-bottom: 13px; color: var(--muted); font: 400 .75rem/1.5 var(--mono); }
 .filter-pill { padding: 8px 14px; color: var(--muted); border-bottom: 1px solid transparent; font-size: .875rem; }
 .filter-pill:hover { color: var(--signal); }
+.filter-pill:has(.filter-dot) { display: inline-flex; align-items: center; gap: 8px; }
+.filter-dot { width: 6px; height: 6px; border-radius: 50%; }
 .filter-pill.is-active { color: var(--signal); background: var(--wash); border-color: var(--signal); }
 .archive-search { min-height: 48px; font-size: 1rem; }
 @media (hover:hover) and (pointer:fine) { .text-link:hover span { transform: translate(2px,-2px); } }

@@ -2,20 +2,24 @@
 interface Item {
   value: string;
   label: string;
+  /** Optional colour for a leading dot (e.g. severity). */
+  color?: string;
 }
 
 interface Props {
   items: Item[];
   group: string;
   label?: string;
+  /** Renders the label as a mono uppercase index, like `.section-index`. */
+  monoLabel?: boolean;
 }
 
-const { items, group, label } = Astro.props;
+const { items, group, label, monoLabel = false } = Astro.props;
 ---
 
 <div class="flex flex-wrap items-center gap-x-2 gap-y-3">
   {label && (
-    <span class="mr-4 text-sm text-sand">{label}</span>
+    <span class:list={['mr-4 text-sand', monoLabel ? 'font-mono text-xs uppercase' : 'text-sm']}>{label}</span>
   )}
   <div class="flex flex-wrap items-center gap-2" data-filter-pills={group} role="group" aria-label={label || `Filter by ${group}`}>
     {items.map((item, i) => (
@@ -28,6 +32,7 @@ const { items, group, label } = Astro.props;
           i === 0 && 'is-active',
         ]}
       >
+        {item.color && <span class="filter-dot" style={`background:${item.color}`} aria-hidden="true"></span>}
         {item.label}
       </button>
     ))}

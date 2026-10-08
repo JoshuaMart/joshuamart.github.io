@@ -1,0 +1,105 @@
+---
+import SeverityBadge from './SeverityBadge.astro';
+
+interface CVE {
+  id: string;
+  target: string;
+  product: string;
+  type: string;
+  severity: 'Critical' | 'High' | 'Medium' | 'Low';
+  date: string;
+  link: string;
+}
+
+interface Props {
+  cves: CVE[];
+}
+
+const { cves } = Astro.props;
+
+const years = [...new Set(cves.map((c) => c.date))].sort((a, b) => b.localeCompare(a));
+const groups = years.map((year) => ({ year, cves: cves.filter((c) => c.date === year) }));
+
+const sourceOf = (link: string) => {
+  if (link.includes('tenable.com')) return 'Tenable';
+  if (link.includes('nvd.nist.gov')) return 'NVD';
+  return 'Vendor';
+};
+
+const countLabel = (n: number) => `${n} ${n === 1 ? 'disclosure' : 'disclosures'}`;
+let index = 0;
+---
+
+<div class="cve-archive">
+  <div class="archive-row archive-head" aria-hidden="true">
+    <span class="col-num">#</span>
+    <span>ID</span>
+    <span class="col-type">Type</span>
+    <span class="col-product">Product</span>
+    <span>Severity</span>
+    <span class="col-source">Source</span>
+  </div>
+
+  {groups.map((group) => (
+    <section class="year-group" data-year-group={group.year} aria-labelledby={`year-${group.year}`}>
+      <div class="year-head">
+        <h2 id={`year-${group.year}`}>{group.year}</h2>
+        <span class="year-count" data-year-count>{countLabel(group.cves.length)}</span>
+      </div>
+      <ol>
+        {group.cves.map((cve) => (
+          <li
+            class="cve-row"
+            data-cve-id={cve.id.toLowerCase()}
+            data-cve-target={cve.target.toLowerCase()}
+            data-cve-product={cve.product.toLowerCase()}
+            data-cve-type={cve.type.toLowerCase()}
+            data-cve-year={cve.date}
+            data-cve-severity={cve.severity}
+          >
+            <a
+              class="archive-row"
+              href={cve.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${cve.id}, ${cve.type} in ${cve.product}, ${cve.severity} — open advisory`}
+            >
+              <span class="col-num" data-row-num>{String(++index).padStart(2, '0')}</span>
+              <span class="cve-id">{cve.id}</span>
+              <span class="col-type">{cve.type}</span>
+              <span class="col-product">{cve.product}</span>
+              <SeverityBadge severity={cve.severity} variant="inline" />
+              <span class="col-source">{sourceOf(cve.link)} <span aria-hidden="true">↗</span></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  ))}
+</div>
+
+<style>
+  ol { list-style:none; margin:0; padding:0; }
+  .archive-row { display:grid; grid-template-columns:44px 190px minmax(0,1.3fr) minmax(0,1fr) 120px 128px; column-gap:20px; align-items:center; }
+  .archive-head { padding-block:12px; border-top:1px solid var(--ink); border-bottom:1px solid var(--line); color:var(--muted); font:400 .75rem/1.5 var(--mono); text-transform:uppercase; }
+  .year-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:40px 0 14px; border-bottom:1px solid var(--line); }
+  .year-head h2 { font-size:2rem; letter-spacing:-.04em; line-height:1; }
+  .year-count { color:var(--muted); font:400 .75rem/1.5 var(--mono); text-transform:uppercase; }
+  a.archive-row { padding-block:18px; border-bottom:1px solid var(--line); transition:background-color 150ms ease-out; }
+  a.archive-row:hover { background:var(--wash); }
+  .col-num { padding-left:4px; color:var(--muted); font:400 .75rem/1.5 var(--mono); }
+  .cve-id { font:500 .8125rem/1.5 var(--mono); }
+  a .col-type { font-size:1.0625rem; font-weight:500; letter-spacing:-.01em; transition:color 150ms ease-out; }
+  a.archive-row:hover .col-type { color:var(--signal); }
+  a .col-product { color:var(--muted); font-size:.9375rem; }
+  .col-source { justify-self:end; text-align:right; }
+  a .col-source { display:inline-flex; align-items:center; gap:8px; color:var(--muted); font-size:.875rem; }
+  a .col-source span { color:var(--signal); }
+  @media (max-width:1000px) { .archive-row { grid-template-columns:44px 170px minmax(0,1fr) 110px 100px; } .col-product { display:none; } }
+  @media (max-width:700px) {
+    .archive-row { grid-template-columns:minmax(0,1fr) auto; row-gap:6px; }
+    .archive-head, .col-num { display:none; }
+    .col-type { grid-column:1 / -1; order:-1; }
+    a .col-product { display:block; grid-column:1 / -1; }
+  }
+</style>
