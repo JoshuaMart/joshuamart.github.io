@@ -1,14 +1,48 @@
 ---
 import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
 import MainLayout from '../../layouts/MainLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import FilterPills from '../../components/FilterPills.astro';
+import PostCard from '../../components/PostCard.astro';
 import PostListItem from '../../components/PostListItem.astro';
+import { formatDate } from '../../utils/formatDate';
+
+const FEATURED_COUNT = 3;
+const WORDS_PER_MINUTE = 230;
 
 const posts = await getCollection('blog');
-const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const sortedPosts = posts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((post) => ({
+    ...post,
+    minutes: Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).filter(Boolean).length / WORDS_PER_MINUTE)),
+  }));
 
-const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))].sort();
+const [lead, ...secondary] = sortedPosts.slice(0, FEATURED_COUNT);
+const total = sortedPosts.length;
+const latestDate = formatDate(lead.data.date, { year: true }).toUpperCase();
+const firstYear = sortedPosts[total - 1].data.date.getFullYear();
 
+const years = [...new Set(sortedPosts.map((post) => String(post.data.date.getFullYear())))];
+const groups = years.map((year) => ({
+  year,
+  posts: sortedPosts.map((post, index) => ({ post, featured: index < FEATURED_COUNT }))
+    .filter(({ post }) => String(post.data.date.getFullYear()) === year),
+}));
+
+// Topics with at least two articles become pills; the search covers the rest.
+const tagCounts = new Map<string, number>();
+posts.forEach((post) => (post.data.tags ?? []).forEach((tag) => tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1)));
+const topicItems = [
+  { value: 'all', label: 'All', count: total },
+  ...[...tagCounts]
+    .filter(([, count]) => count > 1)
+    .sort(([a, ca], [b, cb]) => cb - ca || a.localeCompare(b))
+    .map(([tag, count]) => ({ value: tag, label: tag, count })),
+];
+
+const countLabel = (n: number) => `${n} ${n === 1 ? 'article' : 'articles'}`;
 ---
 
 <MainLayout
@@ -16,56 +50,194 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))].sort
   description="Technical articles about security research, bug bounty, and malware analysis."
 >
   <section class="site-shell page-shell">
-    <PageHeader
-      eyebrow="WRITING"
-      title="Research, written down."
-      description="Findings, experiments and notes from my work in web security."
-      class="border-b border-outline-variant pb-10"
-    />
-
-    <!-- Tag filters -->
-    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
-      <p id="post-count" class="text-sm text-sand" role="status">{posts.length} articles</p>
-      <div class="flex items-center gap-3"><label for="topic-filter" class="text-sm text-sand">Topic</label><select id="topic-filter" class="min-h-12 max-w-full border border-outline-variant bg-background px-4 py-2 text-base"><option value="all">All topics</option>{allTags.map(tag => <option value={tag}>{tag}</option>)}</select></div>
+    <div class="blog-top">
+      <PageHeader
+        eyebrow="WRITING — 002"
+        title="Research, written down."
+        description="Findings, experiments and notes from my work in web security."
+        class="blog-header"
+      />
+      <dl class="blog-meta">
+        <div><dt>Articles</dt><dd>{total}</dd></div>
+        <div><dt>Latest</dt><dd>{latestDate}</dd></div>
+        <div><dt>Writing since</dt><dd>{firstYear}</dd></div>
+      </dl>
     </div>
 
-    <!-- Article list -->
-    <div id="posts-list" class="flex flex-col">
-      {sortedPosts.map((post) => (
-        <PostListItem
-          title={post.data.title}
-          description={post.data.description}
-          date={post.data.date}
-          slug={post.id}
-          tags={post.data.tags}
+    <!-- Latest articles -->
+    <section id="blog-featured" class="featured" aria-labelledby="latest-label">
+      <span id="latest-label" class="section-index">LATEST</span>
+      <PostCard
+        variant="lead"
+        title={lead.data.title}
+        description={lead.data.description}
+        date={lead.data.date}
+        slug={lead.id}
+        tags={lead.data.tags}
+        image={lead.data.image}
+        minutes={lead.minutes}
+      />
+      {secondary.length > 0 && (
+        <div class="featured-pair">
+          {secondary.map((post) => (
+            <PostCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.date}
+              slug={post.id}
+              tags={post.data.tags}
+              image={post.data.image}
+              minutes={post.minutes}
+            />
+          ))}
+        </div>
+      )}
+    </section>
+
+    <!-- Toolbar -->
+    <section aria-label="Filter articles" class="toolbar">
+      <div class="toolbar-head">
+        <h2 id="archive-title">Archive</h2>
+        <p class="text-sm text-sand" role="status">
+          Showing <span id="post-count" class="font-mono text-paper">{total}</span> of {total} articles
+        </p>
+      </div>
+      <div class="relative">
+        <Icon name="lucide:search" class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-sand" />
+        <input
+          type="search"
+          id="post-search"
+          aria-label="Search articles"
+          placeholder="Search titles, topics or descriptions"
+          class="archive-search w-full border border-outline-variant bg-surface-container py-3 pl-11 pr-4 sm:pr-24 text-base text-paper placeholder:text-sand focus:border-ochre focus:outline-none"
         />
+        <kbd class="hidden sm:block absolute right-4 top-1/2 -translate-y-1/2 border border-outline-variant bg-surface-low px-2 py-0.5 font-mono text-xs text-sand">
+          ⌘ K
+        </kbd>
+      </div>
+      <FilterPills items={topicItems} group="topics" label="Topic" monoLabel />
+    </section>
+
+    <!-- Archive -->
+    <div class="archive">
+      {groups.map((group) => (
+        <section class="year-group" data-year-group aria-labelledby={`year-${group.year}`} hidden={group.posts.every(({ featured }) => featured)}>
+          <div class="year-head">
+            <h3 id={`year-${group.year}`}>{group.year}</h3>
+            <span data-year-count>{countLabel(group.posts.filter(({ featured }) => !featured).length)}</span>
+          </div>
+          <ol>
+            {group.posts.map(({ post, featured }) => (
+              <PostListItem
+                title={post.data.title}
+                description={post.data.description}
+                date={post.data.date}
+                slug={post.id}
+                tags={post.data.tags}
+                minutes={post.minutes}
+                featured={featured}
+              />
+            ))}
+          </ol>
+        </section>
       ))}
     </div>
 
-    <p id="posts-empty" class="hidden py-16 text-center text-sand">
-      No articles match this filter.
-    </p>
+    <div id="posts-empty" class="archive-empty" hidden>
+      <span class="section-index">0 RESULTS</span>
+      <p>No articles match this search and topic.</p>
+      <button type="button" id="posts-reset" class="text-link">Reset filters <span aria-hidden="true">↺</span></button>
+    </div>
   </section>
 
   <script>
-    const items = document.querySelectorAll<HTMLElement>('.post-item');
-    const empty = document.getElementById('posts-empty');
+    const searchInput = document.getElementById('post-search') as HTMLInputElement;
+    const items = [...document.querySelectorAll<HTMLElement>('.post-item')];
+    const groups = [...document.querySelectorAll<HTMLElement>('[data-year-group]')];
+    const featured = document.getElementById('blog-featured')!;
+    const title = document.getElementById('archive-title')!;
+    const count = document.getElementById('post-count')!;
+    const empty = document.getElementById('posts-empty')!;
 
-    const topicFilter = document.getElementById('topic-filter') as HTMLSelectElement;
-    topicFilter.addEventListener('change', () => {
-      const filter = topicFilter.value;
-      let visibleCount = 0;
+    let currentTopic = 'all';
+    const countLabel = (n: number) => `${n} ${n === 1 ? 'article' : 'articles'}`;
+
+    function applyFilters() {
+      const term = searchInput.value.trim().toLowerCase();
+      // While filtering, the featured cards step aside and every match is listed.
+      const filtering = term !== '' || currentTopic !== 'all';
+      let matches = 0;
 
       items.forEach((item) => {
-        const tags = JSON.parse(item.dataset.tags || '[]');
-        const visible = filter === 'all' || tags.includes(filter);
-        item.style.display = visible ? '' : 'none';
-        if (visible) visibleCount++;
+        const tags: string[] = JSON.parse(item.dataset.tags || '[]');
+        const match = (!term || (item.dataset.search || '').includes(term)) && (currentTopic === 'all' || tags.includes(currentTopic));
+        if (match) matches++;
+        item.hidden = !match || (!filtering && item.dataset.featured !== undefined);
       });
 
-      if (empty) empty.classList.toggle('hidden', visibleCount > 0);
-      const count = document.getElementById('post-count');
-      if (count) count.textContent = `${visibleCount} ${visibleCount === 1 ? 'article' : 'articles'}`;
+      groups.forEach((group) => {
+        const visible = group.querySelectorAll('.post-item:not([hidden])').length;
+        group.hidden = visible === 0;
+        group.querySelector('[data-year-count]')!.textContent = countLabel(visible);
+      });
+
+      featured.hidden = filtering;
+      title.textContent = filtering ? 'Results' : 'Archive';
+      count.textContent = String(matches);
+      empty.hidden = matches > 0;
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+
+    document.addEventListener('filter-change', (e) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail.group !== 'topics') return;
+      currentTopic = detail.value;
+      applyFilters();
+    });
+
+    document.getElementById('posts-reset')!.addEventListener('click', () => {
+      searchInput.value = '';
+      document.querySelector<HTMLButtonElement>('[data-filter-pills="topics"] [data-filter="all"]')?.click();
+      applyFilters();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+      }
     });
   </script>
 </MainLayout>
+
+<style>
+  .blog-top { display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:64px; align-items:end; margin-bottom:56px; }
+  .blog-top :global(.blog-header) { margin-bottom:0; }
+  .blog-meta { border-top:1px solid var(--ink); }
+  .blog-meta div { display:flex; justify-content:space-between; gap:16px; padding-block:14px; border-bottom:1px solid var(--line); font-size:.875rem; }
+  .blog-meta dt { color:var(--muted); }
+  .blog-meta dd { font:500 .8125rem/1.6 var(--mono); }
+
+  .featured { padding:20px 0 64px; border-top:1px solid var(--ink); }
+  .featured[hidden] { display:none; }
+  .featured > .section-index { margin-bottom:24px; }
+  .featured-pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:48px; margin-top:56px; padding-top:40px; border-top:1px solid var(--line); }
+
+  .toolbar { display:flex; flex-direction:column; gap:20px; padding:32px 0; border-top:1px solid var(--ink); }
+  .toolbar-head { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px 32px; }
+  .toolbar-head h2 { font-size:2rem; letter-spacing:-.04em; line-height:1.1; }
+
+  .archive ol { list-style:none; margin:0; padding:0; }
+  .year-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:36px 0 14px; border-bottom:1px solid var(--line); }
+  .year-head h3 { font-size:1.75rem; letter-spacing:-.04em; line-height:1; }
+  .year-head span { color:var(--muted); font:400 .75rem/1.5 var(--mono); text-transform:uppercase; }
+
+  .archive-empty { display:flex; flex-direction:column; align-items:center; gap:16px; padding:72px 0; border-bottom:1px solid var(--line); text-align:center; }
+  .archive-empty[hidden] { display:none; }
+  .archive-empty .section-index { margin:0; }
+  .archive-empty p { font-size:1.25rem; font-weight:500; letter-spacing:-.02em; }
+
+  @media (max-width:1000px) { .blog-top { grid-template-columns:minmax(0,1fr); gap:32px; } }
+  @media (max-width:700px) { .blog-top { margin-bottom:40px; } .featured-pair { grid-template-columns:minmax(0,1fr); margin-top:40px; } .featured { padding-bottom:48px; } }
+</style>

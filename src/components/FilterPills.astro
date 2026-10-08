@@ -4,6 +4,8 @@ interface Item {
   label: string;
   /** Optional colour for a leading dot (e.g. severity). */
   color?: string;
+  /** Optional count shown after the label. */
+  count?: number;
 }
 
 interface Props {
@@ -34,6 +36,7 @@ const { items, group, label, monoLabel = false } = Astro.props;
       >
         {item.color && <span class="filter-dot" style={`background:${item.color}`} aria-hidden="true"></span>}
         {item.label}
+        {item.count !== undefined && <span class="filter-count">{item.count}</span>}
       </button>
     ))}
   </div>

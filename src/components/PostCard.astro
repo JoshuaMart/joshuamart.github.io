@@ -1,0 +1,65 @@
+---
+import { formatDate } from '../utils/formatDate';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  slug: string;
+  tags?: string[];
+  image?: string;
+  minutes: number;
+  /** `lead` is the large two-column card, `compact` the stacked one. */
+  variant?: 'lead' | 'compact';
+}
+
+const { title, description, date, slug, tags = [], image, minutes, variant = 'compact' } = Astro.props;
+const formattedDate = formatDate(date, { year: true }).toUpperCase();
+const isLead = variant === 'lead';
+const Heading = isLead ? 'h2' : 'h3';
+---
+
+<a href={`/blog/${slug}`} class:list={['post-card', isLead && 'is-lead', !image && 'no-cover']}>
+  {image && (
+    <div class="cover">
+      <img src={image} alt="" loading={isLead ? 'eager' : 'lazy'} decoding="async" />
+    </div>
+  )}
+  <div class="body">
+    <div class="meta">
+      <time datetime={date.toISOString()}>{formattedDate}</time>
+      <span>{minutes} MIN READ</span>
+      {!isLead && tags[0] && <span class="meta-tag">{tags[0]}</span>}
+    </div>
+    <Heading class="title">{title}</Heading>
+    <p>{description}</p>
+    {isLead && (
+      <div class="foot">
+        <span class="tags">{tags.map((tag) => <span>{tag}</span>)}</span>
+        <span class="text-link">Read article <span aria-hidden="true">↗</span></span>
+      </div>
+    )}
+  </div>
+</a>
+
+<style>
+  .post-card { display:flex; flex-direction:column; gap:18px; }
+  .post-card.is-lead { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:48px; align-items:center; }
+  .cover { overflow:hidden; aspect-ratio:16 / 9; border:1px solid var(--line); background:var(--color-surface); }
+  .cover img { display:block; width:100%; height:100%; object-fit:cover; transition:transform 300ms ease-out; }
+  .post-card.is-lead.no-cover { grid-template-columns:minmax(0,1fr); }
+  .no-cover .title, .no-cover p { max-width:30ch; }
+  .no-cover p { max-width:68ch; }
+  .body { display:flex; flex-direction:column; gap:18px; }
+  .meta { display:flex; flex-wrap:wrap; gap:6px 20px; color:var(--muted); font:400 .75rem/1.5 var(--mono); }
+  .meta-tag { color:var(--signal); text-transform:uppercase; }
+  .title { font-size:1.75rem; letter-spacing:-.035em; line-height:1.15; transition:color 150ms ease-out; }
+  .is-lead .title { font-size:clamp(2rem,3.4vw,3rem); letter-spacing:-.045em; line-height:1.08; }
+  p { max-width:56ch; color:var(--muted); }
+  .is-lead p { max-width:52ch; font-size:1.0625rem; }
+  .foot { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin-top:6px; }
+  .tags { display:flex; gap:16px; color:var(--signal); font-size:.8125rem; }
+  .post-card:hover .title { color:var(--signal); }
+  .post-card:hover .cover img { transform:scale(1.015); }
+  @media (max-width:1000px) { .post-card.is-lead { grid-template-columns:minmax(0,1fr); gap:28px; } }
+</style>

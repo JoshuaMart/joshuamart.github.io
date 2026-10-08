@@ -1,23 +1,31 @@
 ---
-interface Props { title: string; description: string; date: Date; slug: string; tags?: string[]; }
-const { title, description, date, slug, tags = [] } = Astro.props;
-const formattedDate = date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: '2-digit' });
+import { formatDate } from '../utils/formatDate';
+interface Props { title: string; description: string; date: Date; slug: string; tags?: string[]; minutes: number; featured?: boolean; }
+const { title, description, date, slug, tags = [], minutes, featured = false } = Astro.props;
+const formattedDate = formatDate(date);
+const searchText = [title, description, ...tags].join(' ').toLowerCase();
 ---
-<article class="post-item" data-tags={JSON.stringify(tags)}>
+<li class="post-item" data-tags={JSON.stringify(tags)} data-search={searchText} data-featured={featured ? '' : undefined} hidden={featured}>
   <a href={`/blog/${slug}`}>
-    <div class="post-meta"><time datetime={date.toISOString()}>{formattedDate}</time>{tags[0] && <span>{tags[0]}</span>}</div>
-    <div><h2>{title}</h2><p>{description}</p></div>
+    <time datetime={date.toISOString()}>{formattedDate}</time>
+    <span class="post-text"><span class="post-title">{title}</span><span class="post-desc">{description}</span></span>
+    <span class="post-tags">{tags.map((tag) => <span>{tag}</span>)}</span>
+    <span class="post-time">{minutes} min</span>
     <span class="post-arrow" aria-hidden="true">↗</span>
   </a>
-</article>
+</li>
 <style>
-.post-item { border-top:1px solid var(--line); }
-a { display:grid; grid-template-columns:160px 1fr 24px; gap:32px; padding-block:32px; }
-.post-meta { display:flex; flex-direction:column; gap:8px; font-size:.8125rem; color:var(--muted); padding-top:6px; }
-.post-meta>span { color:var(--signal); }
-h2 { font-size:clamp(1.5rem,2.7vw,2rem); max-width:35ch; }
-p { margin-top:14px; max-width:68ch; color:var(--muted); }
-.post-arrow { color:var(--signal); font-size:1.5rem; }
-a:hover h2 { color:var(--signal); }
-@media(max-width:700px) { a { grid-template-columns:1fr 20px; gap:16px; padding-block:26px; } .post-meta { grid-column:1/-1; flex-direction:row; flex-wrap:wrap; gap:16px; padding:0; } p { font-size:.9375rem; } }
+a { display:grid; grid-template-columns:110px minmax(0,1fr) 180px 72px 24px; column-gap:28px; align-items:baseline; padding-block:26px; border-bottom:1px solid var(--line); transition:background-color 150ms ease-out; }
+a:hover { background:var(--wash); }
+time, .post-time { color:var(--muted); font:400 .75rem/1.5 var(--mono); }
+time { padding-left:4px; }
+.post-time { text-align:right; }
+.post-text { display:flex; flex-direction:column; gap:8px; min-width:0; }
+.post-title { font-size:1.375rem; font-weight:500; letter-spacing:-.03em; line-height:1.2; text-wrap:balance; transition:color 150ms ease-out; }
+.post-desc { max-width:68ch; color:var(--muted); font-size:.9375rem; text-wrap:pretty; }
+.post-tags { display:flex; flex-wrap:wrap; gap:4px 14px; color:var(--signal); font-size:.8125rem; }
+.post-arrow { color:var(--signal); font-size:1.25rem; text-align:right; }
+a:hover .post-title { color:var(--signal); }
+@media(max-width:1000px) { a { grid-template-columns:96px minmax(0,1fr) 64px 20px; } .post-tags { display:none; } }
+@media(max-width:700px) { a { grid-template-columns:minmax(0,1fr) 20px; row-gap:8px; } time { grid-column:1 / -1; padding-left:0; } .post-time { display:none; } }
 </style>
