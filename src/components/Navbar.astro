@@ -1,132 +1,28 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { siteConfig, socialLinks, navLinks } from '../data/site';
-
-interface Props {
-  currentPath?: string;
-}
-
-const { currentPath = '/' } = Astro.props;
-
-// Normalize path for comparison (remove trailing slash except for root)
-const normalizePath = (path: string) => (path === '/' ? '/' : path.replace(/\/$/, ''));
-const isActive = (href: string) => normalizePath(currentPath) === normalizePath(href);
-
-// Top navigation shows X (Twitter) and GitHub only
-const topSocials = socialLinks.filter((l) => l.name === 'X' || l.name === 'GitHub');
+import { siteConfig } from '../data/site';
+interface Props { currentPath: string; }
+const { currentPath } = Astro.props;
+const links = [{ href: '/cves', label: 'Research' }, { href: '/blog', label: 'Writing' }, { href: '/tools', label: 'Tools' }];
 ---
-
-<nav class="sticky top-0 z-50 w-full border-b border-outline-variant bg-background/95 backdrop-blur-md">
-  <div class="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-    <!-- Logo -->
-    <a
-      href="/"
-      class="font-serif text-2xl font-medium tracking-tight text-ochre transition-opacity hover:opacity-80"
-    >
-      {siteConfig.name}
-    </a>
-
-    <!-- Desktop Nav -->
-    <ul class="hidden items-center gap-8 md:flex">
-      {navLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class:list={[
-              'text-base transition-colors',
-              isActive(link.href)
-                ? 'border-b border-paper pb-1 font-bold text-paper'
-                : 'text-sand hover:text-paper',
-            ]}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-
-    <!-- Desktop right: socials + contact -->
-    <div class="hidden items-center gap-2 md:flex">
-      {topSocials.map((link) => (
-        <a
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex h-9 w-9 items-center justify-center text-sand transition-colors hover:text-paper"
-          aria-label={link.name}
-        >
-          <Icon name={link.icon} class="h-5 w-5" />
-        </a>
-      ))}
-      <a
-        href={`mailto:${siteConfig.contactEmail}`}
-        class="ml-2 bg-paper px-6 py-2 font-mono text-xs font-medium uppercase tracking-wider text-deep-navy transition-colors hover:bg-ochre"
-      >
-        Contact
-      </a>
-    </div>
-
-    <!-- Mobile menu toggle -->
-    <button
-      id="mobile-menu-toggle"
-      class="text-sand transition-colors hover:text-paper md:hidden"
-      aria-label="Toggle menu"
-      aria-expanded="false"
-    >
-      <Icon name="lucide:menu" class="h-6 w-6" data-icon="menu" />
-      <Icon name="lucide:x" class="hidden h-6 w-6" data-icon="close" />
-    </button>
-  </div>
-
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden border-t border-outline-variant bg-background md:hidden">
-    <ul class="flex flex-col px-4 py-4 sm:px-6">
-      {navLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class:list={[
-              'block py-3 text-base transition-colors',
-              isActive(link.href) ? 'font-bold text-paper' : 'text-sand hover:text-paper',
-            ]}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-    <div class="flex items-center gap-4 border-t border-outline-variant px-4 py-4 sm:px-6">
-      {topSocials.map((link) => (
-        <a
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sand transition-colors hover:text-paper"
-          aria-label={link.name}
-        >
-          <Icon name={link.icon} class="h-5 w-5" />
-        </a>
-      ))}
-      <a
-        href={`mailto:${siteConfig.contactEmail}`}
-        class="ml-auto bg-paper px-6 py-2 font-mono text-xs font-medium uppercase tracking-wider text-deep-navy transition-colors hover:bg-ochre"
-      >
-        Contact
-      </a>
-    </div>
-  </div>
-</nav>
-
-<script>
-  const toggle = document.getElementById('mobile-menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  const menuIcon = toggle?.querySelector('[data-icon="menu"]');
-  const closeIcon = toggle?.querySelector('[data-icon="close"]');
-
-  toggle?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('hidden') === false;
-    toggle.setAttribute('aria-expanded', String(isOpen));
-    menuIcon?.classList.toggle('hidden', isOpen);
-    closeIcon?.classList.toggle('hidden', !isOpen);
-  });
-</script>
+<div class="site-shell">
+  <header class="site-header">
+    <a href="/" class="wordmark" aria-label="Joshua Martinelle — home">Joshua <span>MARTINELLE</span><i aria-hidden="true">.</i></a>
+    <nav aria-label="Main navigation">
+      {links.map(link => <a href={link.href} aria-current={currentPath.replace(/\/$/, '') === link.href ? 'page' : currentPath.startsWith(link.href + '/') ? 'location' : undefined}>{link.label}</a>)}
+    </nav>
+    <a class="contact" href={`mailto:${siteConfig.contactEmail}`}>Let’s talk <span aria-hidden="true">↗</span></a>
+  </header>
+</div>
+<style>
+.site-header { min-height:92px; border-bottom:1px solid var(--ink); display:flex; align-items:center; justify-content:space-between; gap:32px; }
+.wordmark { font-size:1.125rem; font-weight:700; letter-spacing:-.03em; white-space:nowrap; }
+.wordmark span { font-size:.88em; letter-spacing:.035em; }
+.wordmark i { font-style:normal; color:var(--signal); margin-left:2px; }
+nav { display:flex; gap:30px; font-size:.9375rem; }
+nav a { padding-block:12px; }
+nav a[aria-current] { color:var(--signal); text-decoration:underline; }
+a:hover { color:var(--signal); }
+.contact { font-size:.9375rem; display:flex; align-items:center; gap:22px; }
+.contact span { color:var(--signal); font-size:1.4rem; }
+@media(max-width:700px) { .site-header { min-height:100px; gap:12px; flex-wrap:wrap; padding:20px 0 12px; } .wordmark { font-size:1rem; } nav { order:3; width:100%; gap:28px; font-size:.875rem; } nav a { padding-block:8px; } .contact { font-size:.875rem; gap:8px; } }
+</style>

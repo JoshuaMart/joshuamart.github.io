@@ -15,15 +15,16 @@ const { items, group, label } = Astro.props;
 
 <div class="flex flex-wrap items-center gap-x-2 gap-y-3">
   {label && (
-    <span class="mr-4 font-mono text-xs uppercase tracking-widest text-sand">{label}</span>
+    <span class="mr-4 text-sm text-sand">{label}</span>
   )}
-  <div class="flex flex-wrap items-center gap-2" data-filter-pills={group}>
+  <div class="flex flex-wrap items-center gap-2" data-filter-pills={group} role="group" aria-label={label || `Filter by ${group}`}>
     {items.map((item, i) => (
       <button
         type="button"
         data-filter={item.value}
+        aria-pressed={i === 0}
         class:list={[
-          'filter-pill px-4 py-1.5 font-mono text-xs uppercase tracking-widest transition-colors',
+          'filter-pill transition-colors',
           i === 0 && 'is-active',
         ]}
       >
@@ -38,8 +39,9 @@ const { items, group, label } = Astro.props;
     const pills = group.querySelectorAll<HTMLButtonElement>('.filter-pill');
     pills.forEach((pill) => {
       pill.addEventListener('click', () => {
-        pills.forEach((p) => p.classList.remove('is-active'));
+        pills.forEach((p) => { p.classList.remove('is-active'); p.setAttribute('aria-pressed', 'false'); });
         pill.classList.add('is-active');
+        pill.setAttribute('aria-pressed', 'true');
         group.dispatchEvent(
           new CustomEvent('filter-change', {
             bubbles: true,

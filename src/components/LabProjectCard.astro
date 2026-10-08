@@ -1,35 +1,17 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { languageColors } from '../data/site';
-
-interface Props {
-  name: string;
-  description: string;
-  language: string;
-  icon: string;
-  status: string;
-}
-
+interface Props { name:string; description:string; language:string; icon:string; status:string; }
 const { name, description, language, icon, status } = Astro.props;
 ---
-
-<article class="flex min-h-[240px] flex-col border border-outline-variant bg-surface-container p-8">
-  <div class="flex items-start justify-between gap-3">
-    <span class="inline-flex items-center gap-2 border border-sand/30 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-sand">
-      <span class="h-2 w-2 rounded-full" style={`background-color: ${languageColors[language] || '#A9AEA0'}`}></span>
-      {language}
-    </span>
-    <span class="inline-flex shrink-0 items-center gap-1.5 border border-sand/30 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-sand">
-      <Icon name="lucide:lock" class="h-3 w-3" />
-      {status}
-    </span>
-  </div>
-
-  <div class="mt-12 flex flex-1 flex-col">
-    <div class="mb-3 flex items-center gap-3">
-      <Icon name={icon} class="h-5 w-5 text-sand" />
-      <h2 class="font-serif text-2xl font-medium text-paper">{name}</h2>
-    </div>
-    <p class="text-sm leading-relaxed text-sand">{description}</p>
-  </div>
+<article class="lab-project">
+  <div class="project-meta"><span>{language}</span><span>{status}</span></div>
+  <div class="project-title"><Icon name={icon} class="h-5 w-5" /><h3>{name}</h3></div>
+  <p>{description}</p>
 </article>
+<style>
+.lab-project { border-top:1px solid var(--line); padding:24px 0 28px; min-width:0; }
+.project-meta { display:flex; gap:12px; flex-wrap:wrap; justify-content:space-between; color:var(--muted); font-size:.8125rem; }
+.project-title { display:flex; gap:12px; align-items:center; margin-top:26px; }
+h3 { font-size:1.75rem; }
+p { color:var(--muted); margin-top:14px; max-width:55ch; }
+</style>

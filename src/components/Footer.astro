@@ -1,42 +1,16 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { siteConfig, socialLinks } from '../data/site';
-
-const currentYear = new Date().getFullYear();
-
-// Footer order: X (Twitter), GitHub, LinkedIn
-const order = ['X', 'GitHub', 'LinkedIn'];
-const footerSocials = [...socialLinks].sort(
-  (a, b) => order.indexOf(a.name) - order.indexOf(b.name)
-);
+import { socialLinks } from '../data/site';
 ---
-
-<footer class="w-full border-t border-outline-variant bg-deep-navy">
-  <div
-    class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-8 sm:px-6 lg:px-8 md:flex-row md:justify-between"
-  >
-    <span class="font-serif text-lg font-medium text-ochre">
-      {siteConfig.name}
-    </span>
-
-    <p class="font-mono text-xs uppercase tracking-wider text-sand">
-      &copy; {currentYear} {siteConfig.name}. All rights reserved.
-    </p>
-
-    <ul class="flex items-center gap-6">
-      {footerSocials.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            target="_blank"
-            rel="me noopener noreferrer"
-            class="flex items-center gap-2 text-sand transition-colors hover:text-paper"
-            aria-label={link.name}
-          >
-            <Icon name={link.icon} class="h-5 w-5" />
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
-</footer>
+<div class="site-shell">
+  <footer class="site-footer">
+    <span>© {new Date().getFullYear()} Joshua MARTINELLE</span>
+    <nav aria-label="Social profiles">{socialLinks.map(link => <a href={link.href} target="_blank" rel="noopener noreferrer">{link.name} <span aria-hidden="true">↗</span></a>)}</nav>
+  </footer>
+</div>
+<style>
+.site-footer { border-top:1px solid var(--ink); padding:28px 0 32px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; font-size:.8125rem; }
+.site-footer>span { color:var(--muted); }
+nav { display:flex; gap:22px; }
+a:hover { color:var(--signal); text-decoration:underline; }
+@media(max-width:700px) { .site-footer { padding-block:24px; } nav { gap:18px; } }
+</style>

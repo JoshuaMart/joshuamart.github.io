@@ -17,7 +17,7 @@ const sortedCves = [...cves].sort((a, b) => b.date.localeCompare(a.date));
 const stats = [
   { label: 'Total CVEs', value: totalCves },
   { label: 'Critical Findings', value: criticalCount },
-  { label: 'Years Active', value: years.length },
+  { label: 'Years of disclosures', value: years.length },
 ];
 
 const yearItems = [
@@ -30,18 +30,19 @@ const yearItems = [
   title="Vulnerability Research - Joshua Martinelle"
   description="Comprehensive database of disclosed security vulnerabilities discovered by Joshua Martinelle."
 >
-  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
+  <section class="site-shell page-shell">
     <PageHeader
-      title="CVEs & Research."
-      description="An archive of identified vulnerabilities and security research. Documenting structural flaws in high-value systems to advance defensive strategies."
+      eyebrow="RESEARCH ARCHIVE"
+      title="CVEs & research."
+      description="Vulnerabilities I’ve found and disclosed, with links to vendor advisories and technical details."
     />
 
     <!-- Stats strip -->
-    <div class="mb-12 grid grid-cols-3 divide-x divide-outline-variant border-y border-outline-variant">
+    <div class="mb-10 grid grid-cols-3 gap-2 bg-surface-low">
       {stats.map((stat) => (
         <div class="px-4 py-6 sm:px-6">
-          <p class="font-serif text-3xl font-medium text-paper sm:text-4xl">{stat.value}</p>
-          <p class="mt-2 font-mono text-[10px] uppercase tracking-widest text-sand sm:text-xs">
+          <p class="font-sans text-4xl font-medium tracking-tight text-paper sm:text-5xl">{stat.value}</p>
+          <p class="mt-2 text-sm leading-snug text-sand">
             {stat.label}
           </p>
         </div>
@@ -55,19 +56,20 @@ const yearItems = [
         class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-sand"
       />
       <input
-        type="text"
+        type="search"
+        aria-label="Search vulnerabilities"
         id="cve-search"
-        placeholder="Search by CVE ID, product, or vulnerability type..."
-        class="w-full border border-outline-variant bg-surface-container py-3 pl-11 pr-24 text-sm text-paper placeholder:text-sand focus:border-ochre focus:outline-none"
+        placeholder="Search CVE ID, product or vulnerability"
+        class="archive-search w-full border border-outline-variant bg-surface-container py-3 pl-11 pr-4 sm:pr-24 text-base text-paper placeholder:text-sand focus:border-ochre focus:outline-none"
       />
-      <span class="absolute right-4 top-1/2 -translate-y-1/2 border border-outline-variant bg-surface-low px-2 py-0.5 font-mono text-xs text-sand">
+      <span class="hidden sm:block absolute right-4 top-1/2 -translate-y-1/2 border border-outline-variant bg-surface-low px-2 py-0.5 text-sm text-sand">
         CTRL + K
       </span>
     </div>
 
     <!-- Year filters -->
     <div class="mb-8">
-      <FilterPills items={yearItems} group="years" label="Filter Year" />
+      <FilterPills items={yearItems} group="years" label="Year" />
     </div>
 
     <!-- CVE Table -->
@@ -75,8 +77,10 @@ const yearItems = [
       <CveTable cves={sortedCves} />
     </div>
 
+    <p id="cves-empty" class="hidden py-12 text-center text-sand">No vulnerabilities match your search and year.</p>
+
     <!-- Results count -->
-    <p class="mt-6 font-mono text-xs uppercase tracking-widest text-sand">
+    <p class="mt-6 text-sm text-sand" role="status">
       Showing <span id="shown-count">{totalCves}</span> of {totalCves} results
     </p>
   </section>
@@ -89,7 +93,7 @@ const yearItems = [
     let currentYear = 'all';
 
     function applyFilters() {
-      const term = searchInput.value.toLowerCase();
+      const term = searchInput.value.trim().toLowerCase();
       // Rows contain both desktop table rows and mobile cards; a row is "shown"
       // when it matches, but only the visible breakpoint variant is on screen.
       const shownIds = new Set<string>();
@@ -97,11 +101,12 @@ const yearItems = [
       rows.forEach((row) => {
         const id = row.dataset.cveId || '';
         const target = row.dataset.cveTarget || '';
+        const product = row.dataset.cveProduct || '';
         const type = row.dataset.cveType || '';
         const year = row.dataset.cveYear || '';
 
         const matchesSearch =
-          id.includes(term) || target.includes(term) || type.includes(term);
+          id.includes(term) || target.includes(term) || product.includes(term) || type.includes(term);
         const matchesYear = currentYear === 'all' || year === currentYear;
         const visible = matchesSearch && matchesYear;
 
@@ -110,6 +115,7 @@ const yearItems = [
       });
 
       if (shownCount) shownCount.textContent = String(shownIds.size);
+      document.getElementById('cves-empty')?.classList.toggle('hidden', shownIds.size > 0);
     }
 
     searchInput.addEventListener('input', applyFilters);

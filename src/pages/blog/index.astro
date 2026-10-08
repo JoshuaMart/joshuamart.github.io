@@ -2,33 +2,31 @@
 import { getCollection } from 'astro:content';
 import MainLayout from '../../layouts/MainLayout.astro';
 import PageHeader from '../../components/PageHeader.astro';
-import FilterPills from '../../components/FilterPills.astro';
 import PostListItem from '../../components/PostListItem.astro';
 
 const posts = await getCollection('blog');
 const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))].sort();
-const tagItems = [
-  { value: 'all', label: './ALL' },
-  ...allTags.map((t) => ({ value: t, label: `#${t}` })),
-];
+
 ---
 
 <MainLayout
   title="Blog - Joshua Martinelle"
   description="Technical articles about security research, bug bounty, and malware analysis."
 >
-  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
+  <section class="site-shell page-shell">
     <PageHeader
-      title="Research Journal"
-      description="Analysis, methodologies, and technical perspectives on contemporary security challenges."
+      eyebrow="WRITING"
+      title="Research, written down."
+      description="Findings, experiments and notes from my work in web security."
       class="border-b border-outline-variant pb-10"
     />
 
     <!-- Tag filters -->
-    <div class="mb-12">
-      <FilterPills items={tagItems} group="tags" />
+    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+      <p id="post-count" class="text-sm text-sand" role="status">{posts.length} articles</p>
+      <div class="flex items-center gap-3"><label for="topic-filter" class="text-sm text-sand">Topic</label><select id="topic-filter" class="min-h-12 max-w-full border border-outline-variant bg-background px-4 py-2 text-base"><option value="all">All topics</option>{allTags.map(tag => <option value={tag}>{tag}</option>)}</select></div>
     </div>
 
     <!-- Article list -->
@@ -53,10 +51,9 @@ const tagItems = [
     const items = document.querySelectorAll<HTMLElement>('.post-item');
     const empty = document.getElementById('posts-empty');
 
-    document.addEventListener('filter-change', (e) => {
-      const detail = (e as CustomEvent).detail;
-      if (detail.group !== 'tags') return;
-      const filter = detail.value;
+    const topicFilter = document.getElementById('topic-filter') as HTMLSelectElement;
+    topicFilter.addEventListener('change', () => {
+      const filter = topicFilter.value;
       let visibleCount = 0;
 
       items.forEach((item) => {
@@ -67,6 +64,8 @@ const tagItems = [
       });
 
       if (empty) empty.classList.toggle('hidden', visibleCount > 0);
+      const count = document.getElementById('post-count');
+      if (count) count.textContent = `${visibleCount} ${visibleCount === 1 ? 'article' : 'articles'}`;
     });
   </script>
 </MainLayout>

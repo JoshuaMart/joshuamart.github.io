@@ -1,0 +1,65 @@
+---
+interface Props { variant?: 'dossier' | 'lab'; }
+const { variant = 'lab' } = Astro.props;
+---
+<div class:list={['layer-study', variant]}>
+  <svg viewBox="0 0 480 380" role="img" aria-label="Three layers of a system, with one highlighted finding beneath the surface">
+    <defs>
+      <pattern id={`grid-${variant}`} width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="matrix(1 .5 -1 .5 240 34)">
+        <path d="M24 0H0V24" fill="none" stroke="currentColor" stroke-width=".6" opacity=".3" />
+      </pattern>
+    </defs>
+    <g class="construction" fill="none" stroke="currentColor" stroke-width="1" opacity=".24">
+      <path d="M30 266 240 371 450 266M30 110 240 5 450 110M64 94V282M416 94V282M240 5V371" stroke-dasharray="3 6" />
+    </g>
+    <g class="plate lower">
+      <path class="face" d="m64 214 176-88 176 88-176 88Z" />
+      <path class="side" d="m64 214 176 88 176-88v10l-176 88-176-88Z" />
+      <path class="finding" d="m208 214 32-16 32 16-32 16Z" />
+      <path class="wire" d="m240 230 0 46 75 38h68" />
+      <circle class="finding-dot" cx="383" cy="314" r="4" />
+    </g>
+    <g class="plate middle">
+      <path class="face" d="m64 159 176-88 176 88-176 88Z" />
+      <path class="grid-face" fill={`url(#grid-${variant})`} d="m64 159 176-88 176 88-176 88Z" />
+      <path class="side" d="m64 159 176 88 176-88v8l-176 88-176-88Z" />
+      <path class="wire" d="m138 159 102-51 102 51-102 51Z" />
+    </g>
+    <g class="plate upper">
+      <path class="face" d="m64 104 176-88 176 88-176 88Z" />
+      <path class="side" d="m64 104 176 88 176-88v8l-176 88-176-88Z" />
+      <path class="wire" d="m101 105 139-69 139 69M122 116l62-31m-43 40 62-31m-43 40 62-31" />
+      <circle cx="240" cy="54" r="3" fill="currentColor" />
+    </g>
+  </svg>
+  <div class="study-caption"><span>Surface / boundary / finding</span><button type="button" aria-pressed="false">Separate layers <span aria-hidden="true">↗</span></button></div>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('.layer-study').forEach((study) => {
+    const button = study.querySelector('button');
+    button?.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-pressed') !== 'true';
+      button.setAttribute('aria-pressed', String(expanded));
+      study.classList.toggle('expanded', expanded);
+      button.innerHTML = `${expanded ? 'Bring layers together' : 'Separate layers'} <span aria-hidden="true">${expanded ? '↙' : '↗'}</span>`;
+    });
+  });
+</script>
+<style>
+  .layer-study{color:var(--ink);width:100%;min-width:0}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  .face{fill:var(--paper);stroke:currentColor;stroke-width:1.1}
+  .side{fill:var(--wash);stroke:currentColor;stroke-width:1}
+  .wire{fill:none;stroke:currentColor;stroke-width:1;opacity:.6}
+  .finding,.finding-dot{fill:var(--signal)}
+  .lower .wire{stroke:var(--signal);opacity:1}
+  .plate{transition:transform 260ms cubic-bezier(.23,1,.32,1)}
+  .expanded .upper{transform:translateY(-16px)}
+  .expanded .middle{transform:translateY(-8px)}
+  .expanded .lower{transform:translateY(24px)}
+  .study-caption{display:flex;align-items:center;justify-content:space-between;gap:10px;font:400 .75rem/1.5 var(--sans);border-top:1px solid var(--line);padding-top:12px}
+  button{font:inherit;color:var(--signal);border:0;background:none;padding:8px 0;cursor:pointer;text-align:right;min-height:44px}
+  button:focus-visible{outline:2px solid var(--signal);outline-offset:4px}
+  .layer-study:has(button:focus-visible) .plate{transition:none}
+  @media(prefers-reduced-motion:reduce){.plate{transition:none}}
+</style>

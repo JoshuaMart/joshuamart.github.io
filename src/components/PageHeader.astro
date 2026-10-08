@@ -1,25 +1,15 @@
 ---
-interface Props {
-  title: string;
-  description?: string;
-  eyebrow?: string;
-  class?: string;
-}
-
-const { title, description, eyebrow, class: className = '' } = Astro.props;
+interface Props { title: string; description?: string; eyebrow?: string; class?: string; }
+const { title, description, eyebrow, class: className } = Astro.props;
 ---
-
-<header class:list={['mb-16', className]}>
-  {eyebrow && (
-    <div class="mb-6 flex items-center">
-      <div class="mr-4 h-px w-12 bg-ochre"></div>
-      <span class="font-mono text-xs uppercase tracking-widest text-ochre">{eyebrow}</span>
-    </div>
-  )}
-  <h1 class="mb-6 font-serif text-4xl font-medium leading-tight tracking-tight text-paper sm:text-5xl">
-    {title}
-  </h1>
-  {description && (
-    <p class="max-w-3xl text-lg leading-relaxed text-sand">{description}</p>
-  )}
+<header class:list={['page-header', className]}>
+  {eyebrow && <span class="section-index">{eyebrow}</span>}
+  <h1>{title}</h1>
+  {description && <p>{description}</p>}
 </header>
+<style>
+.page-header { margin-bottom:48px; }
+h1 { font-size:clamp(3rem,6vw,5rem); letter-spacing:-.06em; line-height:1.05; }
+p { max-width:60ch; margin-top:24px; color:var(--muted); font-size:1.125rem; }
+@media(max-width:700px) { .page-header { margin-bottom:32px; } p { font-size:1rem; margin-top:18px; } }
+</style>

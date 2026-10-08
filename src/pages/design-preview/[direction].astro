@@ -1,0 +1,47 @@
+---
+import DesignHome from '../../components/design-preview/DesignHome.astro';
+
+// Local design explorations never become production routes or sitemap entries.
+export function getStaticPaths() {
+  return import.meta.env.DEV
+    ? ['dossier', 'lab', 'compare'].map(direction => ({ params: { direction } }))
+    : [];
+}
+const { direction } = Astro.params;
+---
+{direction === 'compare' ? (
+  <html lang="fr">
+    <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><title>Joshua MARTINELLE — Directions artistiques</title></head>
+    <body class="comparison">
+      <header class="review-bar">
+        <div class="review-title"><strong>Joshua MARTINELLE</strong><span>Explorations de direction artistique</span></div>
+        <div class="directions" role="group" aria-label="Direction artistique"><button data-direction="dossier" aria-pressed="false">Dossier de recherche</button><button data-direction="lab" aria-pressed="true">Laboratoire ouvert</button></div>
+        <div class="sizes" role="group" aria-label="Largeur de l’aperçu"><button data-size="desktop" aria-pressed="true">Bureau</button><button data-size="mobile" aria-pressed="false">Mobile</button></div>
+        <a id="open-direction" href="/design-preview/lab" target="_blank">Ouvrir ↗</a>
+      </header>
+      <div class="review-note" aria-live="polite"><span id="direction-description">Laboratoire ouvert · portrait intégré au titre · animation Hairline</span><span>Propositions de textes · liens vers les contenus existants</span></div>
+      <main class="preview-stage"><iframe id="design-frame" title="Laboratoire ouvert — aperçu du site" src="/design-preview/lab"></iframe></main>
+      <script>
+        const frame = document.querySelector<HTMLIFrameElement>('#design-frame')!;
+        const descriptions = { dossier: 'Papier chaud · vermillon · composition éditoriale · portrait', lab: 'Laboratoire ouvert · portrait intégré au titre · animation Hairline' };
+        document.querySelectorAll<HTMLButtonElement>('[data-direction]').forEach(button => button.addEventListener('click', () => {
+          const direction = button.dataset.direction as keyof typeof descriptions;
+          document.querySelectorAll('[data-direction]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+          frame.src = `/design-preview/${direction}`;
+          frame.title = `${button.textContent} — aperçu du site`;
+          document.querySelector('#direction-description')!.textContent = descriptions[direction];
+          document.querySelector<HTMLAnchorElement>('#open-direction')!.href = frame.src;
+        }));
+        document.querySelectorAll<HTMLButtonElement>('[data-size]').forEach(button => button.addEventListener('click', () => {
+          document.querySelectorAll('[data-size]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+          frame.classList.toggle('mobile', button.dataset.size === 'mobile');
+          frame.contentWindow?.scrollTo({top: 0, behavior: 'instant'});
+        }));
+      </script>
+    </body>
+  </html>
+) : <DesignHome direction={direction === 'lab' ? 'lab' : 'dossier'} />}
+<style is:global>
+  .comparison{margin:0;background:#e9e9e6;color:#272b30;font:13px/1.4 system-ui,sans-serif;height:100dvh;display:flex;flex-direction:column}
+  .comparison *{box-sizing:border-box}.review-bar{display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding:14px 22px;background:#fff;border-bottom:1px solid #d9dcdf}.review-title{display:flex;flex-direction:column;gap:3px;margin-right:auto}.review-title strong{font-size:12px;letter-spacing:.025em}.review-title>span{font-size:11px;color:#667078}.directions,.sizes{display:flex;gap:4px;background:#f1f2f3;padding:3px;border-radius:7px}.review-bar button{font:inherit;border:0;border-radius:4px;background:transparent;color:#535b63;padding:9px 12px;cursor:pointer}.review-bar button[aria-pressed=true]{background:#fff;color:#20242a;box-shadow:0 1px 3px #0002}.review-bar a{color:#404851;font-size:12px;text-decoration:none}.review-bar :focus-visible{outline:2px solid #204be3;outline-offset:3px}.review-note{padding:10px 22px;display:flex;justify-content:space-between;gap:14px;font-size:11px;color:#5b6267;background:#f7f7f5}.preview-stage{flex:1;min-height:0;display:flex;justify-content:center;padding:16px}#design-frame{background:#fff;width:100%;height:100%;border:0;box-shadow:0 2px 12px #0001}#design-frame.mobile{width:390px;max-width:100%;border-radius:12px}.comparison button:active{transform:scale(.97)}@media(max-width:760px){.review-bar{padding:12px;gap:12px}.review-title{width:100%}.review-note{padding:10px 12px}.review-note>span:last-child{display:none}.preview-stage{padding:8px}.review-bar button{font-size:11px;padding:9px}.review-bar a{margin-left:auto}}
+</style>
