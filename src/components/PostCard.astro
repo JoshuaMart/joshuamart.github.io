@@ -33,6 +33,7 @@ const Heading = isLead ? 'h2' : 'h3';
     </div>
     <Heading class="title">{title}</Heading>
     <p>{description}</p>
+    <slot />
     {isLead && (
       <div class="foot">
         <span class="tags">{tags.map((tag) => <span>{tag}</span>)}</span>

@@ -7,16 +7,16 @@ import FilterPills from '../../components/FilterPills.astro';
 import PostCard from '../../components/PostCard.astro';
 import PostListItem from '../../components/PostListItem.astro';
 import { formatDate } from '../../utils/formatDate';
+import { readingMinutes } from '../../utils/readingTime';
 
 const FEATURED_COUNT = 3;
-const WORDS_PER_MINUTE = 230;
 
 const posts = await getCollection('blog');
 const sortedPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .map((post) => ({
     ...post,
-    minutes: Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).filter(Boolean).length / WORDS_PER_MINUTE)),
+    minutes: readingMinutes(post.body),
   }));
 
 const [lead, ...secondary] = sortedPosts.slice(0, FEATURED_COUNT);

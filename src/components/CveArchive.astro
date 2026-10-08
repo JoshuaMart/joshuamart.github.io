@@ -1,5 +1,6 @@
 ---
 import SeverityBadge from './SeverityBadge.astro';
+import { advisorySource } from '../utils/advisorySource';
 
 interface CVE {
   id: string;
@@ -20,11 +21,6 @@ const { cves } = Astro.props;
 const years = [...new Set(cves.map((c) => c.date))].sort((a, b) => b.localeCompare(a));
 const groups = years.map((year) => ({ year, cves: cves.filter((c) => c.date === year) }));
 
-const sourceOf = (link: string) => {
-  if (link.includes('tenable.com')) return 'Tenable';
-  if (link.includes('nvd.nist.gov')) return 'NVD';
-  return 'Vendor';
-};
 
 const countLabel = (n: number) => `${n} ${n === 1 ? 'disclosure' : 'disclosures'}`;
 let index = 0;
@@ -69,7 +65,7 @@ let index = 0;
               <span class="col-type">{cve.type}</span>
               <span class="col-product">{cve.product}</span>
               <SeverityBadge severity={cve.severity} variant="inline" />
-              <span class="col-source">{sourceOf(cve.link)} <span aria-hidden="true">↗</span></span>
+              <span class="col-source">{advisorySource(cve.link)} <span aria-hidden="true">↗</span></span>
             </a>
           </li>
         ))}

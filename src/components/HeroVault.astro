@@ -1,0 +1,77 @@
+<hero-vault>
+  <div class="vault-artwork">
+    <div class="vault-canvas"></div>
+    <svg class="vault-fallback" viewBox="0 0 480 384" role="img" aria-label="A vault door with a dial and three bolts">
+      <g fill="var(--paper)" stroke="var(--muted)" stroke-width="1">
+        <path d="m150 70 190 95v185l-190-95Z"/>
+        <ellipse cx="245" cy="215" rx="62" ry="78" transform="rotate(-28 245 215)"/>
+        <ellipse cx="245" cy="215" rx="26" ry="33" transform="rotate(-28 245 215)" stroke="var(--signal)"/>
+      </g>
+    </svg>
+  </div>
+  <div class="vault-caption">
+    <span>Turn the dial. Every lock has a combination.</span>
+  </div>
+</hero-vault>
+
+<script>
+  import { vault, type Figure } from '@lucasmarkes/hairline';
+
+  class HeroVault extends HTMLElement {
+    private figure?: Figure;
+    private controller?: AbortController;
+
+    connectedCallback() {
+      if (this.figure) return;
+      const canvas = this.querySelector<HTMLElement>('.vault-canvas')!;
+      const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.controller = new AbortController();
+      const { signal } = this.controller;
+
+      this.figure = vault(canvas, {
+        theme: 'light',
+        intensity: 0.4,
+        play: !motion.matches && !document.hidden,
+        label: 'A vault door whose dial turns until the combination is found and the bolts draw back.',
+      });
+      this.setAttribute('data-ready', '');
+
+      const sync = () => {
+        this.figure?.update({ play: !motion.matches && !document.hidden });
+      };
+      motion.addEventListener('change', sync, { signal });
+      document.addEventListener('visibilitychange', sync, { signal });
+      sync();
+    }
+
+    disconnectedCallback() {
+      this.controller?.abort();
+      this.figure?.destroy();
+      this.figure = undefined;
+      this.removeAttribute('data-ready');
+    }
+  }
+
+  if (!customElements.get('hero-vault')) {
+    customElements.define('hero-vault', HeroVault);
+  }
+</script>
+
+<style>
+  hero-vault {
+    display: block;
+    --hairline-plate: var(--paper);
+    --hairline-hi: var(--signal);
+    --hairline-edge: #566574;
+    --hairline-mid: #7b8997;
+    --hairline-lo: #d2d9e1;
+    --hairline-stroke: .9;
+  }
+  /* Frame the drawing itself instead of Hairline's generous outer canvas.
+     The shorter opening travel keeps every layer inside this tighter crop. */
+  .vault-artwork { position: relative; aspect-ratio: 1.45; width: 100%; overflow: clip; }
+  .vault-canvas { position: absolute; width: 100%; aspect-ratio: 5 / 4; transform: translateY(-8%) scale(1.02); transform-origin: 50% 50%; }
+  .vault-fallback { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+  [data-ready] .vault-fallback { display: none; }
+  .vault-caption { border-top: 1px solid var(--line); padding: 16px 0; font-size: .75rem; color: var(--muted); }
+</style>
