@@ -1,63 +1,65 @@
 [
   {
     "name": "WebSec0",
-    "description": "SSL/TLS + Headers scanner.",
+    "description": "Grades a site’s TLS setup and HTTP security headers, and explains how to fix what it finds.",
     "language": "Go",
     "icon": "lucide:circle-dot",
     "url": "https://github.com/JoshuaMart/WebSec0"
   },
   {
     "name": "Detective",
-    "description": "Automated reconnaissance pipeline.",
+    "description": "Recon pipeline: subdomains, DNS, CDN detection, ports and web services, streamed to your API.",
     "language": "Go",
     "icon": "lucide:hat-glasses",
     "url": "https://github.com/JoshuaMart/Detective"
   },
   {
     "name": "Hookd",
-    "description": "A lightweight, high-performance interaction server for capturing DNS and HTTP callbacks.",
+    "description": "Interaction server capturing out-of-band DNS, HTTP and SMTP callbacks through ephemeral hooks.",
     "language": "Go",
     "icon": "lucide:webhook",
-    "url": "https://github.com/JoshuaMart/Hookd"
+    "url": "https://github.com/JoshuaMart/Hookd",
+    "post": "2025/hookd"
   },
   {
     "name": "ScopesExtractor",
-    "description": "Monitor bug bounty programs across multiple platforms to track scope changes.",
+    "description": "Syncs and tracks scope changes on YesWeHack, HackerOne, Intigriti and Bugcrowd programs.",
     "language": "Ruby",
     "icon": "lucide:radar",
-    "url": "https://github.com/JoshuaMart/ScopesExtractor"
+    "url": "https://github.com/JoshuaMart/ScopesExtractor",
+    "post": "2025/extract_and_monitor_bugbounty_scopes"
   },
   {
     "name": "BurpToNats",
-    "description": "Push BurpSuite HTTP requests to a NATS messaging queue.",
+    "description": "Burp Suite extension that publishes every HTTP request it processes to a NATS queue.",
     "language": "Java",
     "icon": "lucide:arrow-right-left",
     "url": "https://github.com/JoshuaMart/BurpToNats"
   },
   {
     "name": "FastRecon",
-    "description": "A simple, fast, non-exhaustive solution to obtain a list of subdomains.",
+    "description": "Maps what a domain exposes: live hosts, open ports and HTTP services, as one JSON report.",
     "language": "Go",
     "icon": "lucide:search",
     "url": "https://github.com/JoshuaMart/FastRecon"
   },
   {
     "name": "SimpleProxy",
-    "description": "Lightweight Chrome Proxy Extension.",
+    "description": "Lightweight PwnFox alternative for Chrome: colours your requests per browser profile.",
     "language": "JavaScript",
     "icon": "lucide:globe",
     "url": "https://github.com/JoshuaMart/SimpleProxy"
   },
   {
     "name": "VulnLab",
-    "description": "Intentionally vulnerable web application.",
+    "description": "Intentionally vulnerable web app for security training, pentest practice and tool testing.",
     "language": "PHP",
     "icon": "lucide:bug",
     "url": "https://github.com/JoshuaMart/VulnLab"
   },
   {
     "name": "Certstream",
-    "description": "High-performance, real-time Certificate Transparency log monitor.",
+    "description": "Real-time Certificate Transparency monitor that matches wildcards and probes new hosts.",
     "language": "Ruby",
     "icon": "lucide:eye",
     "url": "https://github.com/JoshuaMart/Certstream"

@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import MainLayout from '../layouts/MainLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
@@ -9,13 +10,18 @@ import { socialLinks } from '../data/site';
 import tools from '../data/tools.json';
 import labProjects from '../data/lab-projects.json';
 
-const languages = [...new Set(tools.map((t) => t.language))].sort();
-const languageItems = [
-  { value: 'all', label: 'All' },
-  ...languages.map((l) => ({ value: l, label: l })),
-];
-
 const githubUrl = socialLinks.find((l) => l.name === 'GitHub')?.href ?? '#';
+const githubHandle = githubUrl.replace('https://', '');
+
+const posts = await getCollection('blog');
+const postTitle = (slug?: string) => posts.find((post) => post.id === slug)?.data.title;
+
+const countOf = (language: string) => tools.filter((t) => t.language === language).length;
+const languages = [...new Set(tools.map((t) => t.language))].sort((a, b) => countOf(b) - countOf(a) || a.localeCompare(b));
+const languageItems = [
+  { value: 'all', label: 'All', count: tools.length },
+  ...languages.map((l) => ({ value: l, label: l, count: countOf(l) })),
+];
 ---
 
 <MainLayout
@@ -23,55 +29,90 @@ const githubUrl = socialLinks.find((l) => l.name === 'GitHub')?.href ?? '#';
   description="A collection of open source security tools, automation scripts, and vulnerability scanners."
 >
   <section class="site-shell page-shell">
-    <PageHeader
-      eyebrow="Open Source"
-      title="Tools for the work."
-      description="Open source tools I build for web security, reconnaissance and the repetitive parts of research."
-    />
+    <div class="tools-top">
+      <PageHeader
+        eyebrow="OPEN SOURCE — 003"
+        title="Tools for the work."
+        description="Open source tools I build for web security, reconnaissance and the repetitive parts of research."
+        class="tools-header"
+      />
+      <dl class="tools-meta">
+        <div><dt>Public tools</dt><dd>{tools.length}</dd></div>
+        <div><dt>In the lab</dt><dd>{labProjects.length}</dd></div>
+        <div><dt>Source</dt><dd><a href={githubUrl} target="_blank" rel="noopener noreferrer">{githubHandle}</a></dd></div>
+      </dl>
+    </div>
+
+    <!-- Language composition -->
+    <section aria-label="Languages" class="languages">
+      <div class="languages-head">
+        <span class="section-index">LANGUAGES</span>
+        <span>Share of public tools</span>
+      </div>
+      <div class="language-bar" aria-hidden="true">
+        {languages.map((language) => <span data-language={language} data-lang-segment style={`flex-grow:${countOf(language)}`}></span>)}
+      </div>
+      <ul class="language-legend">
+        {languages.map((language) => (
+          <li data-language={language} data-lang-legend>
+            <span class="language-swatch" aria-hidden="true"></span>{language}
+            <span class="legend-count">{countOf(language)}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
 
     <!-- Search & filters -->
-    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div class="relative max-w-md flex-1">
-        <Icon
-          name="lucide:search"
-          class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-sand"
-        />
+    <section aria-label="Filter tools" class="toolbar">
+      <div class="relative toolbar-search">
+        <Icon name="lucide:search" class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-sand" />
         <input
           type="search"
           aria-label="Search tools"
           id="tool-search"
           placeholder="Search tools"
-          class="archive-search w-full border border-outline-variant bg-surface-container py-2.5 pl-11 pr-4 text-base text-paper placeholder:text-sand focus:border-ochre focus:outline-none"
+          class="archive-search w-full border border-outline-variant bg-surface-container py-3 pl-11 pr-4 sm:pr-24 text-base text-paper placeholder:text-sand focus:border-ochre focus:outline-none"
         />
+        <kbd class="hidden sm:block absolute right-4 top-1/2 -translate-y-1/2 border border-outline-variant bg-surface-low px-2 py-0.5 font-mono text-xs text-sand">
+          ⌘ K
+        </kbd>
       </div>
-      <FilterPills items={languageItems} group="languages" label="Language" />
-    </div>
+      <FilterPills items={languageItems} group="languages" label="Language" monoLabel />
+    </section>
 
     <!-- Tools grid -->
-    <div id="tools-grid" class="grid grid-cols-1 gap-x-12 gap-y-2 sm:grid-cols-2">
-      {tools.map((tool) => (
+    <div id="tools-grid" class="tools-grid">
+      {tools.map((tool, index) => (
         <ToolCard
           name={tool.name}
           description={tool.description}
           language={tool.language}
           icon={tool.icon}
           url={tool.url}
+          index={index + 1}
+          post={tool.post}
+          postTitle={postTitle(tool.post)}
         />
       ))}
     </div>
 
-    <p id="tools-empty" class="hidden border border-outline-variant bg-surface-container p-10 text-center text-sand" role="status">
-      No tools match your search.
-    </p>
+    <div id="tools-empty" class="tools-empty" hidden>
+      <span class="section-index">0 RESULTS</span>
+      <p>No tools match this search and language.</p>
+      <button type="button" id="tools-reset" class="text-link">Reset filters <span aria-hidden="true">↺</span></button>
+    </div>
 
-    <!-- In the lab (private / in-progress projects) -->
+    <!-- In the lab (private projects) -->
     {labProjects.length > 0 && (
-      <section class="mt-24">
-        <div class="mb-8 flex items-center">
-          <div class="mr-4 h-px w-12 bg-sand/30"></div>
-          <h2 class="text-3xl font-medium text-paper">In the lab</h2>
+      <section class="lab" aria-labelledby="lab-title">
+        <div class="lab-head">
+          <div>
+            <span class="section-index">IN PROGRESS</span>
+            <h2 id="lab-title">In the lab.</h2>
+          </div>
+          <p>Private projects I use day to day in my own research.</p>
         </div>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <ol>
           {labProjects.map((project) => (
             <LabProjectCard
               name={project.name}
@@ -81,55 +122,46 @@ const githubUrl = socialLinks.find((l) => l.name === 'GitHub')?.href ?? '#';
               status={project.status}
             />
           ))}
-        </div>
+        </ol>
       </section>
     )}
 
     <!-- More on GitHub -->
-    <div class="mt-24 flex flex-col items-start justify-between gap-6 border-t border-outline-variant pt-12 md:flex-row md:items-center">
+    <section class="more">
       <div>
-        <h3 class="mb-2 font-sans text-2xl font-medium text-paper">More on GitHub</h3>
-        <p class="max-w-md text-sm text-sand">
-          Scripts, dotfiles, and minor utilities are available in the public repositories.
-        </p>
+        <span class="section-index">MORE ON GITHUB</span>
+        <p>Scripts, dotfiles, and minor utilities are available in the public repositories.</p>
       </div>
-      <a
-        href={githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center gap-2 text-sm text-ochre transition-colors hover:text-paper"
-      >
-        View Full Profile
-        <Icon name="lucide:arrow-right" class="h-4 w-4" />
-      </a>
-    </div>
+      <a class="text-link" href={githubUrl} target="_blank" rel="noopener noreferrer">View full profile <span aria-hidden="true">↗</span></a>
+    </section>
   </section>
 
   <script>
     const searchInput = document.getElementById('tool-search') as HTMLInputElement;
-    const cards = document.querySelectorAll<HTMLElement>('.tool-card');
-    const empty = document.getElementById('tools-empty');
+    const cards = [...document.querySelectorAll<HTMLElement>('.tool-card')];
+    const empty = document.getElementById('tools-empty')!;
 
     let currentLang = 'all';
 
     function applyFilters() {
       const term = searchInput.value.trim().toLowerCase();
-      let visibleCount = 0;
+      let shown = 0;
 
       cards.forEach((card) => {
-        const name = card.dataset.name || '';
-        const description = card.dataset.description || '';
-        const language = card.dataset.language || '';
-
-        const matchesSearch = name.includes(term) || description.includes(term);
-        const matchesLang = currentLang === 'all' || language === currentLang;
+        const matchesSearch =
+          !term || ['name', 'description', 'language'].some((key) => (card.dataset[key] || '').toLowerCase().includes(term));
+        const matchesLang = currentLang === 'all' || card.dataset.language === currentLang;
         const visible = matchesSearch && matchesLang;
-
-        card.style.display = visible ? '' : 'none';
-        if (visible) visibleCount++;
+        card.hidden = !visible;
+        if (visible) card.querySelector('[data-tool-num]')!.textContent = String(++shown).padStart(2, '0');
       });
 
-      if (empty) empty.classList.toggle('hidden', visibleCount > 0);
+      // Dim the languages that the current filter leaves out.
+      document.querySelectorAll<HTMLElement>('[data-lang-segment], [data-lang-legend]').forEach((el) => {
+        el.classList.toggle('is-dim', currentLang !== 'all' && el.dataset.language !== currentLang);
+      });
+
+      empty.hidden = shown > 0;
     }
 
     searchInput.addEventListener('input', applyFilters);
@@ -140,5 +172,70 @@ const githubUrl = socialLinks.find((l) => l.name === 'GitHub')?.href ?? '#';
       currentLang = detail.value;
       applyFilters();
     });
+
+    document.getElementById('tools-reset')!.addEventListener('click', () => {
+      searchInput.value = '';
+      document.querySelector<HTMLButtonElement>('[data-filter-pills="languages"] [data-filter="all"]')?.click();
+      applyFilters();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
   </script>
 </MainLayout>
+
+<style>
+  .tools-top { display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:64px; align-items:end; margin-bottom:56px; }
+  .tools-top :global(.tools-header) { margin-bottom:0; }
+  .tools-meta { border-top:1px solid var(--ink); }
+  .tools-meta div { display:flex; justify-content:space-between; gap:16px; padding-block:14px; border-bottom:1px solid var(--line); font-size:.875rem; }
+  .tools-meta dt { color:var(--muted); }
+  .tools-meta dd { font:500 .8125rem/1.6 var(--mono); }
+  .tools-meta a:hover { color:var(--signal); }
+
+  .languages { padding:24px 0 40px; border-top:1px solid var(--ink); }
+  .languages-head { display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-bottom:18px; color:var(--muted); font-size:.8125rem; }
+  .languages-head .section-index { margin:0; }
+  .language-bar { display:flex; gap:3px; height:14px; margin-bottom:18px; }
+  .language-bar span { flex:1 1 0; background:var(--language-color); }
+  .language-legend { display:flex; flex-wrap:wrap; gap:8px 28px; list-style:none; margin:0; padding:0; }
+  .language-legend li { display:inline-flex; align-items:center; gap:8px; font-size:.875rem; }
+  .legend-count { color:var(--muted); font:400 .75rem/1 var(--mono); }
+  .language-bar span, .language-legend li { transition:opacity 150ms ease-out; }
+  .is-dim { opacity:.3; }
+
+  .toolbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px 32px; padding:28px 0 32px; border-top:1px solid var(--line); }
+  .toolbar-search { flex:1 1 360px; max-width:520px; }
+
+  .tools-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-auto-rows:1fr; column-gap:40px; }
+
+  .tools-empty { display:flex; flex-direction:column; align-items:center; gap:16px; padding:72px 0; border-block:1px solid var(--line); text-align:center; }
+  .tools-empty[hidden] { display:none; }
+  .tools-empty .section-index { margin:0; }
+  .tools-empty p { font-size:1.25rem; font-weight:500; letter-spacing:-.02em; }
+
+  .lab { margin-top:96px; }
+  .lab-head { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px 32px; padding-bottom:20px; border-bottom:1px solid var(--ink); }
+  .lab-head .section-index { margin-bottom:10px; }
+  .lab-head h2 { font-size:2.5rem; letter-spacing:-.045em; line-height:1.05; }
+  .lab-head p { max-width:46ch; color:var(--muted); font-size:.9375rem; }
+  .lab ol { list-style:none; margin:0; padding:0; }
+
+  .more { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:24px 64px; margin-top:72px; padding-top:28px; border-top:1px solid var(--ink); }
+  .more div { max-width:56ch; }
+  .more p { font-size:1.0625rem; }
+
+  @media (max-width:1000px) {
+    .tools-top { grid-template-columns:minmax(0,1fr); gap:32px; }
+    .tools-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  }
+  @media (max-width:700px) {
+    .tools-top { margin-bottom:40px; }
+    .tools-grid { grid-template-columns:minmax(0,1fr); grid-auto-rows:auto; }
+    .lab { margin-top:72px; }
+  }
+</style>

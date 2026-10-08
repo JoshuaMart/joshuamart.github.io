@@ -3,15 +3,19 @@ import { Icon } from 'astro-icon/components';
 interface Props { name:string; description:string; language:string; icon:string; status:string; }
 const { name, description, language, icon, status } = Astro.props;
 ---
-<article class="lab-project">
-  <div class="project-meta"><span>{language}</span><span>{status}</span></div>
-  <div class="project-title"><Icon name={icon} class="h-5 w-5" /><h3>{name}</h3></div>
+<li class="lab-project" data-language={language}>
+  <Icon name={icon} class="lab-icon h-[22px] w-[22px]" aria-hidden="true" />
+  <h3>{name}</h3>
   <p>{description}</p>
-</article>
+  <span class="lab-lang"><span class="language-swatch" aria-hidden="true"></span>{language}</span>
+  <span class="lab-status">{status}</span>
+</li>
 <style>
-.lab-project { border-top:1px solid var(--line); padding:24px 0 28px; min-width:0; }
-.project-meta { display:flex; gap:12px; flex-wrap:wrap; justify-content:space-between; color:var(--muted); font-size:.8125rem; }
-.project-title { display:flex; gap:12px; align-items:center; margin-top:26px; }
-h3 { font-size:1.75rem; }
-p { color:var(--muted); margin-top:14px; max-width:55ch; }
+.lab-project { display:grid; grid-template-columns:44px minmax(0,220px) minmax(0,1fr) 120px 110px; column-gap:24px; align-items:center; padding-block:22px; border-bottom:1px solid var(--line); }
+.lab-project :global(.lab-icon) { color:var(--muted); }
+h3 { font-size:1.25rem; letter-spacing:-.025em; line-height:1.2; }
+p { color:var(--muted); font-size:.9375rem; }
+.lab-lang { display:inline-flex; align-items:center; gap:8px; color:var(--muted); font:400 .75rem/1.5 var(--mono); }
+.lab-status { justify-self:end; padding:3px 8px; border:1px dashed var(--color-border-hover); color:var(--muted); font:400 .6875rem/1.5 var(--mono); text-transform:uppercase; }
+@media(max-width:1000px) { .lab-project { grid-template-columns:44px minmax(0,1fr) auto; } p, .lab-lang { display:none; } }
 </style>

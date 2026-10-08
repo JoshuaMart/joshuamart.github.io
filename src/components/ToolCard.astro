@@ -1,19 +1,34 @@
 ---
 import { Icon } from 'astro-icon/components';
-interface Props { name:string; description:string; language:string; icon:string; url:string; }
-const { name, description, language, icon, url } = Astro.props;
+interface Props { name:string; description:string; language:string; icon:string; url:string; index:number; post?:string; postTitle?:string; }
+const { name, description, language, icon, url, index, post, postTitle } = Astro.props;
+const repo = url.replace('https://github.com/', '');
 ---
-<a href={url} target="_blank" rel="noopener noreferrer" class="tool-card" data-name={name.toLowerCase()} data-description={description.toLowerCase()} data-language={language}>
-  <div class="tool-meta"><span>{language}</span><span aria-hidden="true">↗</span></div>
-  <div class="tool-title"><Icon name={icon} class="h-5 w-5" /><h2>{name}</h2></div>
-  <p>{description}</p>
-</a>
+<article class="tool-card" data-name={name.toLowerCase()} data-description={description.toLowerCase()} data-language={language}>
+  <a class="tool-main" href={url} target="_blank" rel="noopener noreferrer" aria-label={`${name}: ${description} View on GitHub`}>
+    <span class="tool-meta"><span data-tool-num>{String(index).padStart(2, '0')}</span><span class="tool-lang"><span class="language-swatch" aria-hidden="true"></span>{language}</span></span>
+    <span class="tool-title"><Icon name={icon} class="h-[22px] w-[22px] shrink-0" /><h2>{name}</h2></span>
+    <p>{description}</p>
+  </a>
+  <div class="tool-foot">
+    <a href={url} target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">{repo} <span>↗</span></a>
+    {post && <a class="tool-post" href={`/blog/${post}`} aria-label={`Read the write-up: ${postTitle ?? name}`}>Write-up <span aria-hidden="true">→</span></a>}
+  </div>
+</article>
 <style>
-.tool-card { display:flex; flex-direction:column; min-width:0; border-top:1px solid var(--signal); padding:24px 0 32px; }
+.tool-card { display:flex; flex-direction:column; min-width:0; border-top:1px solid var(--signal); }
+.tool-card[hidden] { display:none; }
+.tool-main { display:flex; flex-direction:column; gap:14px; flex:1 1 auto; margin-inline:-12px; padding:22px 12px 28px; transition:background-color 150ms ease-out; }
+.tool-main:hover { background:var(--color-surface); }
 .tool-meta { display:flex; align-items:center; justify-content:space-between; color:var(--muted); font:400 .75rem/1.5 var(--mono); }
-.tool-meta>span:last-child { color:var(--signal); font-size:1.4rem; }
-.tool-title { display:flex; gap:12px; align-items:center; margin-top:26px; }
-h2 { font-size:1.75rem; }
-p { color:var(--muted); font-size:1rem; margin-top:14px; max-width:55ch; }
-a:hover h2 { color:var(--signal); }
+.tool-lang { display:inline-flex; align-items:center; gap:8px; }
+.tool-title { display:flex; align-items:center; gap:12px; margin-top:18px; }
+h2 { font-size:1.75rem; letter-spacing:-.035em; line-height:1.1; transition:color 150ms ease-out; }
+.tool-main:hover h2 { color:var(--signal); }
+p { max-width:46ch; color:var(--muted); }
+.tool-foot { display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:52px; border-top:1px solid var(--line); font:400 .75rem/1.5 var(--mono); }
+.tool-foot a { display:inline-flex; align-items:center; gap:10px; min-height:44px; color:var(--muted); }
+.tool-foot a span { color:var(--signal); }
+.tool-foot a:hover { color:var(--signal); }
+.tool-foot .tool-post { gap:8px; color:var(--signal); }
 </style>

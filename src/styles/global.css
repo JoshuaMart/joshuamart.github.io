@@ -77,3 +77,12 @@ img { max-width: 100%; height: auto; }
 [data-severity="High"] { --severity-color: var(--color-high); }
 [data-severity="Medium"] { --severity-color: var(--color-medium); }
 [data-severity="Low"] { --severity-color: var(--color-low); }
+
+/* One muted tone per language, drawn from the signal blue and the severity inks. */
+[data-language="Go"] { --language-color: #204be3; }
+[data-language="Ruby"] { --language-color: #962d2d; }
+[data-language="Java"] { --language-color: #a34b11; }
+[data-language="JavaScript"] { --language-color: #806600; }
+[data-language="PHP"] { --language-color: #5c5f9e; }
+[data-language="Markdown"] { --language-color: var(--muted); }
+.language-swatch { display: inline-block; flex-shrink: 0; width: 8px; height: 8px; background: var(--language-color, var(--muted)); }
