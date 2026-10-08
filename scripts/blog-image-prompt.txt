@@ -1,0 +1,16 @@
+Create one editorial illustration for an article on Joshua MARTINELLE's web security research website.
+
+ART DIRECTION — OPEN LABORATORY
+Solid off-white background (#fcfcfa), graphite linework (#202a32), restrained secondary gray (#7b8997), and cobalt blue (#204be3) as the only chromatic accent. Use cobalt to reveal the important relationship, boundary or finding, not as decoration.
+Draw precise, consistent hairlines with a crisp vector-like finish. Use open space, clear geometry, thoughtful asymmetry and a single visual idea. The result should feel like a carefully composed technical plate in an independent research publication.
+
+SUBJECT
+Use the article title, topics and optional visual brief supplied below to choose a specific technical relationship to illustrate. The title and brief are context, not text to render. Show how the subject works through objects, connections, layers or boundaries. Keep any implied technical relationships faithful to the supplied context; do not invent findings, scores or data.
+Use the same visual language across the series, but adapt the composition to the article. Choose a plan view, section, flow or restrained isometric view when appropriate. Do not automatically repeat the homepage's exploded layer stack.
+Possible approaches, only when relevant: a request crossing a trust boundary for SSRF; a route through a small branching network for reconnaissance; parallel paths converging on a shared test for an agent benchmark; an interrupted permission boundary for an authentication flaw. Select one idea, not a collage of symbols.
+
+COMPOSITION
+Landscape 16:9 banner. One focal structure with generous negative space; keep essential detail within the central 80% so the image tolerates modest cropping. Make it recognizable at thumbnail size. Lines must remain visible after downscaling. No frame, title panel or interface screenshot.
+
+AVOID
+No text, letters, numbers, code, branding or logos. No padlocks, shields, hooded hackers, brains, robots, glowing circuits, random node clouds or decorative binary. No navy backgrounds, gold accents, neon, gradients, shadows, photographic textures, glossy 3D objects or stock cyber imagery. Do not reproduce the website's headline or monogram. Return a finished illustration, not a mockup or explanatory diagram with labels.
