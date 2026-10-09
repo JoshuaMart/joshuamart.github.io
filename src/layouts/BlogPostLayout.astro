@@ -111,7 +111,35 @@ h1 { font-size:clamp(2.5rem,5.2vw,4.5rem); letter-spacing:-.055em; max-width:22c
 .prose #bb-explorer .bb-pill { padding:.4rem .65rem; font-family:var(--sans); font-size:.8125rem; }
 .prose #bb-explorer .bb-pill.on { color:var(--signal); background:var(--wash); border-color:var(--signal); }
 .prose #bb-explorer .bb-pill.mode.on { color:white; background:var(--signal); }
-.prose #bb-explorer table.bb { display:table; max-width:none; }
-.prose #bb-explorer table.bb td { border-color:var(--line); }
-@media(max-width:700px) { .prose { font-size:1rem; } .prose h2 { font-size:1.65rem; } .prose pre { padding:16px; } }
+.prose #bb-explorer table.bb { display:table; max-width:none; font-size:.8125rem; }
+.prose #bb-explorer table.bb th { padding:.6rem .75rem; text-align:right; color:var(--muted); border-bottom:1px solid var(--ink); }
+.prose #bb-explorer table.bb td { padding:.6rem .75rem; text-align:right; vertical-align:middle; border-color:var(--line); }
+.prose #bb-explorer table.bb :is(th,td):first-child { padding-left:0; text-align:left; }
+.prose #bb-explorer table.bb :is(th,td):last-child { padding-right:0; }
+/* The explorer is a figure, not a paragraph: it breaks out of the reading column to the article's width. */
+.prose #bb-explorer { --bb-w:min(1012px, calc(100vw - 144px)); width:var(--bb-w); margin-inline:calc((100% - var(--bb-w)) / 2); }
+.prose #bb-explorer .bb-head h4 { margin:0; font-size:1.25rem; }
+.prose #bb-explorer p.bb-note { margin-bottom:.75rem; font-size:.875rem; }
+.prose #bb-explorer .bb-section { padding:1.5rem 1.5rem 1.25rem; }
+.prose #bb-explorer .bb-section h5 { margin-bottom:.75rem; color:var(--signal); font-family:var(--mono); text-transform:uppercase; }
+/* summary tiles: three by two, like the site's stat strips */
+.prose #bb-explorer .bb-tiles { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.prose #bb-explorer .bb-tile { padding:1.1rem 1.5rem 1.25rem; border-right:1px solid var(--line); border-top:1px solid var(--line); }
+.prose #bb-explorer .bb-tile:nth-child(3n) { border-right:0; }
+.prose #bb-explorer .bb-tile:nth-child(-n+3) { border-top:0; }
+.prose #bb-explorer .bb-tile b { font-family:var(--sans); font-size:2rem; letter-spacing:-.045em; line-height:1.1; white-space:nowrap; color:var(--ink); }
+.prose #bb-explorer .bb-tile small { margin-top:.4rem; font-family:var(--sans); font-size:.875rem; color:var(--ink); }
+.prose #bb-explorer .bb-tile em { margin-top:.2rem; line-height:1.5; color:var(--muted); }
+@media(max-width:1000px) { .prose #bb-explorer { --bb-w:calc(100vw - 88px); } }
+@media(max-width:700px) {
+  .prose { font-size:1rem; } .prose h2 { font-size:1.65rem; } .prose pre { padding:16px; }
+  .prose #bb-explorer { --bb-w:calc(100vw - 44px); }
+  .prose #bb-explorer .bb-section { padding:1.25rem 1rem; }
+  .prose #bb-explorer .bb-tiles { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .prose #bb-explorer .bb-tile { padding:1rem; }
+  .prose #bb-explorer .bb-tile:nth-child(3n) { border-right:1px solid var(--line); }
+  .prose #bb-explorer .bb-tile:nth-child(2n) { border-right:0; }
+  .prose #bb-explorer .bb-tile:nth-child(3) { border-top:1px solid var(--line); }
+  .prose #bb-explorer .bb-tile b { font-size:1.6rem; }
+}
 </style>
