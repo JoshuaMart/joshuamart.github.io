@@ -1,5 +1,50 @@
 [
   {
+    "id": "TRA-2026-65",
+    "target": "Hermes Agent",
+    "product": "Hermes Agent",
+    "type": "Broken Authentication",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-65"
+  },
+  {
+    "id": "TRA-2026-64",
+    "target": "Hermes Agent",
+    "product": "Hermes Agent",
+    "type": "Denial of Service",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-64"
+  },
+  {
+    "id": "TRA-2026-63",
+    "target": "Hermes Agent",
+    "product": "Hermes Agent",
+    "type": "Denial of Service",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-63"
+  },
+  {
+    "id": "CVE-2026-108125",
+    "target": "WordPress Post Author",
+    "product": "WordPress Post Author",
+    "type": "SQL Injection",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-62"
+  },
+  {
+    "id": "CVE-2026-108124",
+    "target": "WordPress Post Author",
+    "product": "WordPress Post Author",
+    "type": "SQL Injection",
+    "severity": "Medium",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-61"
+  },
+  {
     "id": "CVE-2026-82123",
     "target": "WordPress Loops & Logic",
     "product": "WordPress Loops & Logic",
