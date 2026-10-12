@@ -1,6 +1,6 @@
 ---
 title: 'AI agents finding bugs in an AI agent'
-date: 2026-10-10
+date: 2026-10-12
 description: 'With the help of an agent, I found four vulnerabilities in the Hermes Agent dashboard, all reachable without an account. The most serious one leads to a session takeover because Python and the browser do not parse the same URL the same way.'
 tags: ['ai', 'bugbounty']
 image: '/images/blog/2026/ai-agents-finding-bugs-in-an-ai-agent.jpg'
