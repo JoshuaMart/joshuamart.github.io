@@ -1,5 +1,14 @@
 [
   {
+    "id": "CVE-2026-114437",
+    "target": "Golang Chi",
+    "product": "Golang Chi",
+    "type": "Broken Authorization",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-66"
+  },
+  {
     "id": "TRA-2026-65",
     "target": "Hermes Agent",
     "product": "Hermes Agent",
