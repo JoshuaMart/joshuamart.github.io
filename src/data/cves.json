@@ -4,7 +4,7 @@
     "target": "Golang Chi",
     "product": "Golang Chi",
     "type": "Broken Authorization",
-    "severity": "High",
+    "severity": "Medium",
     "date": "2026",
     "link": "https://www.tenable.com/security/research/tra-2026-66"
   },
