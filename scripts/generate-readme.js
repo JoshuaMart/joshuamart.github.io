@@ -121,6 +121,7 @@ readme += `</details>
 <details>
   <summary>Tenable Blog</summary>
 
+  * [php2shell one week later: Why one exploit doesn’t work everywhere](https://www.tenable.com/blog/php2shell-one-week-later-why-one-exploit-doesnt-work-everywhere)
   * [Bypass a Patch for BentoML's Server-Side Request Forgery Vulnerability CVE-2025-54381](https://www.tenable.com/blog/how-tenable-bypassed-patch-for-bentoml-ssrf-vulnerability-CVE-2025-54381)
   * [Identifying Web Cache Poisoning and Web Cache Deception](https://www.tenable.com/blog/identifying-web-cache-poisoning-and-web-cache-deception-how-tenable-web-app-scanning-can-help)
   * [Password Management and Authentication Best Practices](https://www.tenable.com/blog/password-management-and-authentication-best-practices)
