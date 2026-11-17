@@ -1,5 +1,23 @@
 [
   {
+    "id": "CVE-2026-121865",
+    "target": "Nanobot",
+    "product": "Nanobot",
+    "type": "Broken Authorization",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-69"
+  },
+  {
+    "id": "CVE-2026-121864",
+    "target": "Nanobot",
+    "product": "Nanobot",
+    "type": "Sandbox Bypass",
+    "severity": "High",
+    "date": "2026",
+    "link": "https://www.tenable.com/security/research/tra-2026-68"
+  },
+  {
     "id": "CVE-2026-114437",
     "target": "Golang Chi",
     "product": "Golang Chi",
